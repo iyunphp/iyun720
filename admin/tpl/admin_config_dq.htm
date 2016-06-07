@@ -1,0 +1,106 @@
+<!--{template ADMIN_DIRECTORY/tpl/admin_header}-->  
+<div class="page_title">
+	<h1>地区配置</h1>
+   		<input type="radio" value="1" {if $region_config['region_search_switch']=="1"}  checked="checked"{/if} name="region_switch" >开启
+		<input type="radio" value="0" {if $region_config['region_search_switch']!="1"}  checked="checked"{/if} name="region_switch" >关闭
+		<div id="open_search_cfg" {if $region_config['region_search_switch']!="1"} style="display:none;" {/if}>
+			 <input type="checkbox" {if $region_config['region_search_shop']=="1"} checked="checked" {/if} value="1" datatype="region_checkbox" dtype="shop" >作品
+			 <input type="checkbox" {if $region_config['region_search_task']=="1"} checked="checked" {/if} value="1" datatype="region_checkbox" dtype="task" >任务
+		</div>
+</div>
+
+
+<div class="page_title">
+	<h1>地区管理</h1>
+   	<a href="#">一级</a>&nbsp>&nbsp
+	<a href="index.php?do=config&view=dqtwo&id=1">二级</a>&nbsp>&nbsp
+    <a href="#">三级</a>&nbsp>&nbsp
+</div>
+<!--页头结束-->
+
+<div class="box list">
+        <div class="detail">
+			<form method="post" action="{$url}" id="ajax_dom">
+		  		<table cellpadding="0" cellspacing="0">
+		  		  <tbody>
+		          <tr>
+		            <th>一级</th>
+					<th>排序</th>
+					<th>{$_lang['operate']}</th>
+		          </tr>
+				  
+				{loop $one[data] $key $value}
+		        <tr class="item">
+		        	<input type="hidden" value="{$value[id]}" name="id[]">
+		            <td width="20%"><input type="text" class="txt" value="{$value[name]}" name="name[]"></td>
+		            <td width="20%"><input type="text" class="txt" value="{$value[displayorder]}" name="displayorder[]"></td>
+					<td>
+						<a href="index.php?do=config&view=dqtwo&id={$value[id]}" class="button dbl_target"><span class="book icon"></span>查看</a>
+						<a href="{$url}&id={$value['id']}&op=del" class="button" onclick="return cdel(this);"><span class="trash icon"></span>{$_lang['delete']}</a>
+					</td>
+		          </tr>
+				 {/loop}
+		          <tr>
+		          	<td colspan="4">
+		            <div class="clearfix">
+						<a href=javascript:adddq("index.php?do=config&view=adddq&page={$_R[page]}"); class="button">添加</a>
+		            	<button type="submit" name="is_submit" value="1" class="positive pill button" /><span class="check icon"></span>提交更改</button>
+					</div>
+					</td>
+		          </tr>
+				  </tbody>
+		        </table>
+				<div class="page">
+					
+					{$one['pages']['page']}
+					</div>
+			</form>
+        </div>
+</div>
+<script type="text/javascript">
+	function adddq(url){
+		art.dialog.open(url,{
+			title:"添加菜单",
+			height:150,
+			width:300,
+			closeFn:function (){
+							var ispass=art.dialog.data('ispass');
+							if(ispass=='ok'){
+								var reason = art.dialog.data('reason');
+								var is_submit = art.dialog.data('is_submit');
+								var one = art.dialog.data('one');
+							art.dialog.data('ispass','no');
+						 		window.location.href='index.php?do=config&view=adddq&is_submit=1'+'&one='+one; 
+							} 
+						
+						}
+			},false); 
+	}
+	
+	$(function(){
+		$("input[name='region_switch']").click(function(){
+			var v = $(this).val();
+			$.post('index.php?do=config&view=dq',{op:'region_switch',val:v},function(json){
+				if(json.status == '1'){
+					$("#open_search_cfg").show();
+				}else{
+					$("#open_search_cfg").hide();
+				}
+			},'json');
+		});
+		
+		$("input[datatype='region_checkbox']").click(function(){
+			var v = 0;
+			var dtype = $(this).attr('dtype');
+			$(this).is(':checked')?v=1:v=0;
+			$.post('index.php?do=config&view=dq',{op:'region_checkbox',val:v,dtype:dtype},function(json){
+			},'json');
+		});
+	});
+</script>
+<!--主体结束-->
+
+
+<!--{template ADMIN_DIRECTORY/tpl/admin_footer}-->
+
+

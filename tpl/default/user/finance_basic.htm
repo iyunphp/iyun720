@@ -1,0 +1,213 @@
+<!--{template user/header}-->
+<div class="container">
+  <div class="nav-action">
+		<!--{template user/left_side}-->
+  </div>
+  <!-- nav-action end -->
+  <div class="content-panel">
+      <div class="tab">
+      	<label>收支明细</label>
+	  </div>
+      <div class="tab_detail">
+      		<!-- 基本信息 start -->
+
+                <dl class="dl-horizontal mb_20">
+                    <dt>账户余额</dt>
+                    <dd>
+                      <p class="mb_10"><strong class="money">{c:$gUserInfo['balance']}</strong> </p>
+                      <p class="mb_10">
+                        <a href="index.php?do=user&view=finance&op=rechargeonline" class="btn btn-default">充值</a>
+                        <a href="index.php?do=user&view=finance&op=withdraw" class="btn btn-default">提现</a>
+                      </p>
+                    </dd>
+                </dl>
+      		<!-- 基本信息 end -->
+      </div>
+	   <div class="tab">
+      	<label>资金流水</label>
+	  </div>
+	  <div class="tab_detail">
+
+      <ul class="nav nav-pills second-nav">
+      	<li>
+          <label style="white-space:nowrap;">流水类型 : </label>
+        </li>
+      	<li {if !$type} class="active" {/if}>
+      		<a href="{$strUrl}&type=0">流水</a>
+      	</li>
+		<li {if $type =='in'} class="active"{/if}>
+			<a href="{$strUrl}&type=in">收入</a>
+		</li>
+		<li {if $type =='out'} class="active"{/if}>
+			<a href="{$strUrl}&type=out">支出</a>
+		</li>
+		<li {if $type =='charge'} class="active"{/if}>
+			<a href="{$strUrl}&type=charge">充值</a>
+		</li>
+		<li {if $type =='withdraw'} class="active"{/if}>
+			<a href="{$strUrl}&type=withdraw">提现</a>
+		</li>
+      </ul>
+
+
+    <div class="action-bar">
+    <form action="{$strUrl}" method="post" name="searchTransactionForm" id="searchTransactionForm">
+        <div class="action-item">
+        <input type="text" placeholder="请输入财务编号" class="form-control" name="intFinaId" id="intFinaId" value="{$intFinaId}">
+        </div>
+        <div class="action-item">
+          <select class="form-control" name="ord" id="ord">
+             {loop $arrSort $k $v}
+            	<option value="{$k}" {if $ord ==$k} selected="selected"{/if}>{$v}</option>
+            {/loop}
+          </select>
+        </div>
+        <div class="action-item">
+          <select class="form-control" name="pageSize" id="pageSize">
+            <option value="10" {if $pageSize ==10} selected="selected"{/if}>每页10条</option>
+			<option value="20" {if $pageSize ==20} selected="selected"{/if}>每页20条</option>
+			<option value="30" {if $pageSize ==30} selected="selected"{/if}>每页30条</option>
+          </select>
+        </div>
+
+        <div role="toolbar" class="action-item btn-toolbar">
+          <div class="btn-group">
+            <button class="btn btn-default" type="submit">搜索</button>
+          </div>
+        </div>
+      </form>
+      </div>
+
+      <div class="table-responsive">
+        <table class="table table-hover ">
+        <thead>
+          <tr>
+          	{if $type == 'charge'}
+				<th>编号</th>
+				<th>订单类型</th>
+            	<th>充值类型</th>
+            	<th>充值人</th>
+            	<th>充值金额</th>
+				<th>充值时间</th>
+				<th>状态</th>
+			{elseif $type == 'withdraw'}
+				<th>编号</th>
+	            <th>提现类型</th>
+	            <th>提现人</th>
+	            <th>提现金额/需要打给客户的钱</th>
+				<th>收款户名</th>
+				<th>提现状态</th>
+				<th>受理时间</th>
+			{else}
+	            <th>编号</th>
+	            <th>操作</th>
+	            <th>类型</th>
+	            <th>收支(+表示收入,-表示支出)</th>
+	            <th>剩余金额</th>
+	          <!--  <th>状态</th> -->
+				<th>时间</th>
+			{/if}
+          </tr>
+        </thead>
+        <tbody>
+        {if $arrData}
+        {loop $arrData $k $v}
+			{if $type == 'charge'}
+			<tr>
+                <td>{$v['order_id']}</td>
+                <td>{$charge_type_arr[$v['order_type']]}</td>
+                <td>
+                    <font color="red">
+                    	{if $v['order_type']=='offline_charge'}
+							{$bank_arr[$v['pay_type']]}
+						{else}
+							{$onlinePay[$v['pay_type']]}
+						{/if}
+					</font>
+               	</td>
+               	<td>{$v['username']}</td>
+				<td>
+                	<font color=red>{c:$v['pay_money']}</font>
+                </td>
+				<td>
+                   	<!--{date('Y-m-d H:i:s',$v['pay_time'])}-->
+                </td>
+                <td>
+                    {$status_arr[$v['order_status']]}
+                </td>
+			{elseif $type == 'withdraw'}
+			<tr>
+                <td>{$v['withdraw_id']}</td>
+                <td>
+                   	{if $v['pay_type']=='alipayjs'}
+						{$_lang['alipay']}
+					{else}
+						$bank_arr[$v['pay_type']]
+					{/if}
+               	</td>
+                <td>{$v['username']}</td>
+                <td>
+                    <font color="red">
+                    {if $v['pay_type']=='alipayjs'}
+                        <!--{eval $get_cash = keke_finance_class::alipayjs_format_moneys($v['withdraw_cash']);}-->
+                    {else}
+                        <!--{eval $get_cash = keke_finance_class::get_to_cash($v['withdraw_cash']);}-->
+                    {/if}
+						{c:$v['withdraw_cash']}/{c:$get_cash}
+					</font>
+               </td>
+               <td>{$v['pay_username']}</td>
+               <td>{$status_arr[$v['withdraw_status']]}</td>
+               <td><!--{date('Y-d-m H:i:s',$v['process_time'])}--></td>
+			</tr>
+			{else}
+          <tr>
+            <td>{$v['fina_id']}</td>
+            <td>{$fina_action_arr[$v['fina_action']]}</td>
+            <td>
+            	{if $v['fina_type']=='in'}
+				收入
+				{else}
+				支出
+				{/if}
+            </td>
+            <td>{if $v['fina_type']=='in'}+{$v['fina_cash']}{else}-{$v['fina_cash']}{/if}</td>
+            <td>{$v['user_balance']}</td>
+         	<!--<td>
+            	{if $v['order_status'] == 'ok'}
+				已到账
+				{else}
+				待确认
+				{/if}
+            </td>-->
+			<td>
+				<!--{date('Y-d-m H:i:s',$v['fina_time'])}-->
+			</td>
+          </tr>
+		  {/if}
+
+         {/loop}
+
+         {else}
+         	<tr>
+         		<td colspan="6" class="text-center">暂无收支情况</td>
+         	</tr>
+         {/if}
+        </tbody>
+      </table>
+      </div>
+      <div class="clearfix">
+      	{if $strPages}
+	      <ul class="pagination pagination-sm pull-right">
+	       {$strPages}
+	      </ul>
+	    {/if}
+      </div>
+    </div>
+
+  </div>
+  </div>
+
+<script src="static/js/model/user/finance.js"></script>
+
+<!--{template user/footer}-->

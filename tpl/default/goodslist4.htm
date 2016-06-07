@@ -1,0 +1,402 @@
+<!--{template header}-->
+<style>
+body{
+	background: url(/static/img/bg.jpg) #000033;
+}
+
+.left{
+	float: left;
+}
+
+.right{
+	float: right;
+}
+
+.blue{
+	color: #33ccff;
+}
+
+.bg_img_panel{
+	position: relative;
+	width: 100%;
+	height: 497px;
+	font-size: 14px;
+	color: #ffffff;
+	overflow: hidden;
+}
+
+.bg_img_panel h5{
+	margin: 0px;
+    position: absolute;
+    bottom: 220px;
+    width: 100%;
+    z-index: 3;
+    color: #ffffff;
+    font-size: 30px;
+    font-weight: bolder;
+    text-align: center;
+}
+
+.bg_img_mery{
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	width: 100%;
+	height: 497px;
+}
+
+.bg_img_mery .blue{
+	margin: 0px;
+    position: absolute;
+    width: 100%;
+    bottom: 175px;
+    color: #33ccff;
+    font-size: 14px;
+}
+
+.bg_img_mery .blue div{
+	margin: 0px auto;
+	width: 200px;
+}
+
+.bg_img_mery .file_size{
+	position: absolute;
+    width: 100%;
+    bottom: 135px;
+    text-align: center;
+}
+
+.bg_img_mery .button_panel{
+	position: absolute;
+    bottom: 80px;
+    width: 100%;
+    text-align: center;
+} 
+
+.bg_img_mery .button_panel button{
+	margin: 0px;
+	padding: 0px;
+	border: 0px;
+	width: 120px;
+	height: 35px;
+	background: #33ccff;
+	line-height: : 35px;
+	font-size: 18px;
+}
+
+.bg_img_mery .menu{
+	position: absolute;
+    bottom: 60px;
+    width: 100%;
+    height: 20px;
+    text-align: center;
+}
+
+.menu_panel{
+	position: absolute;
+    width: 100%;
+    bottom: 30px;
+}
+
+.menu_panel .menu{
+	margin: 0px auto;
+	padding: 0px;
+	width: 150px;
+	height: 20px;
+}
+
+.menu_panel .menu li{
+	float: left;
+	margin: 0px 9px;
+    width: 12px;
+    height: 12px;
+	background: #999999;
+	cursor: pointer;
+
+	border-radius: 9px;
+	-webkit-border-radius: 9px;
+	-ms-border-radius: 9px;
+	-moz-border-radius: 9px;
+	-o-border-radius: 9px;
+}
+
+.menu_panel .menu li.selected{
+	background: #ffffff;
+}
+
+.mnav{
+	position: relative;
+    top: -1px;
+	border-bottom: 2px #999999 solid;
+	height: 58px;
+	background: #000000;
+}
+
+.mnav ul{
+	margin: 0px auto 0px;
+    padding: 20px 0px 0px 0px;
+	width: 350px;
+	height: 35px;
+	line-height: 35px;
+}
+
+.mnav ul li{
+	float: left;
+	margin: 0px 15px;
+	min-width: 50px;
+	text-align: center;
+	color: #ffffff;
+}
+
+.mnav ul li.selected{
+	border-bottom: 4px #33ccff solid;
+}
+
+.mnav ul li a{
+	color: #ffffff;
+}
+
+.mnav ul li.selected a{
+	color: #33ccff;
+}
+
+.list{
+	margin-top: 40px;
+	padding-bottom: 50px;
+}
+
+.list_mery{
+	float: left;
+    margin: 0px 10px 20px;
+    width: 380px;
+}
+
+.list_mery .plat{
+	position: absolute;
+    right: 0px;
+    top: 0px;
+    width: 80px;
+    height: 20px;
+    background: #ff0000;
+	text-align: center;
+}
+
+.list_mery .photo_panel{
+	position: relative;
+	height: 150px;
+}
+
+.list_mery .name{
+	position: absolute;
+    width: 100%;
+    bottom: 0px;
+    color: #ffffff;
+    line-height: 30px;
+    font-size: 18px;
+    text-align: center;
+    font-weight: bolder;
+    background: rgba(0,0,0,0.6);
+}
+
+.list_mery img{
+	width: 100%;
+    height: 150px;
+}
+
+.list_mery .text_panel{
+	padding-bottom: 30px;
+    font-weight: bolder;
+    background: #ffffff;
+    line-height: 28px;
+    text-indent: 10px;
+    padding-top: 5px;
+}
+
+.list_mery .text_panel a{
+	color:#000000;
+}
+
+.list_mery .text_panel button{
+	display: block;
+	margin: 12px auto 0px;
+	padding: 0px;
+	border: 0px none;
+	width: 120px;
+	height: 30px;
+	line-height: 30px;
+	font-size: 14px;
+	background: #338EAD;
+	color: #ffffff;
+}
+</style>
+<div class="bg_img_panel">
+	<div class="bg_img_mery">
+		<img style="width: 100%; height: 497px; background: url(/view.iyun720.com/game/0/bg.jpg) center;" /> 
+		<h5>重返恐龙岛</h5>
+		<div class="blue">
+			<div>
+				<span class="left">人气：1000</span>
+				<span class="right">下载：1000</span>
+			</div>
+		</div>
+		<div class="file_size">文件大小：312M</div>
+		<div class="button_panel"><button>下载</button></div>
+	</div>
+	<div class="bg_img_mery" >
+		<img style="width: 100%; height: 497px; background: url(/view.iyun720.com/game/0/bg.jpg) center;" /> 
+		<h5>重返恐龙岛</h5>
+		<div class="blue">
+			<div>
+				<span class="left">人气：1000</span>
+				<span class="right">下载：1000</span>
+			</div>
+		</div>
+		<div class="file_size">文件大小：312M</div>
+		<div class="button_panel"><button>下载</button></div>
+	</div>
+	<div class="bg_img_mery">
+		<img style="width: 100%; height: 497px; background: url(/view.iyun720.com/game/0/bg.jpg) center;" /> 
+		<h5>重返恐龙岛</h5>
+		<div class="blue">
+			<div>
+				<span class="left">人气：1000</span>
+				<span class="right">下载：1000</span>
+			</div>
+		</div>
+		<div class="file_size">文件大小：312M</div>
+		<div class="button_panel"><button>下载</button></div>
+	</div>
+	<div class="bg_img_mery">
+		<img style="width: 100%; height: 497px; background: url(/view.iyun720.com/game/0/bg.jpg) center;" /> 
+		<h5>重返恐龙岛</h5>
+		<div class="blue">
+			<div>
+				<span class="left">人气：1000</span>
+				<span class="right">下载：1000</span>
+			</div>
+		</div>
+		<div class="file_size">文件大小：312M</div>
+		<div class="button_panel"><button>下载</button></div>
+	</div>
+	<div class="bg_img_mery" stlye="display: none;">
+		<img style="width: 100%; height: 497px; background: url(/view.iyun720.com/game/0/bg.jpg) center;" /> 
+		<h5>重返恐龙岛</h5>
+		<div class="blue">
+			<div>
+				<span class="left">人气：1000</span>
+				<span class="right">下载：1000</span>
+			</div>
+		</div>
+		<div class="file_size">文件大小：312M</div>
+		<div class="button_panel"><button>下载</button></div>
+	</div>
+	<div class="menu_panel">
+		<ul class="menu">
+			<li class="selected"></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+		</ul>
+	</div>
+</div>
+<script>
+	var bgImgMeryFocus = 0;
+	var bgImgMeryLock = false;
+	var bgImgMeryTag = 0;
+	function change_bg_img_mery_focus(_num){
+		if(bgImgMeryLock){
+			return;
+		}
+		if(_num == bgImgMeryFocus){
+			return;
+		}
+		$('.bg_img_mery').hide();
+		var ele = $('.bg_img_mery').eq(_num).show();
+		var oldEle = $('.bg_img_mery').eq(bgImgMeryFocus).show();
+		var width = ele.width();
+		oldEle.css('left', width);
+		bgImgMeryFocus = _num;
+		oldEle.animate({left: 0}, 1000);
+		ele.animate({left: width * -1}, 1000);
+		bgImgMeryLock = true;
+		clearTimeout(bgImgMeryTag);
+		bgImgMeryTag = setTimeout(function(){
+			bgImgMeryLock = false;
+			console.log('log0');
+		}, 1000);
+	}
+	$(function(){
+		$('.menu li').click(function(){
+			if(bgImgMeryLock){
+				return;
+			}
+			$('.menu li').removeClass('selected');
+			$(this).addClass('selected');
+			change_bg_img_mery_focus($(this).index());
+		});
+	});
+</script>
+<div class="mnav">
+	<ul>
+		<li {if empty($plat)}class="selected"{/if}>
+			<a href="javascript:" url="/index.php?do=goodslist4">全部</a>
+		</li>
+		<li {if $plat == 'Android'}class="selected"{/if}>
+			<a href="javascript:" url="/index.php?do=goodslist4&plat=Android">Android</a>
+		</li>
+		<li {if $plat == 'iOS'}class="selected"{/if}>
+			<a href="javascript:" url="/index.php?do=goodslist4&plat=iOS">iOS</a>
+		</li>
+		<li {if $plat == 'Windows'}class="selected"{/if}>
+			<a href="javascript:" url="/index.php?do=goodslist4&plat=Windows">Windows</a>
+		</li>
+	</ul>
+</div>
+<div id="list" class="list layout_center">
+	<div id="listIpl" class="list_ipl">
+		<!--data-->
+		{loop $datas $k $v}
+		<div class="list_mery">
+			<div class="photo_panel">
+				<a href="/index.php?do=goods4&id={$v['id']}">
+					<div class="plat" style="background:#{if $v['plat']=='iOS'}f39800{/if}{if $v['plat']=='Android'}00c457{/if}{if $v['plat']=='Windows'}e60012{/if}; color:#ffffff;">{$v['plat']}</div>
+					<img src="{$v['photo']}" />
+				</a>  
+			</div>
+			<div class="text_panel">
+				<div style="text-align: center;"><a href="/index.php?do=goods4&id={$v['id']}">{$v['name']}</a></div>
+				<div>下载：{$v['down_num']}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--35.8M--></div>
+			</div>
+		</div>
+		{/loop}
+		<!--data-->
+	</div>
+	<div class="clear"></div>
+</div>
+<script>
+var ajaxMnav = false;
+$('.mnav a').click(function(){
+	var listIpl = $('#listIpl');
+	if(ajaxMnav){
+		return;
+	}
+	url = $(this).attr('url');
+	$('.mnav li').removeClass('selected');
+	$(this).parent().addClass('selected');
+	listIpl.html('');
+	ajaxMnav = true;
+	$.ajax({
+		url: url,
+		success: function(data){
+			var temp = data.split('<!--data-->');
+			$('#listIpl').html(temp[1]);
+			ajaxMnav = false;
+		},
+		error: function(){
+			ajaxMnav = false;
+		}
+	});
+});
+</script>
+<!--{template footer}-->

@@ -1,0 +1,38 @@
+
+
+<div class="modal-body modal-body-content">
+	<form role="form" action="index.php?do=select" method="post" id="select">
+	<input type="hidden" name="formhash" id="formhash" value="{FORMHASH}">
+	<input type="hidden" name="task_id" id="task_id" value="{$id}">
+	{loop $arrSelectPeople $key $val}
+	  <div class="form-group form-group-list">
+	    <label for="cbk_{$val['uid']}"><input id="cbk_{$val[uid]}" type="checkbox" {if $val['work_status']==5}checked="checked"{/if} name="cbk[]" id="cbk[]" value="{$val[uid]}">
+	    <!--{userpic($val['uid'],'middel')}-->
+	    {$val['username']}
+		</label>
+	  </div>
+	  {/loop}
+	 
+	  <div class="form-group group-tishi" id="ts"></div>
+	  <div class="form-group text-center form-group-footBtn">
+	    <button type="submit" class="btn btn-primary" onclick="return check();">提交</button>
+	  </div>
+	</form>
+</div>
+<script>
+	function check(){
+		var len= $("input:checkbox:checked").length; 
+		if(len==0){
+			$('#ts').text('请选择中标人');
+			return false;
+		}else if(len<$arrConfig['min_num']){
+			$('#ts').text('福袋最少设置'+$arrConfig['min_num']+'个');
+			return false;
+		}else if(len>$arrConfig['max_num']){
+			$('#ts').text('福袋最多设置'+$arrConfig['max_num']+'个');
+			return false;
+		}else{
+			return true;
+		}
+	}
+</script>

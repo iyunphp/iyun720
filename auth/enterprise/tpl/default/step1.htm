@@ -1,0 +1,112 @@
+<!--{template user/header}-->
+<div class="container">
+  <div class="nav-action">
+		<!--{template user/left_side}-->
+  </div>
+  <!-- nav-action end -->
+  <div class="content-panel">
+     <div class="tab">
+     <!--{template user/account_auth_nav}-->
+      </div>
+      <div class="tab_detail">
+      		<!-- start -->
+	      	{if !$intAuthStatus}
+		      	<ul class="nav nav-pills second-nav">
+		          <li {if $code === 'realname'} class="active" {/if}><a href="index.php?do=user&view={$view}&op={$op}&code=realname">实名认证</a></li>
+		          <li {if $code === 'enterprise'} class="active" {/if}><a href="index.php?do=user&view={$view}&op={$op}&code=enterprise">企业认证</a></li>
+		        </ul>
+		      {/if}
+
+          <form role="form" action="{$strUrl}&step={$step}" method="post" name="editEnterPriseForm" id="editEnterPriseForm">
+          	<input type="hidden" name="formhash" id="formhash" value="{FORMHASH}">
+
+            <div class="media">
+              <div class="pull-left">
+                  <img class="media-object" src="{$auth_item['auth_big_ico']}" alt="{$auth_item['auth_title']}">
+              </div>
+              <div class="media-body">
+                  <div class="form-group">
+                    <label class="control-label" for="username">用户名：</label>
+                    $gUserInfo['username']
+
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label" for="enterprisename">企业名：</label>
+
+                        <input type="text"  name="enterprisename" id="enterprisename"  class="form-control" value="{$arrAuthInfo['company']}">
+
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label" for="idcard">登记注册号码：</label>
+
+                        <input type="text"  name="licensenum" id="licensenum"  class="form-control" value="{$arrAuthInfo['licen_num']}">
+
+                  </div>
+                  <div class="form-group">
+                  <label class="control-label" for="filepath">营业执照图片：</label>
+                  <div id="picker">上传图片</div>
+                    <input type="hidden"  name="fileid" id="fileid"  class="form-control" value="">
+                     <input type="hidden"  name="filepath" id="filepath"  class="form-control" value="{$arrAuthInfo['licen_pic']}">
+                     <img id="license_img"  src="{$arrAuthInfo['licen_pic']}" {if !$arrAuthInfo['licen_pic']}style="display:none"{/if} width="200">
+                   </div>
+                   <div class="form-group">
+				  	 <ul class="affix-list upload-file-list-info" id="fileList" style="width:280px;"></ul>
+                	</div>
+                	<div class="form-group">
+
+                      <button class="btn btn-default" type="submit" value="1" onclick="return saveLicensePic();" >保存</button>
+                      <span class="text-success" id="tipsUser"></span>
+
+                  </div>
+                  </div>
+
+                  
+              </div>
+            </div>
+
+
+
+
+
+
+          </form>
+      		<!-- end -->
+      </div>
+  </div>
+  </div>
+<script src="static/js/model/user/auth.js"></script>
+<link rel="stylesheet" type="text/css" href="static/js/webuploader/webuploader.css">
+<script type="text/javascript" src="static/js/webuploader/webuploader.js?r={RANDOM_PARA}"></script>
+<script type="text/javascript" src="static/js/webuploader/kppw.webuploader.js"></script>
+<script type="text/javascript">
+	var uploadsize = parseInt("{$basic_config['max_size']}");
+		uploadsize =  isNaN(uploadsize)? 1 : uploadsize;
+	$(function(){
+		$("#picker").KKUploader({
+				accept: {
+					extensions : 'jpg,gif,png,jpeg'  //可上传文件格式
+				},
+				fileNumLimit:1,			//上传数量限制
+				hiddenName:'fileid',	//表单隐藏域id
+				uploadEvents: {
+					uploadComplete:function(file){
+						var url = $("#"+file.id).find('.webuploader-pick-file-close').attr('data-fileurl');
+						$("#license_img").show();
+						$("#filepath").val(url);
+	                    $('#license_img').prop('src',url);
+	                    $('.webuploader-pick-file-close').on('click','.close',function(){
+	                    		$("#license_img").hide();
+	           
+							
+						});
+					}
+				},
+				separator:',',			//多文件上传时，指定分隔符，如不指定，默认为","
+				fileSingleSizeLimit:uploadsize*1024*1024			//上传大小限制
+			},
+			{
+				filename : 'file',//传递给服务端的参数指定上传文本域的name，如果未指定，上传不成功
+			});
+	});
+</script>
+<!--{template user/footer}-->

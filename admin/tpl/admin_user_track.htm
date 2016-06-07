@@ -1,0 +1,96 @@
+<!--{template ADMIN_DIRECTORY/tpl/admin_header}--> 
+
+
+<div class="box user_quick clearfix">
+    <div class="detail pad10">
+    	<p>任务相关信息</p>
+        <ul>
+            <li class="statistics clearfix">
+                <ul>
+					<li>
+                        <a href="index.php?do=user&view=search&type=task&uid={$uid}" class="button" target="_blank">发布任务<strong style="color:red">{$intCountTask}</strong>个</a>
+                    </li>
+					<li>
+						<a href="index.php?do=user&view=search&type=parrt&uid={$uid}" class="button" target="_blank">参与任务<strong style="color:red">{$intParrtTask}</strong>个</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        
+        <p>作品相关信息</p>
+        <ul>
+            <li class="statistics clearfix">
+                <ul>
+					<li>
+                        <a href="../index.php?do=seller&id={$uid}" class="button" target="_blank">查看TA的店铺</a>
+                    </li>
+					<li>
+						<a href="index.php?do=user&view=search&type=added&uid={$uid}" class="button" target="_blank">上架作品<strong style="color:red">{$intCountSj}</strong>个</a>
+                    </li>
+                    <li>
+						<a href="index.php?do=user&view=search&type=buy&uid={$uid}" class="button" target="_blank">购买作品<strong style="color:red">{$intCountGm}</strong>次</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="statistics clearfix">
+                <ul>
+					<li>
+                        <a href="index.php?do=finance&view=all&w[username]={$username}&w[fina_action]=buy_gy" class="button" target="_blank">雇佣威客<strong style="color:red">{$intCountGzgy}</strong>次</a>
+                    </li>
+					<li>
+						<a href="index.php?do=finance&view=all&w[username]={$username}&w[fina_action]=sale_gy" class="button" target="_blank">接受雇佣<strong style="color:red">{$intCountWkgy}</strong>次</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        {if $identy_auth_list}
+        <p>认证信息</p>
+        <ul>
+            <li class="statistics clearfix">
+                <ul>
+                	{loop $identy_auth_list $v}
+					<li>
+                        <a href="index.php?do=auth&view=list&code={$v['auth_code']}&w[username]={$username}" class="button" target="_blank">
+							<img src="../{if $v['auth_pass']=='1'}{$v['auth_small_ico']}{else}{$v['auth_small_n_ico']}{/if}" />
+							{$v['auth_title']}
+						</a>
+                    </li>
+					{/loop}
+                </ul>
+            </li>
+        </ul>
+		{/if}
+        
+        <p>财务记录</p>
+        <ul>
+            <li class="statistics clearfix">
+                <ul>
+					<li>
+                        <a href="index.php?do=finance&view=recharge&w[username]={$username}" class="button" target="_blank">充值记录<strong style="color:red">{$intCharge}</strong>笔</a>
+                    </li>
+					<li>
+						<a href="index.php?do=finance&view=withdraw&w[username]={$username}" class="button" target="_blank">提现记录<strong style="color:red">{$intWithdraw}</strong>笔</a>
+                    </li>
+                    <li>
+                        <a href="index.php?do=finance&view=all&w[username]={$username}" class="button" target="_blank">财务流水<strong style="color:red">{$intFinance}</strong>笔</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--{template ADMIN_DIRECTORY/tpl/admin_footer}-->

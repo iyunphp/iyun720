@@ -1,0 +1,155 @@
+<!--{template user/header}-->
+<div class="container">
+  <div class="nav-action">
+    <!--{template user/left_side}-->
+  </div>
+  <!-- nav-action end -->
+
+  <div class="content-panel">
+
+    <div class="tab">
+        <a href="#" class="selected">交易评价</a>
+    </div>
+    <div class="tab_detail">
+    	<div class="form-group" style="overflow: hidden; ">
+    		<label class="col-sm-2">评价类型: </label>
+    		<div class="col-sm-10">
+    			<ul class="nav nav-pills second-nav" style="margin:0;">
+			      	<li {if $type == ''} class="active" {/if}>
+			      		<a href="{$strUrl}&type=">全部</a>
+			      	</li>
+			        <li {if $type == 1} class="active" {/if}>
+			            <a href="{$strUrl}&type=1">待评价</a>
+			        </li>
+			        <li {if $type == 2} class="active" {/if}>
+			            <a href="{$strUrl}&type=2">我做出的评价</a>
+			        </li>
+			        <li {if $type == 3} class="active" {/if}>
+			            <a href="{$strUrl}&type=3">我接受的评价</a>
+			        </li>
+			    </ul>
+    		</div>
+    	</div>
+
+    	<!--<div class="form-group" style="overflow: hidden; ">
+    		<label class="col-sm-1">评价对象: </label>
+    		<div class="col-sm-10">
+    			<ul class="nav nav-pills second-nav"style="margin:0;">
+			      	<li {if $obj == ''} class="active" {/if}>
+			      		<a href="{$strUrl}&obj=">全部</a>
+			      	</li>
+			        <li {if $obj == "goods"} class="active" {/if}>
+			            <a href="{$strUrl}&obj=goods">作品</a>
+			        </li>
+			        <li {if $obj == "task"} class="active" {/if}>
+			            <a href="{$strUrl}&obj=task">任务</a>
+			        </li>
+			        <li {if $obj == "gy"} class="active" {/if}>
+			            <a href="{$strUrl}&obj=gy">雇佣</a>
+			        </li>
+			    </ul>
+    		</div>
+    	</div>-->
+
+      <div class="table-responsive">
+        <table class="table table-hover ">
+        <thead>
+          <tr>
+            <th>编号</th>
+            <th>对象</th>
+            <th>评价内容</th>
+            <th>等级</th>
+            <th>评价时间</th>
+            <th>类型</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody>
+        	{if $arrData}
+        	{loop $arrData $k $v}
+          		<tr>
+            		<td width="7%">{$v['mark_id']}</td>
+            		<td width="8%">{$arrObj[$v['model_code']]}</td>
+            		<td width="20%">{$v['mark_content']}</td>
+            		<td width="10%">{$arrMarkStatus[$v['mark_status']]}</td>
+            		<td width="5%"><!--{date('Y-m-d H:m:s',$v['mark_time'])}--></td>
+            		<td width="10%">
+            			{if $v['uid'] == $gUid}
+							我接受的评价
+						{elseif $v['by_uid'] == $gUid}
+							我做出的评价
+						{/if}
+					</td>
+            		<td width="25%">
+						{if $v['model_code'] == 'goods'}
+            				<a href="index.php?do=goods&id={$v['origin_id']}" target="_blank" class="btn btn-default">查看详情</a>
+						{elseif $v['model_code'] == 'gy'}
+            				<a href="index.php?do=gy&id={$gUid}&orderId={$v['obj_id']}" target="_blank" class="btn btn-default">查看详情</a>
+						{else}
+            				<a href="index.php?do=task&id={$v['origin_id']}" target="_blank" class="btn btn-default">查看详情</a>
+						{/if}
+						{if $v['uid'] == $gUid && $v['mark_status'] != 1 && $v['mark_count'] < 2}
+            				<a href="javascript:sendMessage({$v['by_uid']});void(0);" class="btn btn-default">私信对方</a>
+						{elseif $v['by_uid'] == $gUid && $v['mark_status'] != 1 && $v['mark_count'] < 2}
+							{if $v['model_code'] == 'goods'}
+            					<a href="index.php?do=order&sid={$v['origin_id']}&orderId={$v['obj_id']}" target="_blank" class="btn btn-default">
+            						{if $v['mark_status'] == 0}
+										评价
+									{else}
+            							修改评价
+									{/if}
+								</a>
+							{elseif $v['model_code'] == 'gy'}
+            					<a href="index.php?do=gy&id={$v['by_uid']}&orderId={$v['obj_id']}" target="_blank" class="btn btn-default">
+            						{if $v['mark_status'] == 0}
+										评价
+									{else}
+            							修改评价
+									{/if}
+								</a>
+							{else}
+            					<a class="btn btn-default" href="javascript:mark(1,'{$v['obj_id']}','$v['origin_id']','wk');void(0);">
+            						{if $v['mark_status'] == 0}
+										评价
+									{else}
+            							修改评价
+									{/if}
+								</a>
+							{/if}
+						{/if}
+            		</td>
+          		</tr>
+		  	{/loop}
+			{else}
+          		<tr>
+                   	<td colspan="6" class="text-center">暂无相关评价内容</td>
+          		</tr>
+			{/if}
+        </tbody>
+      </table>
+      </div>
+      <div class="clearfix">
+      	{if $strPages}
+	      <ul class="pagination pagination-sm pull-right">
+	       {$strPages}
+	      </ul>
+	    {/if}
+      </div>
+    </div>
+  </div>
+  <!-- content-panel end -->
+
+</div>
+<!--<script src="static/js/model/task/common.js"></script>-->
+<script type="text/javascript">
+	function mark(roleType,objId,taskId,markType){
+	var url = 'index.php?do=taskhandle&op=mark&roleType='+roleType+'&objId='+objId+'&taskId='+taskId+'&markType='+markType;
+	var modal = $.scojs_modal({
+		remote : url,
+		title : '评价'
+	});
+	modal.show();
+}
+
+</script>
+<!--{template user/footer}-->

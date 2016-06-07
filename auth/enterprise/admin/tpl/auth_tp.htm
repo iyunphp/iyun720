@@ -1,0 +1,45 @@
+<!--{template ADMIN_DIRECTORY/tpl/admin_header}-->  
+    <div class="box list">
+    	<div class="title"><h2>{$_lang['case_search']}</h2></div>
+        <div class="detail">
+        	<form  id='frm_list' method="post">
+               <div id="ajax_dom">
+               <input type="hidden" name="is_submit" value="1">
+               <input type="hidden" name="obj" value="$obj">
+               <input type="hidden" name="code" value="{$code}">
+               <input type="hidden" name="enterprise_auth_id" value="{$enterprise_auth_id}">
+               <input type="hidden" name="ac" value="nopass">
+               <input type="hidden" name="page" value="{$page}">
+               <input type="hidden" name="uid" value="{$uid}">
+               <input type="hidden" name="realname_a_id" value="{$realname_a_id}">
+			   <input type="hidden" id="username" value="{$arrResult['username']}" >
+               <table cellpadding="0" cellspacing="0">
+                <tbody>
+                	<tr>
+					<td>
+						<p>不通过原因：</p>
+						<p>
+							<textarea rows="10" cols="40" name="reason" id="reason" ></textarea>
+						</p>
+						<p>
+							<button  onclick="uuu();">提交</button>
+						</p>
+					</td>
+					</tr>
+                </tbody>
+              </table>
+			  </div>
+        	</form>
+        </div>       
+    </div>
+    <script type="text/javascript">
+    function uuu(){
+    	var a=$("#reason").val();
+    	var b=$("#username").val();
+    	art.dialog.data("ispass",1);
+    	art.dialog.data("reason",a);
+    	art.dialog.data("username",b);
+    	art.dialog.close();
+    }
+    </script>
+<!--{template ADMIN_DIRECTORY/tpl/admin_footer}-->

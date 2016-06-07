@@ -1,0 +1,118 @@
+<!--{template user/header}-->
+<div class="container">
+  <div class="nav-action">
+		<!--{template user/left_side}-->
+  </div>
+  <!-- nav-action end -->
+  <div class="content-panel">
+      <div class="tab">
+      <!--{template user/account_auth_nav}-->
+      </div>
+      <div class="tab_detail">
+      		<form role="form" action="{$strUrl}&step={$step}" method="post" name="editMobileValidForm" id="editMobileValidForm">
+          	<input type="hidden" name="formhash" id="formhash" value="{FORMHASH}">
+
+            <div class="media">
+              <div class="pull-left">
+                  <img class="media-object" src="{$auth_item['auth_big_ico']}" alt="{$auth_item['auth_title']}">
+              </div>
+              <div class="media-body">
+                  <div class="form-group">
+                    <label class="control-label" for="mobile">手机号：</label>
+                      <p class="form-control-static">
+                        {$arrAuthInfo['mobile']}
+                      </p>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="control-label" for="valid_code">手机验证码：</label>
+
+                        <input type="text"  name="valid_code" id="valid_code"  class="form-control" autocomplete="off">
+
+                  </div>
+
+                  <div class="form-group">
+
+                      <button class="btn btn-default" type="submit" value="1"  >立即认证</button>
+                      <button class="btn btn-default" type="button" id="reset" name="reset" value="reset">发送验证码</button>
+                      <span class="text-success" id="tipsUser"></span>
+
+                  </div>
+
+              </div>
+            </div>
+
+
+
+
+
+          </form>
+      </div>
+  </div>
+  </div>
+<script src="static/js/model/user/auth.js"></script>
+<script type="text/javascript" src="static/js/cookies.js"></script>
+<script type="text/javascript">
+  
+//页面加载时调用
+$(function(){
+	var time = 60;//初始倒计时
+	//获取cookie保存的倒计时时间戳
+	var cookieTime = Cookies.get('cookieTime');
+	//当前时间
+	var ctime = getCurrTime();
+	var wait = time;
+	
+	if(cookieTime != undefined){
+		if(cookieTime - ctime>0){
+			//剩余时间
+			wait = cookieTime - ctime;
+			timeCountDown(document.getElementById('reset'),wait);
+		}
+	}
+})
+
+/**
+*	o 倒计时元素
+*	time 倒计时时间
+*/
+function timeCountDown(o,time){
+	if(time > 0){
+		
+		if(!Cookies.get('cookieTime')){
+			Cookies.set('cookieTime', getCurrTime()+time, { expires: time }); 
+		}
+		
+		o.setAttribute("disabled", true);
+        o.innerHTML =  time + "秒后重新发送";
+        time--;
+        setTimeout(function(){
+            timeCountDown(o,time);
+        }, 1000);
+	}else{
+		o.removeAttribute("disabled");
+        o.innerHTML = "发送验证码";
+	}
+}
+//获取当前时间戳
+function getCurrTime(){
+	var now = new Date(); //获取系统日期，即Sat Jul 29 08:24:48 UTC+0800 2006 
+	return Math.ceil(now.getTime()/1000);
+}
+ /*
+	var time=60000;//設定倒數2分
+//	$("#reset").bind('load',DisableEnable(time));
+	function DisableEnable(time){
+		if(time<=0){
+		    $("#reset").text('重新发送验证码');
+		    $("#reset").addClass("submit");
+		    $("#reset").attr("disabled",false);
+		}else{
+			$("#reset").attr("disabled",true);
+			$("#reset").text((time/1000) + " 秒，重新发送验证码");
+			time-=1000;
+		    setTimeout("DisableEnable("+time+")",1000);
+		}
+	}*/
+</script>
+<!--{template user/footer}-->

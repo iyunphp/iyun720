@@ -1,0 +1,95 @@
+<!--{template ADMIN_DIRECTORY/tpl/admin_header}-->
+<div class="box post">
+	<div class="tabcon">
+    	<div class="title"><h2>附件配置</h2></div>
+        <div class="detail">
+			<form name="frm_config_enclosure" id="frm_config_enclosure" action="index.php?do=config&view=enclosure" method="post" accept-charset="{$_K['charset']}" enctype='multipart/form-data'>
+				<table width="100%" border="0" cellspacing="0" cellpadding="0">
+					<tr>
+				        <th scope="row">附件大小限制{$_lang['zh_mh']}</th>
+				        <td>
+				        	<input type="text" size="50" name="max_size" value="{$arrBasicConfig['max_size']}" limit="required:true;type:int;len:1-2" value="2" msg="附件大小限制" msgArea="txt_max_size_msg" class="txt"/><b style="color:red">*</b>
+				            <span id="txt_max_size_msg"></span>MB 系统配置值：2M，如果设定值超过系统配置值，则以系统配置值为准,该配置生效需配合php.ini,<a href="http://bbs.kppw.cn/thread-32292-1-1.html" target="_blank">查看详细</a>
+				        </td>
+				    </tr>
+				    <tr>
+				    	<th scope="row">
+				        	附件格式{$_lang['zh_mh']}
+				        </th>
+				        <td>
+				            <input type="text" size="50" name="file_type" value="{$arrBasicConfig['file_type']}" limit="required:true;len:3-100;general:false" msg="{$_lang['attachment_format_msg']}{$_lang['zh_mh']}3-100" msgArea="txt_file_type_msg" class="txt"/><b style="color:red">*</b>
+				            <span id="txt_file_type_msg"></span>如果有多个关键字，(zip|rar|jpg|gif|png)(不含引号) 等符号分隔
+				        </td>
+				    </tr>
+				    <tr>
+		                <th scope="row">
+		                    	使用网盘：
+		                </th>
+		                <td>
+		                    <label for="upload_type1">
+		                        <input type="radio" id="upload_type1" name="upload_type" {if $arrBasicConfig['upload_type']==1}checked="checked"{/if} value="1" />{$_lang['close']}
+		                    </label>
+		                    <label for="upload_type2">
+		                        <input type="radio" id="upload_type2" name="upload_type" {if $arrBasicConfig['upload_type']==2}checked="checked"{/if} value="2" />{$_lang['open']}
+		                    </label>
+		                    <br/>&nbsp;&nbsp;本系统自动接入七牛云网盘，<a href="#">查看教程</a>
+		                </td>
+            		</tr>
+            		<tr id="access_key" {if $arrBasicConfig['upload_type']==1}class="hidden"{/if}>
+				        <th scope="row">Access Key：</th>
+				        <td>
+				        	<input type="text" size="50" name="access_key" value="{$arrBasicConfig['access_key']}" class="txt"/><b style="color:red">*</b>
+				            <span id="txt_secret_key_msg"></span>网盘未开启状态可不填
+				        </td>
+				    </tr>
+				    <tr id="secret_key" {if $arrBasicConfig['upload_type']==1}class="hidden"{/if}>
+				        <th scope="row">Secret Key：</th>
+				        <td>
+				        	<input type="text" size="50" name="secret_key" value="{$arrBasicConfig['secret_key']}" class="txt"/><b style="color:red">*</b>
+				            <span id="txt_secret_key_msg"></span>网盘未开启状态可不填
+				        </td>
+				    </tr>
+				    <tr id="qn_bucket" {if $arrBasicConfig['upload_type']==1}class="hidden"{/if}>
+				        <th scope="row">bucket（网盘空间名称）：</th>
+				        <td>
+				        	<input type="text" size="50" name="qn_bucket" limit="required:true" value="{$arrBasicConfig['qn_bucket']}" msg="请填写网盘空间名称" msgArea="txt_qn_bucket_msg" class="txt"/><b style="color:red">*</b>
+				            <span id="txt_qn_bucket_msg"></span>网盘未开启状态可不填
+				        </td>
+				    </tr>
+				    <tr id="qn_domain" {if $arrBasicConfig['upload_type']==1}class="hidden"{/if}>
+				        <th scope="row">domain（网盘空间绑定域名）：</th>
+				        <td>
+				        	<input type="text" size="50" name="qn_domain" limit="required:true" value="{$arrBasicConfig['qn_domain']}" msg="请填写网盘空间绑定的域名" msgArea="txt_qn_domain_msg" class="txt"/><b style="color:red">*</b>
+				            <span id="txt_qn_domain_msg"></span>网盘未开启状态可不填
+				        </td>
+				    </tr>
+				    <tr>
+				    <th scope="row">&nbsp;</th>
+					<td>
+						<div class="clearfix padt10">
+		                	<button class="positive pill primary button" type="submit" name='submit' value="{$_lang['submit']}"><span class="check icon"></span>{$_lang['submit']}</button>
+		                </div>
+					</td></tr>
+				</table>
+			</form>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+$(function(){
+	$("#upload_type1").click(function(){
+		$("#access_key").addClass("hidden");
+		$("#secret_key").addClass("hidden");
+		$("#qn_bucket").addClass("hidden");
+		$("#qn_domain").addClass("hidden");
+	});
+	$("#upload_type2").click(function(){
+		$("#access_key").removeClass("hidden");
+		$("#secret_key").removeClass("hidden");
+		$("#qn_bucket").removeClass("hidden");
+		$("#qn_domain").removeClass("hidden");
+	});
+});
+</script>
+<!--{template ADMIN_DIRECTORY/tpl/admin_footer}-->

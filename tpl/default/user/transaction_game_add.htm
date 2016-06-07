@@ -1,0 +1,237 @@
+<!--{template user/header}-->
+<style>
+    .tab_detail form{
+        margin-top: 35px;
+    }
+
+    .action-bar{
+        margin-top: 10px;
+    }
+    
+    .action-item label{
+        margin-left: 20px;
+        padding-left: 10px;
+        padding-top: 5px;
+        float: left;
+        width: 130px;
+    }
+
+    .action-item button{
+        width: 90px;
+        height: 35px;
+        color: #fff;
+        background-color: #286090;
+        border-color: #204d74;
+
+        border-radius: 3px;
+        -moz-border-radius: 3px;
+        -ms-border-radius: 3px;
+        -o-border-radius: 3px;
+        -webkit-border-radius: 3px;
+    }
+
+    .upload input{
+        display: none;
+    }
+
+    .upload label{
+        margin: 0px;
+        padding: 0px;
+    }
+
+    .error{
+        border: 1px #ff0000 solid;
+    }
+
+    .tip{
+        margin-left: 10px;
+        color: #ff0000;
+    }
+
+    .radio_name{
+        line-height: 35px;
+    }
+
+    input[type="radio"]{
+        margin-top: 0px;
+        margin-left:  5px;
+        margin-right: 10px;
+        vertical-align: middle;
+    }
+
+    input[type=file]{
+        display: inline;
+        vertical-align: middle;
+        position: relative;
+        top: 5px;
+    }
+
+    .file_tip{
+        position: relative;
+        top: 5px;
+    }
+</style>
+<div class="container">
+    <div style="margin: 30px 0px;">
+        <div class="tab">
+            <a href="#" {if $op == 'service'} class="selected" {/if}>添加游戏</a>
+        </div>
+        <div class="tab_detail">
+            <form action="" method="post" enctype="multipart/form-data" name="searchServiceForm" id="searchServiceForm" onsubmit="return vail_form()">
+                <input type="hidden" name="p" value="true" />
+                <div class="action-bar">
+                    <div class="action-item">
+                        <label>游戏名称：</label>
+                        <input id="txtName" name="name" placeholder="请输入游戏名称" class="form-control" id="name" value="{$data['name']}" />
+                        <span id="nameTip" class="tip"></span>
+                    </div>
+                </div>
+                <div class="action-bar">
+                    <div class="action-item">
+                        <label>展示平台：</label>
+                        <span class="radio_name">Android</span>
+                        <input class="txtPlat" name="plat" type="radio" {if $data['plat']=='Android'}checked="checked"{/if} value="Android" />
+                        <span class="radio_name">iOS</span>
+                        <input class="txtPlat" name="plat" type="radio" {if $data['plat']=='iOS'}checked="checked"{/if} value="iOS" />
+                        <span class="radio_name" {if $plat=='Windows'}selected="selected"{/if}>Windows</span>
+                        <input class="txtPlat" name="plat" type="radio" {if $data['plat']=='Windows'}checked="checked"{/if} value="Windows" />
+ 						<span id="platTip" class="tip"></span>
+                    </div>
+                </div>
+                <div>
+                    <div class="action-item">
+                        <label>所属类型：</label>
+                        <select id="txtType" name="type" class="form-control" style="width: 200px;">
+                            <option value="动作冒险" {if $data['type']=='动作冒险'}selected="selected"{/if}>动作冒险</option>
+                            <option value="休闲益智" {if $data['type']=='休闲益智'}selected="selected"{/if}>休闲益智</option>
+                            <option value="策略游戏" {if $data['type']=='策略游戏'}selected="selected"{/if}>策略游戏</option>
+                            <option value="格斗射击" {if $data['type']=='格斗射击'}selected="selected"{/if}>格斗射击</option>
+                            <option value="其它" {if $data['type']=='其它'}selected="selected"{/if}>其它</option>
+                        </select>
+                        <span id="typeTip" class="tip"></span>
+                    </div>
+                </div>
+                {if $data['photo']}
+                <div class="action-bar">
+                    <div class="action-item">
+                        <label>游戏界面展示图：</label>
+                        <img src="$data['photo']" style="width: 200px;vertical-align: top;margin-right:10px;" />
+                        <a href="javascript:" onclick="$(this).parent().parent().hide().next().show()">重新上传</a>
+                    </div>
+                </div>
+                {/if}
+                <div class="action-bar" {if $data['photo']}style="display:none;"{/if}>
+                    <div class="action-item">
+                        <label>游戏界面展示图：</label>
+                        <input id="txtUploadPhoto" type="file" name="upload_photo" value="" />
+                        <input id="txtDefaultUploadPhoto" type="hidden" name="default_upload_photo" value="$data['photo']" />
+						<span id="uploadPhotoTip" class="file_tip tip"></span>
+                    </div>
+                </div>
+                {if $data['file_url']}
+                <div class="action-bar">
+                    <div class="action-item">
+                        <label>安装包：</label>
+                        <span style="line-height: 30px;">{$data['file_url']}</span>
+                        <a href="javascript:" onclick="$(this).parent().parent().hide().next().show()">重新上传</a>
+                    </div>
+                </div>
+                {/if}
+                <div class="action-bar" {if $data['file_url']}style="display:none;"{/if}>
+                    <div class="action-item">
+                        <label>安装包：</label>
+                        <input id="txtUploadPackage" type="file" name="upload_package" value="" />
+                        <input id="txtFileUrl" type="text" name="file_url" value="" style="width: 400px;display: none;" />
+                        <input id="txtDefaultFileUrl" type="hidden" name="default_file_url" value="{$data['file_url']}" />
+                        <span id="uploadPackageTip" class="file_tip tip"></span>
+                    </div>
+                </div>
+
+                <div class="action-bar">
+                    <div class="action-item">
+                        <label>简介：</label>
+						<textarea id="txtAlbum" placeholder="请输入专辑内容" class="form-control" id="text" name="text" style="width: 400px; height: 180px;">{$data['text']}</textarea>
+						<span class="tip"></span>
+                    </div>
+                </div>
+                <div class="action-bar">
+                    <div class="action-item">
+                        <label></label><button>提交</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+ <script>
+ $(function(){
+    $('.txtPlat').click(function(){
+        if($(this).val() == 'iOS'){
+            $('#txtUploadPackage').hide();
+            $('#txtFileUrl').show();
+        } else {
+            $('#txtUploadPackage').show();
+            $('#txtFileUrl').hide().val('');
+        }
+    });
+ });
+function vail_form(){
+    var name = $.trim($('#txtName').val());
+    var plat = $('.txtPlat:checked').val() || '';
+    var type =  $.trim($('#txtType').val());
+    var upload_photo =  $.trim($('#txtUploadPhoto').val());
+    var upload_package =  $.trim($('#txtUploadPackage').val());
+    var file_url = $.trim($('#txtFileUrl').val());
+    var default_file_url = $('#txtDefaultFileUrl').val();
+    var re = true;
+   
+    
+    if(name == '')
+    {
+        $('#nameTip').html('游戏名称不能为空！');
+        re = false;
+    }
+    else
+    {
+        $('#txtName').html('');
+    }
+    
+    if(plat == '')
+    {
+        $('#platTip').html('平台不能为空！');
+        re = false;
+    }
+    else
+    {
+         $('#platTip').html('');
+    }
+    if(type == ''){
+        $('#typeTip').html('所属类型不能为空！');
+        re = false;
+    }
+    else
+    {
+        $('#typeTip').html('');
+    }
+
+    if(upload_photo == '' && default_file_url == ''){
+        $('#uploadPhotoTip').html('游戏头像不能为空！');
+        re = false;
+    }
+    else
+    {
+        $('#uploadPhotoTip').html('');
+    }
+    if(upload_package == '' && file_url == '' && default_file_url == ''){
+        $('#uploadPackageTip').html('游戏安装包不能为空！');
+        re = false;
+    }
+    else
+    {
+        $('#uploadPackageTip').html('');
+    }
+    return re;
+}
+ </script>
+  		
+<!--{template user/footer}-->

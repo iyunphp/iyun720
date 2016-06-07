@@ -1,0 +1,30 @@
+<!--{template ADMIN_DIRECTORY/tpl/admin_header}--> 
+ 
+<div class="box user_quick clearfix">
+    <div class="detail pad10">
+    	<p>用户{$username}{if $type=='task'}发布的任务{elseif $type=='parrt'}参与的任务{elseif $type=='added'}上架的作品{elseif $type=='buy'}购买的作品{/if}</p>
+        {if $arrData}
+        <ul>
+        	{if $type=='task'||$type=='parrt'}
+            <li class="statistics clearfix">
+                <ul>
+                	{loop $arrData $k $v}
+					<li><a href="../index.php?do=task&id={$v['task_id']}" target=_blank>{$v['task_title']}</a></li>
+					{/loop}
+                </ul>
+            </li>
+            {elseif $type=='added'||$type=='buy'}
+            <li class="statistics clearfix">
+                <ul>
+                	{loop $arrData $k $v}
+					<li><a href="../index.php?do=goods&id={$v['service_id']}" target=_blank>{$v['title']}</a></li>
+					{/loop}
+                </ul>
+            </li>
+            {/if}
+        </ul>
+        {else}暂无{/if}
+    </div>
+</div>
+
+<!--{template ADMIN_DIRECTORY/tpl/admin_footer}-->

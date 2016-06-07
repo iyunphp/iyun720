@@ -1,0 +1,125 @@
+<!--{template ADMIN_DIRECTORY/tpl/admin_header}-->
+<div class="page_title">
+	<h1>{$model_info['model_name']}{$_lang['task_config']}</h1>
+	<div class="tool">
+		<a href="index.php?do=model&model_id={$model_id}&view=config&op=config">{$_lang['basic_config']}</a>
+		<a href="index.php?do=model&model_id={$model_id}&view=config&op=control">{$_lang['control_config']}</a>
+		{if !in_array($model_id,array(6,7))}<a href="index.php?do=model&model_id={$model_id}&view=config&op=priv">{$_lang['private_config']}</a>{/if}
+		<a href="index.php?do=custom&view=fields&model_id={$model_id}" class="here">自定义输入字段</a>
+	</div>
+</div>
+<div class="box post">
+	<div class="tabcon">
+		<div class="title">
+			<h2>{if $id}编辑{else}添加{/if}自定义输入字段</h2>
+			
+			<!-- 字段名 	必填 	字段提示 	长度限制(字符) 	校验正则类型 	错误提示 排序 -->
+		</div>
+		<div class="detail">
+			<form action="index.php?do=custom&view=editfields&model_id={$model_id}" method="post" name="frm_add" id="frm_add">
+				<input type="hidden" value="{$arrInfo['id']}" name="id">
+				<table width="100%" border="0" cellspacing="0" cellpadding="0">
+					<tbody>
+                    	<tr>
+							<th scope="row" width="130">数据库字段{$_lang['zh_mh']}</th>
+							<td>
+								<input  type="text" class="txt" style="width: 260px;" value="{$arrInfo['f_code']}" name="fds[f_code]" id="txt_f_code" maxlength="20" limit="required:true;len:1-20" msg="请输入字段名称" {if !$arrInfo['id']}ajax="index.php?do=custom&view=editfields&model_id={$model_id}&check_f_name="{/if} msgArea="txt_f_code_msg" valid="1" />
+								<b style="color: red"> *</b>
+								<span id="txt_f_name_msg"></span>(数据库字段名称为字母、数字、_)
+							</td>
+						</tr>
+						<tr>
+							<th scope="row" width="130">字段名{$_lang['zh_mh']}</th>
+							<td>
+								<input  type="text" class="txt" style="width: 260px;" value="{$arrInfo['f_name']}" name="fds[f_name]" id="txt_f_name" maxlength="10" limit="required:true;len:1-10" msg="请输入字段名称" {if !$arrInfo['id']}ajax="index.php?do=custom&view=editfields&model_id={$model_id}&check_f_name="{/if} msgArea="txt_f_name_msg" valid="1" onkeyup="clearspecial(this);" />
+								<b style="color: red"> *</b>
+								<span id="txt_f_name_msg"></span>(字段名称字数为1-10字符)
+							</td>
+						</tr>                       
+						<tr>
+							<th scope="row">字段提示{$_lang['zh_mh']}</th>
+							<td>                           
+                            <input type="text" class="txt" style="width: 260px;" name="fds[f_tips]" id="f_tips" value="{$arrInfo['f_tips']}" maxlength="20" class="input_t" />
+								<span id="pwd_f_tips_msg"></span>(提示字数为0-20字符)
+							</td>
+						</tr>
+						<tr>
+							<th scope="row">错误提示{$_lang['zh_mh']}</th>
+							<td>
+								<input type="text" class="txt" style="width: 260px;" name="fds[f_warning]" id="f_warning" value="{$arrInfo['f_warning']}" maxlength="250" class="input_t" />
+								<span id="pwd_f_warning_msg"></span>(提示字数为250字符)
+							</td>
+						</tr>
+						<tr>
+							<th scope="row">长度限制(字符){$_lang['zh_mh']}</th>
+							<td>
+								<input type="text" class="txt" style="width: 260px;" name="length_limit" id="length_limit" value="{if $arrInfo['f_fixed_len']} {$arrInfo['f_fixed_len']} {else} {if $arrInfo['f_min_len']}{$arrInfo['f_min_len']}{/if} {if $arrInfo['f_min_len']}-{$arrInfo['f_max_len']}{/if}  {/if}"  onkeyup="checkInput(this);" />
+								<span id="txt_length_limit_msg"></span>(输入格式：x-xx或者x ; x:为整数)
+							</td>
+						</tr>
+						<tr class="hidden">
+							<th scope="row">校验正则类型{$_lang['zh_mh']}</th>
+							<td>
+								<select class="form-control" name="fds[f_regex]" id="f_regex" >
+									<option value="">请选择校验正则</option>
+									{loop $arrRegex $k $v}
+										<option value="{$k}" {if $arrInfo['f_regex'] ==$k} selected="selected"{/if}>{$v}</option>
+									{/loop}
+								</select>
+							</td>
+						</tr>
+
+						<tr class="hidden">
+							<th scope="row">是否必填{$_lang['zh_mh']}</th>
+							<td>
+								<p>
+									<label for="rdo_0">
+										<input type="radio" name="fds[f_required]" value="1" {if $arrInfo['f_required']=='1'}checked=checked{/if}>
+										{$_lang['yes']}
+									</label>
+									<label for="rdo_1">
+										<input type="radio" name="fds[f_required]" value="0" {if $arrInfo['f_required']!='1'}checked=checked{/if}>
+										{$_lang['no']}
+									</label>
+									<br />
+								</p>
+							</td>
+						</tr>
+						<tr>
+							<th scope="row">排序{$_lang['zh_mh']}</th>
+							<td>
+								<input type="text" class="txt" style="width: 260px;" name="fds[listorder]" maxlength="6" value="{$arrInfo['listorder']}" onkeyup="clearstr(this);"/>
+								
+							</td>
+						</tr>
+						
+						
+					</tbody>
+					<tfoot>
+						<tr>
+							<th scope="row">&nbsp;</th>
+							<td>
+								<div class="clearfix padt10">
+									<input type="hidden" name="is_submit" value="1">
+									<button class="positive primary pill button" type="submit" value="{$_lang['submit']}" onclick="return checkForm(document.getElementById('frm_add'));">
+										<span class="check icon"></span>
+										{$_lang['submit']}
+									</button>
+								</div>
+							</td>
+						</tr>
+					</tfoot>
+				</table>
+			</form>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+
+
+function checkInput(inobj){
+	inobj.value = inobj.value.replace(/[^-\d]/g,'');
+}
+</script>
+<!--{template ADMIN_DIRECTORY/tpl/admin_footer}-->

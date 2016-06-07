@@ -1,0 +1,189 @@
+<!--{template user/header}-->
+<div class="container">
+  <div class="nav-action">
+    <!--{template user/left_side}-->
+  </div>
+  <!-- nav-action end -->
+
+  <div class="content-panel">
+    <div class="user-short">
+
+        <div class="media">
+          <div class="user-avatar">
+          <a href="index.php?do=seller&id={$gUid}">
+          	<!--{userpic($gUid,'larger')}-->
+          </a>
+        </div>
+        <div class="media-body">
+
+          <div class="user-info">
+            <h2 class="media-heading username">{$username}</h2>
+
+
+
+            <div class="top-left">
+              <div class="p-row1">
+                账号认证：
+                {loop $arrAuthItems  $v}
+	                  <a href="{$v['auth_url']}"><img class="mar0" src="{if $v['auth_pass'] == '1'}{$v['auth_small_ico']}{else}{$v['auth_small_n_ico']}{/if}" width="16px" height="16px" alt="" title="{$v['auth_title']}"></a>
+                {/loop}
+              </div>
+
+              <div class="p-row1">
+                手机：{if $gUserInfo['mobile']}{$gUserInfo['mobile']}{else}暂无{/if}
+              </div>
+
+              <div class="p-row1">
+                Q Q：{if $gUserInfo['qq']}{$gUserInfo['qq']}{else}暂无{/if}
+              </div>
+
+              <div class="p-row1">
+                邮箱：{if $gUserInfo['email']}{$gUserInfo['email']}{else}暂无{/if}
+              </div>
+            </div><!-- top-left end -->
+
+            <div class="top-right">
+              <div class="notice">
+                <i class="fa fa-flag"></i>
+                <a href="index.php?do=user&view=transaction&op=released&intTaskStatus=0">待付款任务</a>
+                <span class="number">{$intWaitPay[0]['count']}</span>
+              </div>
+
+              <div class="notice">
+                <i class="fa fa-bookmark"></i>
+                <a href="index.php?do=user&view=transaction&op=released&intTaskStatus=3">待选稿</a>
+                <span class="number">{$intChoose[0]['count']}</span>
+              </div>
+
+              <div class="notice">
+                <i class="fa fa-cubes"></i>
+                <a href="index.php?do=user&view=transaction&op=orders&strStatus=wait">待付款作品</a>
+                <span class="number">{$intShopPay[0]['count']}</span>
+              </div>
+
+              <div class="notice">
+                <i class="fa fa-comment"></i>
+                <a href="index.php?do=user&view=gz&op=mark&type=1">待评价</a>
+                <span class="number">{$intMarkG}</span>
+              </div>
+
+
+            </div><!-- top-right end -->
+         </div>
+
+        </div>
+
+      </div>
+    </div>
+    <!-- user-short end -->
+
+    <div class="horizontal-row">
+      <div class="user-type">
+
+          <div class="type-heading">
+            <h3 class="type-title">评价信息</h3>
+          </div>
+          <div class="type-body1">
+            <ul class="count">
+              <li class="item"><span class="num">{$gUserInfo['buyer_credit']}</span>信誉值：</li>
+              <li class="item"><span class="num"><!--{eval echo kekezu::favorableRate($gUserInfo['uid'],2)}--><sub>%</sub></span>好评率：</li>
+              <li class="item"><span class="num">{$gUserInfo['pub_num']}</span>发布任务数：</li>
+              <li class="item"><span class="num"><sub></sub>{c:$floatPubTask[0]['cash']}</span>支付任务款：</li>
+              <li class="item"><span class="num">{$floatPayService[0]['count']}</span>购买作品数：</li>
+              <li class="item"><span class="num"><sub></sub>{c:$floatPayService[0]['cash']}</span>支付服务款：</li>
+            </ul>
+          </div>
+
+      </div>
+      <!-- user-type end -->
+
+      <div class="user-type">
+
+          <div class="type-heading">
+            <h3 class="type-title">最近动态</h3>
+          </div>
+          <div class="type-body1">
+            <ul class="count">
+            {loop $arr $key $val}
+              <li class="item1"><span class="desc">{$val['dongtai']}</span><div class="time"><!--{eval echo CommonClass::getStatus($val['time']);}--></div></li>
+            {/loop}
+            </ul>
+          </div>
+
+      </div>
+      <!-- user-type end -->
+    </div>
+    <!-- row end -->
+
+    <div class="horizontal-row">
+      <div class="user-type">
+
+          <div class="type-heading">
+            <h3 class="type-title">我收藏的作品</h3>
+          </div>
+          <div class="type-list">
+
+          <table class="table table-hover count1">
+            <thead>
+              <tr>
+                <th>名称</th>
+                <th>金额（元）</th>
+                <th>店家</th>
+               <!--  <th>状态</th> -->
+              </tr>
+            </thead>
+            <tbody>
+             {loop $arrFavorite $v}
+              <tr>
+                <td><a href="index.php?do=goods&id={$v['obj_id']}" class="list-desc">$v['obj_name']</a></td>
+                <td><span class="money"><!--{eval  $a=ServiceClass::getShopByObj_id($v['obj_id']);echo $a['price']}--></span></td>
+                <td><a href="index.php?do=seller&id=<!--{eval  $a=ServiceClass::getShopByObj_id($v['obj_id']);echo $a['uid']}-->"><!--{eval  $a=ServiceClass::getShopByObj_id($v['obj_id']);echo $a['username']}--></a></td>
+              </tr>
+  {/loop}
+            </tbody>
+          </table>
+
+          </div>
+
+      </div>
+      <!-- user-type end -->
+
+      <div class="user-type">
+
+          <div class="type-heading">
+            <h3 class="type-title">我的交易记录</h3>
+          </div>
+          <div class="type-list">
+            <table class="table table-hover count1">
+            <thead>
+              <tr>
+                <th>名称</th>
+                <th>金额（元）</th>
+                <th>服务商</th>
+              </tr>
+            </thead>
+            <tbody>
+            {loop $arrRec $k $v}
+              <tr>
+                <td>{if $v['url']!='#'}<a href="{$v['url']}" class="list-desc">{$v['objname']}</a>{else}{$v['objname']}{/if}</td>
+                <td><span class="money">{$v['cash']}</span></td>
+                <td><a href="index.php?do=seller&id={$v['wiki_uid']}">{$v['wiki_username']}</a></td>
+              </tr>
+           {/loop}
+            </tbody>
+          </table>
+          </div>
+
+      </div>
+      <!-- user-type end -->
+    </div>
+    <!-- row end -->
+
+
+
+
+  </div>
+  <!-- content-panel end -->
+
+</div>
+<!--{template user/footer}-->

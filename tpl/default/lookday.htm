@@ -1,0 +1,10 @@
+
+<div class="modal-body">
+	<div class="alert alert-warning" role="alert">
+	<b>任务日期：</b>
+	<p>{$model_detail_config[min_cash]}-$task_time_rule[0][rule_cash]元的任务最大发布时间为{$day}天</p>
+	{loop $task_time_rule $v}
+	<p>{$v['rule_cash']}元的任务最大发布时间为{$v['rule_day']}天</p>
+	{/loop}
+	</div>
+</div>

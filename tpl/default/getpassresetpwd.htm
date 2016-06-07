@@ -1,0 +1,59 @@
+<!--{template header}-->
+<div class="container">
+    <div class="col-xs-12">
+        <div class="login-and-register-container">
+            <div class="login-box">
+                <div class="page-header">
+                    <h1>重置密码</h1>
+                </div>
+
+				{if $authstatus}
+                <form role="form" action="index.php?do=getpassresetpwd" class="form-horizontal" name="pwdResetForm" id="pwdResetForm" method="post">
+                    <input type="hidden" name="formhash" id="formhash" value="{FORMHASH}">
+                    <input type="hidden" name="encrypteuid" id="encrypteuid" value="{$encrypteuid}">
+                    <input type="hidden" name="authsid" id="authsid" value="{$authsid}">
+                    <div class="form-group">
+                        <div class="col-xs-4 col-xs-offset-3">
+                           您正在找回的帐号是：{$validInfo['userinfo']['username']}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                    	<label class="col-xs-3 control-label">新密码</label>
+                        <div class="col-xs-4 ">
+                            <input type="password" class="form-control" name="newpwd" id="newpwd" placeholder="请输入新密码">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                    	<label class="col-xs-3 control-label">确认新密码</label>
+                        <div class="col-xs-4">
+                            <input type="password" class="form-control" name="newpwd2" id="newpwd2" placeholder="请您输入确认密码">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-xs-offset-3 col-xs-5">
+                            <button type="submit" class="btn btn-primary">
+                                确定
+                            </button>
+                        </div>
+                    </div>
+                </form>
+				{else}
+				<div class="alert alert-danger" role="alert">
+					<p>该链接已过期失效</p>
+					<p>请<a href="index.php?do=retrieve">点此找回密码</a>重新验证!</p>
+				</div>
+				{/if}
+                
+            </div>
+            <!-- login-box end -->
+        </div>
+        <!-- login-and-register-container end -->
+    </div>
+    <!-- col-xs-5 end -->
+</div>
+<script type="text/javascript" src="static/js/model/register/register.js"></script>
+<script type="text/javascript">
+   
+</script>
+<!--{template footer}-->

@@ -1,0 +1,102 @@
+<!--{template ADMIN_DIRECTORY/tpl/admin_header}-->
+<div class="page_title">
+    <h1>kee工作协同接入配置</h1>
+</div>
+<div class="box post">
+    <div class="tabcon">
+        <div class="title">
+            <h2>{$_lang['edit_service']}</h2>
+        </div>
+        <div class="detail">
+            <form method="post" action="index.php?do={$do}&view={$view}" name="frm" id="frm">
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <th scope="row" width="130">
+                            接入的ID
+                        </th>
+                        <td>
+                            <input type="text" value="{$basic_config['kee_api_id']}" name="kppw_id" id="title" class="txt" style="width: 260px;" limit="required:true;len:1-11" title="请输入接入的ID" msg="请输入接入的ID" msgArea="kppw_id_msg" /><b style="color: red">*</b>
+                            <span id="kppw_id_msg"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row" width="130">
+                            您的接入key
+                        </th>
+                        <td>
+                            <input type="text" value="{$basic_config['kee_app_secret']}" name="secret_key" id="secret_key" class="txt" style="width: 260px;" limit="required:true" title="请输入接入的KEY" msg="请输入接入的KEY" msgArea="secret_key_msg" /><b style="color: red">*</b>
+                            <span id="secret_key_msg" style="width: 260px;"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row" width="130">
+                        </th>
+                        <td>
+                            <p>
+                                <a href="{KEE_IM_URL}/index.php?action=joinup&view=insert" target="_blank">还没有帐号？去申请</a>
+                            </p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">
+                            &nbsp;
+                        </th>
+                        <td>
+                            <div class="clearfix padt10">
+                                <button class="positive primary pill button" type="submit" name="sbt_edit" value="sub_sec" onclick="return check_key();">
+                                    <span class="check icon"></span>
+                                    {$_lang['submit']}
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    function check_key(){
+        if (checkForm(document.getElementById('frm'))) {
+             return true;
+        }else {
+            return false;
+        }
+    }
+    
+    /**
+     * 上传完成后的页面响应
+     * @param json json数据
+     */
+    function uploadResponse(json){
+        var id = json.filename;
+        var hf = $("#hdn_" + id);
+        var hf_fid = $("#hdn_" + id + "_fid");
+        $(hf).val(json.msg.up_file + "?fid=" + json.fid);
+        $(hf_fid).val(json.fid);
+        $("#span_" + id).html("<img src='../../" + json.msg.up_file + "'width='80px' height='80px' />").append("<a href=';' onclick='return del(\"hdn_" + id +
+        "\",\"span_" +
+        id +
+        "\")'>" +
+        L.del +
+        "</a>");
+    }
+    
+    function del(str, span){//删除的时候,必须要同时提供filepath和fid才能够删除
+        var value = $("#" + str).val().split("?")['0'];
+        var fid = $("#" + str + "_fid").val();
+        var url = '../../index.php?do=ajax&view=file&ajax=del&filepath=' +
+        value +
+        "&fid=" +
+        fid;
+        $.post(url, function(json){
+            if (json.status == 1) {
+                $("#" + str).val("");
+                $("#" + span).children().remove();
+            }
+            
+        }, 'json');
+        return false;
+    }
+</script>
+<!--{template ADMIN_DIRECTORY/tpl/admin_footer}-->

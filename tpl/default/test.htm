@@ -1,0 +1,16 @@
+<!--{template header}-->
+ <input type="file" class="file" name="upload" id="upload">
+ <input type="hidden"  name="file_ids" id="fileid"  class="form-control" value="{$arrPubInfo['file_ids']}">
+ <input type="hidden"  name="case_pic" id="filepath"  class="form-control" value="{$caseInfo['case_pic']}">
+<img id="case_img" src="{$caseInfo['case_pic']}" {if !$caseInfo['case_pic']}class="hidden"{/if} width="100px;" height="100px;">
+
+<script src="static/js/uploadify/jquery.uploadify.min.js?v={RANDOM_PARA}" type="text/javascript"></script>
+<link href="static/js/uploadify/uploadify.css" rel="stylesheet">
+<script type="text/javascript">
+        $(function(){
+            uploadify({debug:true ,text:'上传图片',auto:true,limit:5,hide:false},'');
+        })
+</script>
+<hr>
+
+<!--{template footer}-->

@@ -1,0 +1,212 @@
+<!--{template header}-->
+
+<nav class="bread-nav">
+  <div class="container">
+    <ol class="breadcrumb">
+      <li>您的位置：</li>
+          <li><a href="index.php?do=index">首页</a></li>
+          <li><a href="index.php?do=case">成功案例</a></li>
+      </ol>
+  </div>
+</nav>
+<!-- 面包屑end -->
+
+<div class="container">
+
+<div id="side">
+  <div class="box-body case-search">
+    <div class="case-search-bg"><img src="tpl/default/img/case-search.gif" alt=""></div>
+            <form method="post" action="index.php?do=case" id="caseSearchForm" role="form" class="form-inline">
+                    <div class="form-group">
+                      <div class="input-group">
+                        <input type="text" maxlength="10" placeholder="请输入关键字" id="searchkey" name="searchkey" value="{$searchkey}" class="form-control">
+                        <div class="input-group-btn">
+                        	<button class="btn btn-default" type="submit" name="btnSearch">搜索</button>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+            </div>
+            <!-- 搜索end -->
+
+            <div class="box-header">
+              <h2 class="min-title">技术优势</h2>
+            </div>
+           <div class="box-body advantage">
+              <p class="advantage-title">创意交易</p>
+              <p class="advantage-text">创意型交易，我们更专业，更可靠</p>
+
+              <ul>
+                  <li>
+                    <div class="advantage-img">
+                      <img src="tpl/default/img/case-attest.gif" alt="">
+                    </div>
+                    <div class="advantage-body">
+                      <p>专业威客供您选择</p>
+                      <p class="small_p">威客实名认证，交易更放心</p>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="advantage-img">
+                      <img src="tpl/default/img/case-money.gif" alt="">
+                    </div>
+                    <div class="advantage-body">
+                      <p>担保交易，满意后付款</p>
+                      <p class="small_p">赏金托管平台，保障资金安全</p>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="advantage-img">
+                      <img src="tpl/default/img/case-risk.gif" alt="">
+                    </div>
+                    <div class="advantage-body">
+                      <p>发布需求后</p>
+                      <p class="small_p">威客响应，发布通知，避免等待</p>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="advantage-img">
+                      <img src="tpl/default/img/case-back.gif" alt="">
+                    </div>
+                    <div class="advantage-body">
+                      <p>未收到满意稿件</p>
+                      <p class="small_p">不满意全额退款，交易无风险</p>
+                    </div>
+                  </li>
+              </ul>
+            </div>
+            <!-- 技术优势 end -->
+
+            <div class="box-body case-btn">
+               <p class="case-btn-title">发布一个需求，剩下的交给我们</p>
+               <a class="btn btn-primary btn-block" href="index.php?do=pubtask">发布任务</a>
+               <p class="case-btn-text">在线技术专业为您服务</p>
+            </div>
+
+
+
+            <div class="box-header">
+              <h2 class="min-title">中标排行榜 TOP5</h2>
+            </div>
+           <div class="box-body">
+              <ul class="record-list img">
+                {loop $arrBid $k $v}
+                <li>
+                    <a title="$v['username']" class="avatar" href="index.php?do=seller&id={$v['uid']}">
+                    	<!--{userpic($v['uid'],'middle')}-->
+                    </a>
+
+                    <div class="avatar-detail">
+                      <p class="record-list-title">
+                        <a title="" href="index.php?do=seller&id={$v['uid']}">{$v['username']}</a>
+                      </p>
+                       <p class="record-list-text"><i class="fa fa-map-marker"></i>{$v['area']}</p>
+                      <p class="record-list-meta">中标： <span>{$v['sum']}</span> 次</p>
+                    </div>
+                  </li>
+				  {/loop}
+              </ul>
+            </div><!-- 收入排行 & box-body end -->
+
+</div>
+<!-- #side end -->
+
+
+
+<div id="main">
+  <div class="tab tab-darken">
+    <a href="index.php?do=case" class="selected">所有案例</a>
+  </div>
+  <!-- tab end -->
+
+
+    {if $i||$ky}
+
+    <ul class="nav nav-pills second-nav">
+      {if $i}<li class="active"><a href="{$strUrl}&i=0">{$arrIndusInfo['indus_name']} <i class="fa fa-times"></i></a></li>{/if}
+      {if $ky}<li class="active"><a href="{$strUrl}&ky=0">{$ky} <i class="fa fa-times"></i></a></li>{/if}
+      <li>共<!--{eval echo intval($intCount);}-->条类似任务</li>
+    </ul>
+
+
+  {/if}
+  <!-- second-nav end -->
+
+  <!-- 服务商列表 -->
+  <ul class="list-filter">
+
+    <li>
+      <label class="col-xs-1">案例种类</label>
+      <div class="col-xs-11 condition">
+        <a href="{$strUrl}&t=0" {if !$t}class="selected"{/if}>全部</a>
+        <a href="{$strUrl}&t=1" {if $t==1}class="selected"{/if}>任务案例</a>
+        <a href="{$strUrl}&t=2" {if $t==2}class="selected"{/if}>作品案例</a>
+      </div>
+    </li>
+
+  </ul>
+  <!-- filter end -->
+
+  {if $arrCaseLists}
+  <div class="list list-img">
+    <ul class="list-body">
+    {loop $arrCaseLists $k $v}
+      <li class="list-item">
+        <!-- 标签中标 -->
+        <span class="tag-r">{$v['label']}</span>
+        <span class="label-r"></span>
+        <!-- 标签中标 end-->
+
+        <!-- 标签企业 -->
+       <!--  <span class="tag-l"><img src="tpl/default/img/case-firm.gif" alt=""></span> -->
+        <!-- 标签企业 end-->
+        <a href="{$v['objurl']}" class="list-title" title="{$v['case_title']}">
+           {$v['case_title']}
+          </a>
+          <div class="list-item-img">
+            <a href="{$v['objurl']}" title="{$v['case_title']}">
+              <img  alt="{$v['case_title']}"  class="lazy" src="{$v['case_img']}"  data-original="<!--{eval echo keke_shop_class::output_pics($v['case_img'],210,1);}-->">
+            </a>
+          </div>
+          <div class="list-item-footer">
+            <p>
+              价格：<span class="money">￥{$v['case_price']}</span>
+            </p>
+            <p>
+             收藏：{$v['focus_num']}
+            </p>
+            <p>
+              {$v['text']}：{$v['num']} {$v['quantifier']}
+            </p>
+            <p>
+             {$v['from']}：<a href="{$v['fromurl']}" class="case-users">{$v['username']}</a>
+            </p>
+            <a href="{$v['objurl']}" class="btn btn-primary">查看该案例</a>
+          </div>
+       </li>
+    {/loop}
+    </ul>
+  </div>
+    {else}
+     <dd class="list-item text-center">
+      <!--{template nodata}-->
+       </dd>
+    {/if}
+  <!-- list list-img  end-->
+
+  <div class="list-page">
+    <div class="page-tips pull-left">
+      显示 {$strPages['st']}~{$strPages['en']} 项 共 {$intCount} 个案例
+    </div>
+    <ul class="pagination pagination-sm pull-right">
+        {$strPages['page']}
+    </ul>
+  </div>
+  <!-- 作品列表 & list-page end -->
+</div>
+<!-- #main end -->
+</div>
+<!-- container end -->
+
+</body>
+<!--{template footer}-->

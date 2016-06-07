@@ -1,0 +1,158 @@
+<!--{template header}-->
+<div class="container">
+	<form class="form-horizontal" action="index.php?do=uploadexamples" method="post">
+		<input type="hidden" name="formhash" id="formhash" value="{FORMHASH}">
+		<div class="form-group">
+		    <div class="col-sm-offset-3 col-sm-6">
+		      <h3>上传示例 <small>目前选择的存储方式：{if QN_UPLOAD_OPEN === true}七牛云存储{else}本地服务器{/if}</small></h3>
+		    </div>
+		  </div>
+		<div class="form-group">
+		    <label class="col-sm-3 control-label">上传图片</label>
+		    <div class="col-sm-2">
+		          <div id="picker1">上传图片</div>
+		          <input type="hidden"  name="fileid1" id="fileid1"  class="form-control" value="{$fileid1}">
+		    </div>
+		    <div class="col-sm-4">
+		    	 <p>允许上传数量：5</p>
+		         <p>允许上传格式：jpg,gif,png,jpeg</p>
+		         <p>允许上传大小：{$basic_config['max_size']}MB</p>
+		    </div>
+		
+		</div>
+
+		
+		<div class="form-group ">
+			<div class="col-sm-offset-3 col-sm-6">
+				<ul class="affix-list upload-file-list-info" id="editfileList1">
+					{if !empty($arrFileLists1)}
+					 {loop $arrFileLists1 $v}
+
+					<li id="edit-{$v['file_id']}" class="affix-list-item">
+						<div class="upload-file-info">
+							<span class="webuploader-pick-file-close" data-fileid="{$v['file_id']}" data-queued-id="edit-{$v['file_id']}"><i class="close"></i></span>
+							<span class="fname">{$v['file_name']}</span>
+							<span class="fsize">大小:<!--{eval echo kekezu::fsize($v['save_name']);}--></span>
+							<div class="clearfix"></div>
+						</div>
+					</li>
+					{/loop} 
+					{/if}
+				</ul>
+				<ul class="affix-list upload-file-list-info" id="fileList1"></ul>
+			</div>
+		</div>
+		<div class="form-group">
+		    <label class="col-sm-3 control-label">上传图片返回值</label>
+		    <div class="col-sm-6">
+		          <div id="show_fileid1" class="ws_break"></div>
+		    </div>
+		</div>
+		
+		
+		<div class="form-group">
+		    <label  class="col-sm-3 control-label">上传附件</label>
+		    <div class="col-sm-2">
+		          <div id="picker2">上传附件</div>
+		          <input type="hidden"  name="fileid2" id="fileid2"  class="form-control" value="{$fileid2}">
+		    </div>
+		    <div class="col-sm-4">
+		         <p>允许上传数量：5</p>
+		         <p>允许上传格式：zip,rar,doc,docx</p>
+		         <p>允许上传大小：{$basic_config['max_size']}MB</p>
+		    </div>
+		
+		</div>
+		<!-- 上传附件 end -->
+
+		<div class="form-group ">
+			<div class="col-sm-offset-3 col-sm-6">
+				<ul class="affix-list upload-file-list-info" id="editfileList2">
+					{if !empty($arrFileLists2)}
+					 {loop $arrFileLists2 $v}
+					<li id="edit-{$v['file_id']}" class="affix-list-item">
+						<div class="upload-file-info">
+							<span class="webuploader-pick-file-close" data-fileid="{$v['file_id']}" data-fileurl="{$v['save_name']}" data-queued-id="edit-{$v['file_id']}"><i class="close"></i></span>
+							<span class="fname">{$v['file_name']}</span>
+							<span class="fsize">大小:<!--{eval echo kekezu::fsize($v['save_name']);}--></span>
+							<div class="clearfix"></div>
+						</div>
+					</li>
+					{/loop} 
+					{/if}
+				</ul>
+				<ul class="affix-list upload-file-list-info" id="fileList2"></ul>
+			</div>
+		</div>
+		<div class="form-group">
+		    <label class="col-sm-3 control-label">上传附件返回值</label>
+		    <div class="col-sm-6">
+		         <div id="show_fileid2" class="ws_break"></div>
+		    </div>
+		</div>
+		<div class="form-group">
+		    <div class="col-sm-offset-3 col-sm-6">
+		      <button type="submit" class="btn btn-default">提交</button>
+		    </div>
+		  </div>
+	</form>
+</div>
+<!-- 附件列表 end -->
+
+<link rel="stylesheet" type="text/css" href="static/js/webuploader/webuploader.css">
+<script type="text/javascript" src="static/js/webuploader/webuploader.js?r={RANDOM_PARA}"></script>
+<script type="text/javascript" src="static/js/webuploader/kppw.webuploader.js"></script>
+<script type="text/javascript">
+	//指定网站URL，后台是必须要定义的，前台不必定义
+	var baseurl = "{$basic_config['website_url']}";
+	var uploadsize = parseInt("{$basic_config['max_size']}");
+		uploadsize =  isNaN(uploadsize)? 1 : uploadsize;
+	$(function(){
+		$("#picker1").KKUploader({
+				accept: {
+					extensions : 'jpg,gif,png,jpeg'  //可上传文件格式
+				},
+				fileVal:'file1',		//指定上传文本域的name  如不指定，默认是file
+				fileNumLimit:5,			//上传数量限制
+				hiddenName:'fileid1',	//表单隐藏域id
+				hiddenValType:'1',		//指定隐藏域保存值的类型   1=是保存file_id ，2=保存save_name
+				listName:'fileList1',	//指定上传文件列表ID，如果不指定，则默认为fileList
+				editListName:'editfileList1',	//指定上传文件编辑列表ID，如果不指定，默认为editfileList
+				separator:',',			//多文件上传时，指定分隔符，如不指定，默认为","
+				fileSingleSizeLimit:uploadsize*1024*1024			//上传大小限制
+			},
+			{
+				fileType: 'sys',//传递给服务端的参数
+        		objType: 'space',//传递给服务端的参数
+				filename : 'file1',//传递给服务端的参数指定上传文本域的name，如果未指定，上传不成功
+			});
+
+		
+		$("#picker2").KKUploader({
+				accept: {
+					extensions : 'zip,rar,doc,docx'   //可上传文件格式
+				},
+				fileVal:'file2',		//指定上传文本域的name  如不指定，默认是file
+				fileNumLimit:5,			//上传数量限制
+				hiddenName:'fileid2',	//表单隐藏域id
+				hiddenValType:'2',		//指定隐藏域保存值的类型   1=是保存file_id ，2=保存save_name
+				listName:'fileList2',	//指定上传文件列表ID，如果不指定，则默认为fileList
+				editListName:'editfileList2',	//指定上传文件编辑列表ID，如果不指定，默认为editfileList
+				separator:'|',			//多文件上传时，指定分隔符，如不指定，默认为","
+				fileSingleSizeLimit:uploadsize*1024*1024		//上传大小限制  1 * 1024 * 1024    // 50 M
+			},
+			{
+				fileType: 'sys',//传递给服务端的参数
+        		objType: 'space',//传递给服务端的参数
+				filename : 'file2',//传递给服务端的参数指定上传文本域的name，如果未指定，上传不成功
+			});
+	});
+
+
+	setInterval(function(){
+		$("#show_fileid1").text($("#fileid1").val());
+		$("#show_fileid2").text($("#fileid2").val());
+	},1500);
+</script>
+		
+<!--{template footer}-->

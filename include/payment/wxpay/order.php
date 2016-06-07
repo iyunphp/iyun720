@@ -1,0 +1,40 @@
+<?php
+define ( "IN_KEKE", true );
+require_once (dirname (dirname ( dirname ( dirname ( __FILE__ ) ) )) . DIRECTORY_SEPARATOR . 'app_comm.php');
+define ( "BASE_WXPAY_URL", SITEURL.'/include/payment/wxpay/' );
+ini_set('date.timezone','Asia/Shanghai');
+require_once "lib/WxPay.Cfg.php";
+require_once "lib/WxPay.Exception.php";
+require_once "lib/WxPay.Data.php";
+require_once "lib/WxPay.Api.php";
+require_once "WxPay.NativePay.php";
+require_once "log.php";
+function get_pay_url($charge_type, $pay_amount, $payment_config, $subject, $order_id, $model_id = null, $obj_id = null, $service = null, $sign_type = 'MD5', $show_url='index.php?do=user&view=finance&op=details') {
+	global $_K, $uid, $username;
+	$charge_type == 'order_charge' and $t = "订单充值" or $t = "余额充值";
+	$body = $t . "(from:" . $username . ")";
+	$notify = new NativePay();
+	$WxPayCfg = new WxPayCfg();
+	$Out_trade_no = $WxPayCfg->_mchid.date("YmdHis");
+	$attach 	  = "charge-{$charge_type}-{$uid}-{$obj_id}-{$order_id}-{$model_id}-".time();
+	$input = new WxPayUnifiedOrder();
+	$input->SetBody($body);
+	$input->SetDetail($body);
+	$input->SetAttach($attach);
+	$input->SetOut_trade_no($Out_trade_no);
+	$input->SetFee_type("CNY");
+	$input->SetTotal_fee($pay_amount* 100);
+	$input->SetTime_start(date("YmdHis"));
+	$input->SetTime_expire(date("YmdHis", time() + 600));
+	$input->SetNotify_url(BASE_WXPAY_URL."notify.php");
+	$input->SetTrade_type("NATIVE");
+	$input->SetProduct_id($obj_id);
+	$result = $notify->GetPayUrl($input);
+	$url2 = $result["code_url"];
+	keke_order_class::create_order_charge('online_charge', 'wxpay', null, $obj_id, $uid, $username, $pay_amount, 'wait', '用户充值',$Out_trade_no,null,$attach);
+	$baseUrl = urlencode($url2);
+	$data = array();
+	$data ['url'] 			=  BASE_WXPAY_URL."qrcode.php?data=".$baseUrl;
+	$data ['out_trade_no'] 	=  $Out_trade_no;
+	return $data;
+}

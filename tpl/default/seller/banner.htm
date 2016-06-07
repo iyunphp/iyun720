@@ -1,0 +1,187 @@
+<script src="static/js/model/seller/seller.js" charset="{CHARSET}"></script>
+<style>
+	.confirm_modal{z-index:1041;}
+</style>
+<!--<div id="space_bg" style="background-image:url({$arrSellerInfo['shop_background']});background-repeat:{$arrBackgroudStyle['repeat']}; background-position:{$arrBackgroudStyle['position']};background-attachment:fixed}" class="container">-->
+<div id="space_bg" class="container">
+
+	{if $uid != $arrSellerInfo['uid']}
+	<div class="dropzone fixed-top">
+		<a href="javascript:sendMessage({$arrSellerInfo['uid']});void(0);" class="dropzone-item"><i class="fa fa-paper-plane"></i> 联系我</a>
+	</div>
+	{/if}
+	<!-- /.dropzone -->
+    	<div class="space_body">
+	    <!--导航图片 -->
+	    <!--<div id="shop_banner" class="banner">
+	    	{if $gUid == $arrSellerInfo['uid']}
+	      	<a id="change_banner"  href="javascript:changeBanner('{$id}');void(0);" >点击更改图片</a>
+			{/if}
+			<img onerror="this.src='tpl/default/img/store_banner.jpg'" style="width: 100%;height: auto;" src="{if $arrSellerInfo['banner']}{$arrSellerInfo['banner']}{else}tpl/default/img/store_banner.jpg{/if}">
+		</div>-->
+		<!--导航图片 end-->
+
+        <div class="store_detail ">
+
+
+          <div class="store_adv" style="padding-left:10px;">
+          	<div class="left_detail col-md-4 col-xs-12 " >
+          			<div class="left_img col-md-6 col-xs-6 ">
+		        	<!--{userpic($arrSellerInfo['uid'],'larger')}-->
+		            </div>
+                    <div class="col-md-6 col-xs-6">
+                    	<h1 class="store_name">{if $arrSellerInfo['shop_name']}{$arrSellerInfo['shop_name']}{else}{$arrSellerInfo['username']}{/if}</h1>
+                        <p>{if $strAddress}{$strAddress}{else}暂无{/if}　　{if $strAddress}<a href="javascript:showMap('{$arrSellerInfo[uid]}');"></a>{/if}
+						</p>    
+                        <p>作品：{$intGoodsCount} &nbsp; 人气：{$arrSellerInfo['views']}</p>  
+                    </div>
+			        
+
+					<!-- {if $arrMemberExts['mobile']['v1']==2}
+					<p>联系：$arrSellerInfo['mobile']</p>
+					{/if} -->
+
+			        <div class="store_ctrl" >
+
+			        	 {if $gUid !=$arrSellerInfo['uid']}
+
+			        	 <div class="row mb_5">
+			        	 	<div class="col-sm-4">
+			        	 		<a href="javascript:sendMessage({$arrSellerInfo['uid']});void(0);" class="btn btn-default btn-xs btn-block" >联系我</a>
+			        	 	</div>
+			        	 	<div class="col-sm-8">
+			        	 		{if $arrSellerInfo['follow']==1}
+				         <span class="btn-group">
+							   <a href="javascript:void(0);" class="btn btn-success btn-xs disabled" role="button"><i class="fa fa-check"></i> 已关注</a>
+				  				  <a href="javascript:cancelFollow({$arrSellerInfo[uid]});void(0);"  class="btn btn-success btn-xs" id="follow{$arrSellerInfo[uid]}">取消</a>
+				          </span>
+							  {else}
+				              <a href="javascript:addFollow({$arrSellerInfo[uid]});void(0);" class="btn btn-default btn-xs btn-block" id="follow{$arrSellerInfo[uid]}"><i class="fa fa-plus"></i> 加关注</a>
+							  {/if}
+
+			        	 	</div>
+			        	 </div>			        	
+
+		                
+
+
+						 {/if}
+						<!-- {if $gUid == $arrSellerInfo['uid']}
+						 {if $arrSellerInfo['autoshop']==1}
+						 	<a href="javascript:closeshop($arrSellerInfo['uid']);" class="btn btn-success btn-xs" style="margin-right:8px;width: 76px; float: left;" >关店</a>
+						 {else}
+						 	<a href="javascript:openshop($arrSellerInfo['uid']);" class="btn btn-success btn-xs" >开店</a>
+						 {/if}
+						 {/if}
+						 {if $gUid == 1 && $gUid == $arrSellerInfo['uid']}
+						 	{if $arrSellerInfo['is_show'] == 1}
+							<a href="javascript:changeHide($arrSellerInfo['uid']);" class="btn btn-success btn-xs" style=" width: 76px;float: left;" >隐藏店铺</a>
+							{else}
+							<a href="javascript:changeShow($arrSellerInfo['uid']);" class="btn btn-success btn-xs" >显示店铺</a>
+							{/if}
+						 {/if}-->
+
+              		</div>
+              		{if $gUid !=$arrSellerInfo['uid']}
+              		  <!--<a href="index.php?do=gy&id={$arrSellerInfo['uid']}" class="btn btn-success btn-xs btn-block " >雇佣TA</a>-->{/if}
+
+              		<div class="contact-way">
+              			{if $arrMemberExts['email']['v1']==2}
+              				{if $arrSellerInfo['email']}
+              				<p><span>邮 箱：</span>$arrSellerInfo['email']</p>
+              				{else}
+              				<p><span>邮 箱：</span>暂无信息</p>
+              				{/if}
+              			{/if}
+              			{if $arrMemberExts['mobile']['v1']==2}
+              				{if $arrSellerInfo['mobile']}
+              				<p><span>电话：</span>$arrSellerInfo['mobile']</p>
+              				{else}
+              				<p><span>电话：</span>暂无信息</p>
+              				{/if}
+              			{/if}
+              			{if $arrMemberExts['qq']['v1']==2}
+              				{if $arrSellerInfo['qq']}
+              				<p><span>Q  Q：</span>$arrSellerInfo['qq']</p>
+              				{else}
+              				<p><span>Q  Q：</span>暂无信息</p>
+              				{/if}
+              			{/if}
+              			{if $arrMemberExts['msn']['v1']==2}
+              				{if $arrSellerInfo['msn']}
+              				<p><span>微  信：</span>$arrSellerInfo['msn']</p>
+              				{else}
+              				<p><span>微  信：</span>暂无信息</p>
+              				{/if}
+              			{/if}
+              			{if $arrMemberExts['phone']['v1']==2}
+              				{if $arrSellerInfo['phone']}
+              				<p><span>手 机：</span>$arrSellerInfo['phone']</p>
+              				{else}
+              				<p><span>手 机：</span>暂无信息</p>
+              				{/if}
+              			{/if}
+              		</div>
+                    
+                    <div class="rigth_detail">
+				<div class="store_skill">
+		        	擅长：
+
+					{if $arrSkill}
+					{loop $arrSkill $k $v}
+					<span class="skill-item">{$v}</span>
+					{/loop}
+					{else}
+					<span class="skill-item">暂无</span>
+					{/if}
+		        </div>
+                
+              		
+	          	<div class="store_desc">
+	          		简介：{if $arrSellerInfo['shop_slogans']}
+	          		{$arrSellerInfo['shop_slogans']}
+					{else}
+					这家伙很懒，啥都没有留下...
+					{/if}
+	          	</div><!-- .store_desc end-->
+
+				
+
+		        <div class="person-info">
+		        	<!--<p>等级： {$arrSellerLevel['pic']}</p>
+			        <p>认证：
+					  {loop $arrAuthItems $v}
+							<a href="{$v['auth_url']}"><img class="mar0" src="{if $v['auth_pass'] == '1'}{$v['auth_small_ico']}{else}{$v['auth_small_n_ico']}{/if}" width="16px" height="16px" alt="" title="{$v['auth_title']}"></a>
+					  {/loop}
+		            </p>-->
+			                    
+                    {if $gUid == $arrSellerInfo['uid']}
+                    <a href="index.php?do=pubgoods" class="btn btn-success"> 发布作品</a>
+                    {/if}
+                </div>
+				<!--<p>最近三月收入：<span class="money"><sub>￥</sub>
+					{if $incomeCash}
+					{$incomeCash}
+					{else}
+					0.00
+					{/if}
+					</span>
+				</p>-->
+
+				<hr>
+                <ul class="user-meta" style="display:none">
+					{loop $arrSellerMark $k $v}
+					<li>
+						{$v['aid_name']}
+						<span class="text-danger">{$v['avg']}分</span>
+						<!--{eval echo keke_user_mark_class::gen_star2($v['avg']);}-->
+					</li>
+					{/loop}
+				</ul>
+			</div>
+		    </div>
+		    
+			<div style="clear: both;"></div>
+          </div>
+
+		  <div class="store_down" id="main_nav">

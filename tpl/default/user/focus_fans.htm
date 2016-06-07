@@ -1,0 +1,69 @@
+<!--{template user/header}-->
+<div class="container">
+	<div class="nav-action">
+		<!--{template user/left_side}-->
+    </div>
+
+	<div class="content-panel">
+	        <div class="tab">
+	        <a href="#" class="selected">我的粉丝</a>
+	        </div>
+
+			{if $arrFansLists}
+			<div class="table-responsive">
+			<table class="table table-hover">
+			  {loop $arrFansLists $k $v}
+			  <tr>
+			  	<td>
+			  <div class="media">
+				  <a class="pull-left" href="index.php?do=seller&id=$v['focus_uid']">
+					<!--{userpic($v['focus_uid'],big)}-->
+				  </a>
+				  <div class="media-body">
+					  	<div class="pull-right">
+					  		<!--判断是否相互关注,没关注的才显示关注按钮-->
+							<!--{eval $booIfFocus = kekezu::get_if_focus($uid,$v['focus_uid']);}-->
+							{if !$booIfFocus}
+							<button class="btn btn-default btn-xs" onclick="opAddFollow('addFollow','$v[focus_uid]');" type="button"  id="add_follow_{$v['focus_uid']}">关注他</button>
+							{else}
+							<span class="label label-success"><i class="fa fa-exchange"></i> 相互关注</span>
+							{/if}
+						</div>
+					    <strong class="media-heading">
+					    	<a href="index.php?do=seller&id=$v['focus_uid']">$v['focus_username']</a>
+					    	<span class="media-heading-text">$v['data']['focusnum']关注  |  $v['data']['fensinum']粉丝</span>
+					    </strong>
+					    <div class="store_skill">技能：
+							{if $v['skill_ids']}
+							<!--{eval $arrSkill = explode(',',$v['skill_ids']);}-->
+							{loop $arrSkill $v1}
+							<span class="skill-item">$v1</span>
+							{/loop}
+							{else}
+								暂无
+							{/if}
+							</div>
+							{if $v['shop_slogans']}
+		 						<div class="store_skill"><p class="skill-text"><!--{eval echo kekezu::chinesesubstr($v['shop_slogans'],0,80)}--></p></div>
+							{else}
+		 						<div class="store_skill"><p class="skill-text">TA还没有学会推销自己~~</p></div>
+							{/if}
+
+				  </div>
+			  </div>
+			  </td>
+			  </tr>
+			  {/loop}
+			  </table>
+			 </div>
+			{/if}
+
+	          {if $strPages}
+	             <ul class="pagination pagination-sm pull-right">
+	             {$strPages}
+	             </ul>
+	          {/if}
+
+	</div>
+</div>
+<!--{template user/footer}-->

@@ -1,0 +1,29 @@
+<div class="show-hb-mask" ></div>
+<div class="show-hb-close" id="hb3" style="">
+	<a href="javascript:colse('index.php?do=user&view=message&op=notice&ajax=1');"><img src="static/img/hb/close.png"></a>
+</div>
+<div class="show-hb-open" style="display:none;" id='hb1' >
+	<img src="static/img/hb/03.png"  usemap="#show-hb-open-map">
+	<a href="index.php?do=user&view=message&op=notice" class=""><img src="static/img/hb/04.png" ></a>
+</div>
+<div class="show-hb-money" id='hb2'  style="">
+	<img src="static/img/hb/01.png"  usemap="#show-hb-money-map">
+	<a href="javascript:get_money();" class=""><img src="static/img/hb/02.png" ></a>
+</div>
+
+<script>
+	function get_money(){
+		$("#hb1").removeAttr("style");
+		$("#hb2").attr("style","display:none;");
+	}
+	function colse(url){
+		$("#hb2").attr("style","display:none;");
+		$("#hb3").attr("style","display:none;");
+		$(".show-hb-mask").removeClass();
+	    var url =url;
+			   $.ajax({
+		  type: "POST",
+		  url: url,
+		});
+	}
+</script>

@@ -1,0 +1,453 @@
+<!--{template header}-->
+<style>
+body{
+	display: none;
+	overflow-x: hidden;
+}
+
+.layout_center{
+	margin: 0px auto;
+	width: 100%;
+	max-width: 1200px;
+}
+
+.clear{
+	clear: both;
+}
+
+.left{
+	float: left;
+	width: 21%;
+	margin-right: 6%;
+}
+
+.min_left{
+	float: none;
+	width: 100%;
+	margin-right: 0px;
+}
+
+.min_left .photo_panel{
+	display: none;
+}
+
+.min_left .album_info{
+	margin-bottom: 0px none;
+}
+
+.min_left .album_info_main{
+	
+}
+
+.min_left .album_info .photo_main{
+	margin-left: 0px;
+}
+
+.min_left .album_info .photo_main h4{
+	margin: 0px;
+    padding: 0px;
+    text-align: center;
+    color: #001324;
+    font-size: 26px;
+	font-weight: bolder;
+}
+
+.min_left .album_info .photo_main div{
+	display: none;
+}
+
+.min_left .album_info .more_panel{
+	margin-top: 2px;
+    padding: 0px 0px 5px;
+    border-bottom: 1px #b8b8b8 solid;
+    font-size: 12px;
+}
+
+.min_left .album_info .more_panel a{
+	float: none;
+	font-size: 12px;
+}
+
+.min_left .album_info .text{
+	margin-top: 10px;
+    font-size: 12px;
+    line-height: 24px;
+    text-indent: 24px;
+}
+
+.album_info{
+    padding-bottom: 14px;
+}
+
+.album_info .photo_panel{
+	float: left;
+	border: 1px #000000 solid;
+	overflow: hidden;
+	
+	border-radius: 5px;
+	-ms-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	-o-border-radius: 5px;
+	-moz-border-radius: 5px;
+}
+
+.album_info .photo_panel img{
+	width: 80px;
+	height: 80px;
+}
+
+.album_info .photo_main{
+	margin-left: 100px;
+}
+
+.album_info .photo_main h4{
+	margin: 0px;
+    padding: 12px 0px;
+	color: #1b619d;
+	font-size: 14px;
+	font-weight: bolder;
+}
+
+.album_info .photo_main div{
+	line-height: 22px;
+    font-size: 13px;
+}
+
+.album_info .text{
+	margin-top: 20px;
+    font-size: 12px;
+    line-height: 30px;
+    text-indent: 24px;
+}
+
+.album_info .more_panel{
+	margin-top: 12px;
+	line-height: 20px;
+}
+
+.album_info .more_panel a{
+	float: left;
+	font-size: 14px;
+}
+
+.list_mery{
+
+}
+
+.list_mery .bimg{
+	position: relative;
+	margin-bottom: 10px;
+}
+
+.list_mery .simg_panel div{
+	width: 49.5%;
+}
+
+.list_mery .simg_panel .left{
+	position: relative;
+	margin-right: 1%;
+	float: left;
+}
+
+.list_mery .simg_panel .right{
+	position: relative;
+	margin-left: 51%;
+}
+
+.list_mery .simg_panel img{
+	margin-bottom: 10px;
+}
+
+.main{
+    margin-left: 27%;
+	width: 73%;
+}
+
+.min_main{
+	margin-left: 0px;
+	width: 100%;
+}
+
+.main h4{
+	margin: 0px 0px 15px 0px;
+	border-bottom: 1px #a0a0a0 solid;
+	text-align: center;
+	color: #1b619d;
+	line-height: 40px;
+}
+
+.min_main h4{
+	display: none;
+}
+
+.share_links.bdsharebuttonbox {
+    position: static;
+    float: right;
+    width: 90px;
+}
+
+.share_links.bdsharebuttonbox a{
+	margin-left: 10px;
+	margin-right: 0px;
+}
+
+.share_links.bdsharebuttonbox a.look_list{
+	background: url(/tpl/default/img/share/look_list.png) center no-repeat;
+}
+
+@media (max-width: 980px){
+	.file_type {
+		margin-left: -12px;
+		margin-top: -10px;
+	}
+}
+</style>
+<script>
+$(function(){
+	$('body').show();
+	init_list();
+	$(window).resize(function(){
+		init_list();
+	});
+	$('#moreButton').click(function(){
+		$(this).parent().prev().css('height', 'auto');
+		$(this).hide();
+	});
+});
+
+function init_list(){
+	var widowsWidth = $(window).width();
+	var bimgWidth = '';
+	var simgWidth = '';
+	if(widowsWidth > 780){
+		$('#leftPanel').removeClass('min_left');
+		$('#mainPanel').removeClass('min_main');
+		$('#mainPanel .text').css('height', 'auto');
+		$('#leftPanel .text').css('height', 'auto');
+		$('#moreButton').hide();
+	} else {
+		$('#leftPanel').addClass('min_left');
+		$('#mainPanel').addClass('min_main');
+		$('#zw').css('height', '10px');
+		$('#leftPanel .text').css('height', '48px').css('overflow', 'hidden');
+		$('#moreButton').show();
+	}
+	bimgWidth = $('#mainPanel').width();
+	simgWidth = (bimgWidth - 10) / 2;
+	$('.simg_panel .left').css('width', simgWidth);
+	$('.simg_panel .right').css('width', simgWidth);
+	//$('.simg_panel .left').css('marginRight', '9px');
+}
+</script>
+<div id="main" >
+	<div class="for-advertise" style="display:none">
+		<!--{ad_show(GOODINFO_HEAD)}-->
+	</div>
+	<div class="goods">
+		<img src="http://view.iyun720.com/pic/236/35039b1ca650d9bc56f6b79d79ee5df5.jpg?r=2016021502" style="visibility: hidden;"/>
+		<iframe src="index.php?do=view&n=f&sid={$sid}" width="100%" height="100%" frameborder="0"></iframe>
+	</div>
+	<div class="layout_center" style="height: 50px;">
+		<div class="bdsharebuttonbox share_links">
+			<a title="分享到腾讯微博" href="javascript:" class="bds_tqq" data-cmd="tqq"></a>									
+			<a title="分享到微信" href="javascript:" class="bds_weixin" data-cmd="weixin"></a>
+		</div>
+	</div>
+	<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+	<div class="layout_center">
+		<div id="zw" class="zw" style="height: 30px;"></div>
+		<div id="leftPanel" class="left">
+			<div class="album_info">
+				<div class="album_info_main">
+					<div class="photo_panel">
+						<!--{userpic($arrSellerInfo['uid'],'larger')}-->
+					</div>
+					<div class="photo_main">
+						<h4>{$albumDatas['name']}</h4>
+						<div>关键词：{$albumDatas['name']}</div>
+					</div>
+					<div class="clear"></div>
+				</div>
+				<div class="text">
+					{$albumDatas['text']}
+				</div>
+				<div class="more_panel"><a id="moreButton" href="javascript:">更多</a></div>
+				<div class="clear"></div>
+			</div>
+		</div>
+		<div id="mainPanel" class="main">
+			<h4>列表</h4>
+			{if $keywordLength > 0}
+			{loop $list $k $v}
+			<div class="list_mery">
+				<div class="bimg">
+					<a href="/index.php?do=goods2&id={$id}&sid={$v[0]['service_id']}">
+						<img alt="$v[0]['title']" onerror='$(this).attr("src","tpl/default/img/shop/shop_default_big2.png")' alt="$v[0]['title']" src="<!--{eval echo @keke_shop_class::output_pics($v[0]['file_path'],210,1,1,$v[0]['service_id'])}-->" f="{$v[0]['file_path']}" asrc="<!--{eval echo @keke_shop_class::output_pics($v[0]['file_path'],210,1,1,$v[0]['service_id'])}-->" >
+						{$v[0]['file_type']}
+					</a>
+				</div>
+				<div class="simg_panel">
+					<div class="left">
+						<a href="/index.php?do=goods2&id={$id}&sid={$v[1]['service_id']}">
+							<img alt="$v[1]['title']" onerror='$(this).attr("src","tpl/default/img/shop/shop_default_big2.png")' alt="$v[1]['title']" src="<!--{eval echo @keke_shop_class::output_pics($v[1]['file_path'],210,1,1,$v[1]['service_id'])}-->"  >
+							{$v[1]['file_type']}
+						</a>
+					</div>
+					<div class="right">
+						<a href="/index.php?do=goods2&id={$id}&sid={$v[2]['service_id']}">
+							<img alt="$v['title']" onerror='$(this).attr("src","tpl/default/img/shop/shop_default_big2.png")' alt="$v[2]['title']" src="<!--{eval echo @keke_shop_class::output_pics($v[2]['file_path'],210,1,1,$v[2]['service_id'])}-->"  >
+							{$v[2]['file_type']}
+						</a>
+					</div>
+					<div class="left">
+						<a href="/index.php?do=goods2&id={$id}&sid={$v[3]['service_id']}">
+							<img alt="$v[3]['title']" onerror='$(this).attr("src","tpl/default/img/shop/shop_default_big2.png")' alt="$v[3]['title']" src="<!--{eval echo @keke_shop_class::output_pics($v[3]['file_path'],210,1,1,$v[3]['service_id'])}-->"  >
+							{$v[3]['file_type']}
+						</a>
+					</div>
+					<div class="right">
+						<a href="/index.php?do=goods2&id={$id}&sid={$v[4]['service_id']}">
+							<img alt="$v[4]['title']" onerror='$(this).attr("src","tpl/default/img/shop/shop_default_big2.png")' alt="$v[4]['title']" src="<!--{eval echo @keke_shop_class::output_pics($v[4]['file_path'],210,1,1,$v[4]['service_id'])}-->"  >
+							{$v[4]['file_type']}
+						</a>
+					</div>
+				</div>
+				
+				<div class="bimg">
+					<a href="/index.php?do=goods2&id={$id}&sid={$v[5]['service_id']}">
+						<img alt="$v[5]['title']" onerror='$(this).attr("src","tpl/default/img/shop/shop_default_big2.png")' alt="$v[5]['title']" src="<!--{eval echo @keke_shop_class::output_pics($v[5]['file_path'],210,1,1,$v[5]['service_id'])}-->"  >
+						{$v[5]['file_type']}
+					</a>
+				</div>
+			</div>
+			
+			{/loop}
+			{/if}
+			{if $listLast == 1}
+				<div class="list_mery">
+					<div class="bimg">
+						<a href="/index.php?do=goods2&id={$id}&sid={$LastArray[0]['service_id']}">
+							<img alt="$LastArray[0]['title']" onerror='$(this).attr("src","tpl/default/img/shop/shop_default_big2.png")' alt="
+								$LastArray[0]['title']" src="<!--{eval echo keke_shop_class::output_pics($LastArray[0]['file_path'],210,1,1,$LastArray[0]['service_id'])}-->
+							"  >
+							{$v[0]['file_type']}
+						</a>
+					</div>
+				</div>
+			{/if}
+			{if $listLast == 2}
+				<div class="list_mery">
+					<div class="simg_panel">
+						<div class="left">
+							<a href="/index.php?do=goods2&id={$id}&sid={$LastArray[0]['service_id']}">
+								<img alt="$LastArray[0]['title']" onerror='$(this).attr("src","tpl/default/img/shop/shop_default_big2.png")' alt="$LastArray[0]['title']" src="<!--{eval echo keke_shop_class::output_pics($LastArray[0]['file_path'],210,1,1,$LastArray[0]['service_id'])}-->"  >
+								{$v[0]['file_type']}
+							</a>
+						</div>
+						<div class="right">
+							<a href="/index.php?do=goods2&id={$id}&sid={$LastArray[1]['service_id']}">
+								<img alt="$LastArray[1]['title']" onerror='$(this).attr("src","tpl/default/img/shop/shop_default_big2.png")' alt="$LastArray[1]['title']" src="<!--{eval echo keke_shop_class::output_pics($LastArray[1]['file_path'],210,1,1,$LastArray[1]['service_id'])}-->"  >
+								{$v[1]['file_type']}
+							</a>
+						</div>
+						<div class="clear"></div>
+					</div>
+				</div>
+			{/if}
+			{if $listLast == 3}
+				<div class="list_mery">
+					<div class="bimg">
+						<a href="/index.php?do=goods2&id={$id}&sid={$LastArray[0]['service_id']}">
+							<img alt="$LastArray[0]['title']" onerror='$(this).attr("src","tpl/default/img/shop/shop_default_big2.png")' alt="$LastArray[0]['title']" src="<!--{eval echo keke_shop_class::output_pics($LastArray[0]['file_path'],210,1,1,$LastArray[0]['service_id'])}-->"  >
+							{$v[0]['file_type']}
+						</a>
+					</div>
+					<div class="simg_panel">
+						<div class="left">
+							<a href="/index.php?do=goods2&id={$id}&sid={$LastArray[1]['service_id']}">
+								<img alt="$LastArray[1]['title']" onerror='$(this).attr("src","tpl/default/img/shop/shop_default_big2.png")' alt="$LastArray[1]['title']" src="<!--{eval echo keke_shop_class::output_pics($LastArray[1]['file_path'],210,1,1,$LastArray[1]['service_id'])}-->"  >
+								{$v[1]['file_type']}
+							</a>
+						</div>
+						<div class="right">
+							<a href="/index.php?do=goods2&id={$id}&sid={$LastArray[2]['service_id']}">
+								<img alt="$LastArray[2]['title']" onerror='$(this).attr("src","tpl/default/img/shop/shop_default_big2.png")' alt="$LastArray[2]['title']" src="<!--{eval echo keke_shop_class::output_pics($LastArray[2]['file_path'],210,1,1,$LastArray[2]['service_id'])}-->"  >
+								{$v[2]['file_type']}
+							</a>
+						</div>
+						<div class="clear"></div>
+					</div>
+				</div>
+			{/if}
+			{if $listLast == 4}
+				<div class="list_mery">
+					<div class="simg_panel">
+						<div class="left">
+							<a href="/index.php?do=goods2&id={$id}&sid={$LastArray[0]['service_id']}">
+								<img alt="$LastArray[0]['title']" onerror='$(this).attr("src","tpl/default/img/shop/shop_default_big2.png")' alt="$LastArray[0]['title']" src="<!--{eval echo keke_shop_class::output_pics($LastArray[0]['file_path'],210,1,1,$LastArray[0]['service_id'])}-->"  >
+								{$v[0]['file_type']}
+							</a>
+						</div>
+						<div class="right">
+							<a href="/index.php?do=goods2&id={$id}&sid={$LastArray[1]['service_id']}">
+								<img alt="$LastArray[1]['title']" onerror='$(this).attr("src","tpl/default/img/shop/shop_default_big2.png")' alt="$LastArray[1]['title']" src="<!--{eval echo keke_shop_class::output_pics($LastArray[1]['file_path'],210,1,1,$LastArray[1]['service_id'])}-->"  >
+								{$v[1]['file_type']}
+							</a>
+						</div>
+						<div class="left">
+							<a href="/index.php?do=goods2&id={$id}&sid={$LastArray[2]['service_id']}">
+								<img alt="$LastArray[2]['title']" onerror='$(this).attr("src","tpl/default/img/shop/shop_default_big2.png")' alt="$LastArray[2]['title']" src="<!--{eval echo keke_shop_class::output_pics($LastArray[2]['file_path'],210,1,1,$LastArray[2]['service_id'])}-->"  >
+								{$v[2]['file_type']}
+							</a>
+						</div>
+						<div class="right">
+							<a href="/index.php?do=goods2&id={$id}&sid={$LastArray[3]['service_id']}">
+								<img alt="$LastArray[3]['title']" onerror='$(this).attr("src","tpl/default/img/shop/shop_default_big2.png")' alt="$LastArray[3]['title']" src="<!--{eval echo keke_shop_class::output_pics($LastArray[3]['file_path'],210,1,1,$LastArray[3]['service_id'])}-->"  >
+								{$v[3]['file_type']}
+							</a>
+						</div>
+						<div class="clear"></div>
+					</div>
+				</div>
+			{/if}
+			{if $listLast == 5}
+				<div class="list_mery">
+					<div class="bimg">
+						<a href="/index.php?do=goods2&id={$id}&sid={$LastArray[0]['service_id']}">
+							<img alt="$LastArray[0]['title']" onerror='$(this).attr("src","tpl/default/img/shop/shop_default_big2.png")' alt="$LastArray[0]['title']" src="<!--{eval echo keke_shop_class::output_pics($LastArray[0]['file_path'],210,1,1,$LastArray[0]['service_id'])}-->"  >
+							{$v[0]['file_type']}
+						</a>
+					</div>
+					<div class="simg_panel">
+						<div class="left">
+							<a href="/index.php?do=goods2&id={$id}&sid={$LastArray[1]['service_id']}">
+								<img alt="$LastArray[1]['title']" onerror='$(this).attr("src","tpl/default/img/shop/shop_default_big2.png")' alt="$LastArray[1]['title']" src="<!--{eval echo keke_shop_class::output_pics($LastArray[1]['file_path'],210,1,1,$LastArray[1]['service_id'])}-->"  >
+								{$v[1]['file_type']}
+							</a>
+						</div>
+						<div class="right">
+							<a href="/index.php?do=goods2&id={$id}&sid={$LastArray[2]['service_id']}">
+								<img alt="$LastArray[2]['title']" onerror='$(this).attr("src","tpl/default/img/shop/shop_default_big2.png")' alt="$LastArray[2]['title']" src="<!--{eval echo keke_shop_class::output_pics($LastArray[2]['file_path'],210,1,1,$LastArray[2]['service_id'])}-->"  >
+								{$v[2]['file_type']}
+							</a>
+						</div>
+						<div class="left">
+							<a href="/index.php?do=goods2&id={$id}&sid={$LastArray[3]['service_id']}">
+								<img alt="$LastArray[3]['title']" onerror='$(this).attr("src","tpl/default/img/shop/shop_default_big2.png")' alt="$LastArray[3]['title']" src="<!--{eval echo keke_shop_class::output_pics($LastArray[3]['file_path'],210,1,1,$LastArray[3]['service_id'])}-->"  >
+								{$v[3]['file_type']}
+							</a>
+						</div>
+						<div class="right">
+							<a href="/index.php?do=goods2&id={$id}&sid={$LastArray[4]['service_id']}">
+								<img alt="$LastArray[4]['title']" onerror='$(this).attr("src","tpl/default/img/shop/shop_default_big2.png")' alt="$LastArray[4]['title']" src="<!--{eval echo keke_shop_class::output_pics($LastArray[4]['file_path'],210,1,1,$LastArray[4]['service_id'])}-->"  >
+								{$v[4]['file_type']}
+							</a>
+						</div>
+						<div class="clear"></div>
+					</div>
+				</div>
+			{/if}
+		</div>
+	</div>
+</div>
+<!--{template footer}-->

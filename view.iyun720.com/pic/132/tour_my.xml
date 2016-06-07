@@ -1,0 +1,253 @@
+<krpano version="1.19" title="Virtual Tour">
+
+	<include url="http://view.iyun720.com/pic/132/skin/vtourskin.xml" />
+
+
+	<!-- customize skin settings: maps, gyro, thumbnails, tooltips, layout, design, ... -->
+	<skin_settings maps="true"
+	               maps_type="bing"
+	               maps_bing_api_key=""
+	               maps_zoombuttons="false"
+	               gyro="true"
+	               littleplanetintro="true"
+	               title="true"
+	               thumbs="true"
+	               thumbs_width="120" thumbs_height="80" thumbs_padding="10" thumbs_crop="0|40|240|160"
+	               thumbs_opened="false"
+	               thumbs_text="false"
+	               thumbs_dragging="true"
+	               thumbs_onhoverscrolling="false"
+	               thumbs_scrollbuttons="false"
+	               thumbs_scrollindicator="false"
+	               thumbs_loop="false"
+	               tooltips_buttons="false"
+	               tooltips_thumbs="false"
+	               tooltips_hotspots="false"
+	               tooltips_mapspots="false"
+	               deeplinking="false"
+	               loadscene_flags="MERGE"
+	               loadscene_blend="OPENBLEND(0.5, 0.0, 0.75, 0.05, linear)"
+	               loadscene_blend_prev="SLIDEBLEND(0.5, 180, 0.75, linear)"
+	               loadscene_blend_next="SLIDEBLEND(0.5,   0, 0.75, linear)"
+	               loadingtext="loading..."
+	               layout_width="100%"
+	               layout_maxwidth.normal="900"
+	               layout_maxwidth.mobile=""
+	               controlbar_width.normal="-44"
+	               controlbar_width.mobile="100%"
+	               controlbar_height.normal="38"
+	               controlbar_height.mobile="34"
+	               controlbar_offset.normal="22"
+	               controlbar_offset.mobile="0"
+	               controlbar_offset_closed="-40"
+	               controlbar_overlap.normal="7"
+	               controlbar_overlap.mobile="2"
+	               design_skin_images="vtourskin.png"
+	               design_bgcolor="0x000000"
+	               design_bgalpha="0.5"
+	               design_bgborder="0 0xFFFFFF 1.0"
+	               design_bgroundedge.normal="9"
+	               design_bgroundedge.mobile="1"
+	               design_bgshadow="0 0 9 0xFFFFFF 0.5"
+	               design_thumbborder_bgborder="4 0xFFFFFF 1.0"
+	               design_thumbborder_padding="2"
+	               design_thumbborder_bgroundedge="5"
+	               design_text_css="color:#FFFFFF; font-family:Arial; font-weight:bold;"
+	               design_text_shadow="1"
+	               />
+
+	<!--
+	    For an alternative skin design either change the <skin_settings> values 
+	    from above or optionally include one of the predefined designs from below.
+	    Either by removing the 'xml-if-check' from the particular <include> element
+	    or by adding e.g. initvar:{design:'flat_light'} to the embedpano() call in
+	    the html file:
+	-->
+	<include url="http://view.iyun720.com/pic/132/skin/vtourskin_design_glass.xml"       if="design === 'glass'"       />
+	<include url="http://view.iyun720.com/pic/132/skin/vtourskin_design_flat.xml"        if="design === 'flat'"        />
+	<include url="http://view.iyun720.com/pic/132/skin/vtourskin_design_flat_light.xml"  if="design === 'flat_light'"  />
+	<include url="http://view.iyun720.com/pic/132/skin/vtourskin_design_ultra_light.xml" if="design === 'ultra_light'" />
+	<include url="http://view.iyun720.com/pic/132/skin/vtourskin_design_117.xml"         if="design === '117'"         />
+	
+	<autorotate enabled="true" waittime="1.0" speed="-3.0" horizon="0.0" tofov="120.0" />
+
+	<!-- startup action - load the first pano/scene -->
+	<action name="startup" autorun="onstart">
+		if(startscene === null OR !scene[get(startscene)], copy(startscene,scene[0].name); );
+		loadscene(get(startscene), null, MERGE);
+		if(startactions !== null, startactions() );
+	</action>
+
+	<scene name="scene_shiminzhongxin_HDR" title="市民中心" onstart="" thumburl="panos/shiminzhongxin_HDR.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="-22.479" vlookat="17.863" fovtype="MFOV" fov="97.331" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/shiminzhongxin_HDR.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/shiminzhongxin_HDR.tiles/pano_%s.jpg" />
+			<mobile>
+				<cube url="panos/shiminzhongxin_HDR.tiles/mobile_%s.jpg" />
+			</mobile>
+		</image>
+
+		<!-- place your scene hotspots here -->
+		<hotspot name="spot1" style="skin_hotspotstyle" ath="42.388" atv="-17.047" linkedscene="scene_youtinghui_hdr" />
+		<hotspot name="spot2" style="skin_hotspotstyle" ath="36.075" atv="-3.186" linkedscene="scene_yurenmatou_hdr" />
+		<hotspot name="spot3" style="skin_hotspotstyle" ath="42.216" atv="-3.761" linkedscene="scene_haishangshijie_hdr" />
+		<hotspot name="spot4" style="skin_hotspotstyle" ath="58.309" atv="-4.347" linkedscene="scene_shijiezhichuang_2hdr" />
+		<hotspot name="spot5" style="skin_hotspotstyle" ath="58.610" atv="1.663" linkedscene="scene_futian_cbd" />
+		<hotspot name="spot6" style="skin_hotspotstyle" ath="69.250" atv="-5.249" linkedscene="scene_nantou_hdr" />
+		<hotspot name="spot7" style="skin_hotspotstyle" ath="-114.022" atv="-1.541" linkedscene="scene_luohu_hdr" />
+
+	</scene>
+	
+	<scene name="scene_futian_CBD" title="福田" onstart="" thumburl="panos/futian_CBD.tiles/thumb.jpg" lat="22.53896806" lng="114.04526722" heading="0.0">
+
+		<view hlookat="0" vlookat="0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/futian_CBD.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/futian_CBD.tiles/pano_%s.jpg" />
+			<mobile>
+				<cube url="panos/futian_CBD.tiles/mobile_%s.jpg" />
+			</mobile>
+		</image>
+
+		<!-- place your scene hotspots here -->
+		
+		<hotspot name="spot2" style="skin_hotspotstyle" ath="20.841" atv="-6.636" linkedscene="scene_haishangshijie_hdr" />
+		<hotspot name="spot3" style="skin_hotspotstyle" ath="-150.335" atv="-3.460" linkedscene="scene_luohu_hdr" />
+		<hotspot name="spot4" style="skin_hotspotstyle" ath="-162.032" atv="-3.184" linkedscene="scene_shiminzhongxin_hdr" />
+		<hotspot name="spot5" style="skin_hotspotstyle" ath="34.435" atv="-4.848" linkedscene="scene_shijiezhichuang_2hdr" />
+
+	</scene>
+
+	<scene name="scene_haishangshijie_hdr" title="海上世界" onstart="" thumburl="panos/haishangshijie_hdr.tiles/thumb.jpg" lat="22.48556472" lng="113.91259472" heading="0.0">
+
+		<view hlookat="0" vlookat="0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/haishangshijie_hdr.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/haishangshijie_hdr.tiles/pano_%s.jpg" />
+			<mobile>
+				<cube url="panos/haishangshijie_hdr.tiles/mobile_%s.jpg" />
+			</mobile>
+		</image>
+
+		<!-- place your scene hotspots here -->
+		<hotspot name="spot1" style="skin_hotspotstyle" ath="-37.154" atv="5.095" linkedscene="scene_youtinghui_hdr" />
+		<hotspot name="spot2" style="skin_hotspotstyle" ath="165.092" atv="-5.462" linkedscene="scene_nantou_hdr" />
+		<hotspot name="spot3" style="skin_hotspotstyle" ath="-161.448" atv="-4.124" linkedscene="scene_shijiezhichuang_2hdr" />
+		<hotspot name="spot4" style="skin_hotspotstyle" ath="-138.022" atv="-6.213" linkedscene="scene_shiminzhongxin_hdr" />
+		<hotspot name="spot5" style="skin_hotspotstyle" ath="-115.839" atv="-0.518" linkedscene="scene_yurenmatou_hdr" />
+		<hotspot name="spot6" style="skin_hotspotstyle" ath="-125.707" atv="-5.974" linkedscene="scene_luohu_hdr" />
+
+	</scene>
+
+	<scene name="scene_luohu_HDR" title="罗湖" onstart="" thumburl="panos/luohu_HDR.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="42.402" vlookat="3.065" fovtype="MFOV" fov="69.443" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/luohu_HDR.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/luohu_HDR.tiles/pano_%s.jpg" />
+			<mobile>
+				<cube url="panos/luohu_HDR.tiles/mobile_%s.jpg" />
+			</mobile>
+		</image>
+
+		<!-- place your scene hotspots here -->
+		<hotspot name="spot1" style="skin_hotspotstyle" ath="23.047" atv="-3.074" linkedscene="scene_shiminzhongxin_hdr" />
+		<hotspot name="spot2" style="skin_hotspotstyle" ath="17.534" atv="-5.624" linkedscene="scene_shijiezhichuang_2hdr" />
+
+	</scene>
+
+	<scene name="scene_nantou_hdr" title="南头" onstart="" thumburl="panos/nantou_hdr.tiles/thumb.jpg" lat="22.54325861" lng="113.91915361" heading="0.0">
+
+		<view hlookat="0" vlookat="0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/nantou_hdr.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/nantou_hdr.tiles/pano_%s.jpg" />
+			<mobile>
+				<cube url="panos/nantou_hdr.tiles/mobile_%s.jpg" />
+			</mobile>
+		</image>
+
+		<!-- place your scene hotspots here -->
+		<hotspot name="spot1" style="skin_hotspotstyle" ath="29.684" atv="-1.103" linkedscene="scene_yurenmatou_hdr" />
+		<hotspot name="spot2" style="skin_hotspotstyle" ath="38.873" atv="-1.590" linkedscene="scene_haishangshijie_hdr" />
+		<hotspot name="spot3" style="skin_hotspotstyle" ath="-57.593" atv="-0.238" linkedscene="scene_shijiezhichuang_2hdr" />
+		<hotspot name="spot4" style="skin_hotspotstyle" ath="-52.123" atv="-5.232" linkedscene="scene_shiminzhongxin_hdr" />
+		<hotspot name="spot5" style="skin_hotspotstyle" ath="-62.418" atv="-8.572" linkedscene="scene_luohu_hdr" />
+
+	</scene>
+
+	<scene name="scene_shijiezhichuang_2HDR" title="世界之窗" onstart="" thumburl="panos/shijiezhichuang_2HDR.tiles/thumb.jpg" lat="22.53956778" lng="113.97048972" heading="0.0">
+
+		<view hlookat="0" vlookat="0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/shijiezhichuang_2HDR.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/shijiezhichuang_2HDR.tiles/pano_%s.jpg" />
+			<mobile>
+				<cube url="panos/shijiezhichuang_2HDR.tiles/mobile_%s.jpg" />
+			</mobile>
+		</image>
+
+		<!-- place your scene hotspots here -->
+		<hotspot name="spot1" style="skin_hotspotstyle" ath="17.335" atv="-6.485" linkedscene="scene_nantou_hdr" />
+		<hotspot name="spot2" style="skin_hotspotstyle" ath="-44.907" atv="-2.210" linkedscene="scene_haishangshijie_hdr" />
+		<hotspot name="spot3" style="skin_hotspotstyle" ath="-48.393" atv="-1.792" linkedscene="scene_yurenmatou_hdr" />
+		<hotspot name="spot4" style="skin_hotspotstyle" ath="-168.920" atv="-4.341" linkedscene="scene_luohu_hdr" />
+		<hotspot name="spot5" style="skin_hotspotstyle" ath="-175.603" atv="-3.044" linkedscene="scene_shiminzhongxin_hdr" />
+
+	</scene>
+
+	<scene name="scene_youtinghui_HDR" title="深圳湾游艇会" onstart="" thumburl="panos/youtinghui_HDR.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="0" vlookat="0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/youtinghui_HDR.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/youtinghui_HDR.tiles/pano_%s.jpg" />
+			<mobile>
+				<cube url="panos/youtinghui_HDR.tiles/mobile_%s.jpg" />
+			</mobile>
+		</image>
+
+		<!-- place your scene hotspots here -->
+		<hotspot name="spot1" style="skin_hotspotstyle" ath="155.643" atv="-12.446" linkedscene="scene_haishangshijie_hdr" />
+		<hotspot name="spot2" style="skin_hotspotstyle" ath="-143.321" atv="-7.410" linkedscene="scene_yurenmatou_hdr" />
+
+	</scene>
+
+	<scene name="scene_yurenmatou_HDR" title="蛇口渔人码头" onstart="" thumburl="panos/yurenmatou_HDR.tiles/thumb.jpg" lat="22.48539778" lng="113.92258250" heading="0.0">
+
+		<view hlookat="0" vlookat="0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/yurenmatou_HDR.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/yurenmatou_HDR.tiles/pano_%s.jpg" />
+			<mobile>
+				<cube url="panos/yurenmatou_HDR.tiles/mobile_%s.jpg" />
+			</mobile>
+		</image>
+
+		<!-- place your scene hotspots here -->
+		<hotspot name="spot1" style="skin_hotspotstyle" ath="-33.481" atv="-7.377" linkedscene="scene_nantou_hdr" />
+		<hotspot name="spot2" style="skin_hotspotstyle" ath="8.600" atv="-8.786" linkedscene="scene_shijiezhichuang_2hdr" />
+		<hotspot name="spot3" style="skin_hotspotstyle" ath="44.545" atv="-8.151" linkedscene="scene_shiminzhongxin_hdr" />
+
+	</scene>
+
+
+</krpano>

@@ -1,0 +1,74 @@
+<!--{template ADMIN_DIRECTORY/tpl/admin_header}-->  
+    <div class="box list">
+    	<div class="title"><h2>{$_lang['case_search']}</h2></div>
+        <div class="detail">
+        	<form action="" id='from1' method="post">
+               <div id="ajax_dom">
+               <input type="hidden" value="1" name="is_submit" id="is_submit">
+			    <input type="hidden" value="{$_R[id]}" name="ones" id="ones">
+				 <input type="hidden" value="{$page}" name="page" id="page">
+               <table cellpadding="0" cellspacing="0">
+                <tbody>
+                	<tr>一级</tr></br>
+					<tr>
+						<select name="onecity" id="onecity" >
+							{loop $one $val}
+							<option value="{$val['id']}" {if $_R['Upid1']==$val['id']} selected="selected" {/if} onclick="city();">{$val['name']}</option>
+							{/loop}
+						</select>
+						</tr></br>
+					<tr>二级</tr></br>
+					<tr>
+						
+						<select name="twocity" id="twocity">
+							<option value="{$cnm[id]}">{$cnm[name]}</option>
+						</select>
+						
+					</tr></br>
+						<tr>三级</tr></br>
+					<tr>
+					   <input type="text" value="" name="threecity" id="threecity" class="txt" msgArea="txt_username_msg" msg="请输出地区" limit="required:true"  >
+					   <span id="txt_username_msg"></span>
+					</tr>
+					<td><button  onclick="return sd()">提交 </button></td>
+					</tr>
+                </tbody>
+              </table>
+			  </div>
+        	</form>
+        </div>       
+    </div>
+	<script text="text/javascript">
+		function city(){
+			 var one=$("#onecity").val();
+			 $.ajax({
+				   type: "POST",
+				   url: "{$url}&fc=1&one="+one,
+				   success: function(msg){
+				   	$("#twocity").empty();
+				   	$("#twocity").append(msg);
+				   }
+				});	
+		}
+		function sd(){
+			if(!checkForm(document.getElementById('from1'))){
+				return false;
+			}
+			var is_submit=$("#is_submit").val();
+			var twocity=$("#twocity").val();
+			var threecity=$("#threecity").val();
+			var ones=$("#ones").val();
+			var page=$("#page").val();
+			var onecity=$("#onecity").val();
+			art.dialog.data('ispass','ok');
+			art.dialog.data('ones',ones);
+			art.dialog.data('threecity',threecity);
+			art.dialog.data('page',page);
+			art.dialog.data('is_submit',is_submit);
+			art.dialog.data('onecity',onecity);
+			art.dialog.data('twocity',twocity);
+			art.dialog.close();
+			
+		}
+	</script>
+<!--{template ADMIN_DIRECTORY/tpl/admin_footer}-->

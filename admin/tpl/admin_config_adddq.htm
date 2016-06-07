@@ -1,0 +1,36 @@
+<!--{template ADMIN_DIRECTORY/tpl/admin_header}-->  
+    <div class="box list">
+    	<div class="title"><h2>{$_lang['case_search']}</h2></div>
+        <div class="detail">
+        	<form action="" id='from1' method="post">
+               <div id="ajax_dom">
+               <input type="hidden" value="1" name="is_submit" id="is_submit">
+               <table cellpadding="0" cellspacing="0">
+                <tbody>
+                	<tr>一级</tr></br>
+					<tr>
+					   <input type="text" value="" name="one" id="one" class="txt"  msgArea="txt_username_msg" msg="请输入地区" limit="required:true">
+					   <span id="txt_username_msg"></span>
+					</tr>
+					<td><button  onclick="return sd()">提交 </button></td>
+					</tr>
+                </tbody>
+              </table>
+			  </div>
+        	</form>
+        </div>       
+    </div>
+	<script text="text/javascript">
+		function sd(){
+			if(!checkForm(document.getElementById('from1'))){
+				return false;
+			}
+				var is_submit=$("#is_submit").val();
+				var one=$("#one").val();
+					art.dialog.data('ispass','ok');
+					art.dialog.data('is_submit',is_submit);
+					art.dialog.data('one',one);
+					art.dialog.close();
+		}
+	</script>
+<!--{template ADMIN_DIRECTORY/tpl/admin_footer}-->

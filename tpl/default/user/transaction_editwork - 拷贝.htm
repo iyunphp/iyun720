@@ -1,0 +1,307 @@
+<div class="modal-body">
+	<form role="form" action="{$strUrl}" method="post" class="form-horizontal" name="editWorkForm" id="editWorkForm">
+          	<input type="hidden" name="formhash" id="formhash" value="{FORMHASH}">
+			<input type="hidden" name="objId"  value="{$objId}">
+			<input type="hidden" name="pk[service_id]"  value="{$arrServiceInfo['service_id']}">
+
+            <div class="form-group">
+              <label class="col-sm-2 control-label" for="goodsname">{$strServiceName}名称：</label>
+                <div class="col-sm-8 row">
+                  <input type="text"  name="goodsname" id="goodsname"  class="form-control" value="{$arrServiceInfo['title']}">
+                </div>
+            </div> <!--改造-->
+			{loop $arrCustomInfo $k $v}         
+            
+{if $v['listorder'] > 0}
+<div class="form-group">
+	<label for="txt_title" class="col-sm-2 control-label">
+		{$v['f_name']} {if $v['f_required'] =='1'}
+		<span class="text-danger">*</span>
+		{/if}
+	</label>
+	<div class="col-sm-7">
+    {if $v["f_warning_select"]==1}  
+    	<select id="{$v['f_code']}" name="extdata[]" class="form-control" >
+    	{loop $v['f_warning'] $view_type_k $type_v}
+        	<option value="{$type_v}"{if $v['extdata']==$type_v} selected="selected"{/if}>{$type_v}</option>
+        {/loop}
+        </select>		
+    {elseif $v['f_code']=='view_music'}
+		<div id="picker_3">上传音乐</div>
+    	<input type="text" class="form-control" id="{$v['f_code']}" name="extdata[]" minlength="{$v['f_min_len']}" placeholder="请输入{$v['f_name']}" value="{$v['extdata']}" maxlength="{if $v['f_fixed_len']}{$v['f_fixed_len']} {else} {if $v['f_max_len']}{$v['f_max_len']}{else}255{/if}{/if}" />
+        
+    {else}
+    	<input type="text" class="form-control" id="{$v['f_code']}" name="extdata[]" minlength="{$v['f_min_len']}" placeholder="请输入{$v['f_name']}" value="{$v['extdata']}" maxlength="{if $v['f_fixed_len']}{$v['f_fixed_len']} {else} {if $v['f_max_len']}{$v['f_max_len']}{else}255{/if}{/if}" >
+    {/if}    
+	</div>
+	<div class="col-sm-3">
+		<p class="form-control-static">{$v['f_tips']}{if $v['f_fixed_len']} {$v['f_fixed_len']}字符{else} {if $v['f_min_len']}{$v['f_min_len']}{/if}{if $v['f_max_len']}-{$v['f_max_len']}{/if}{if $v['f_min_len']}字符{/if}{/if}</p>
+	</div>
+</div>
+{else}
+<input type="hidden" class="form-control" id="{$v['f_code']}" name="extdata[]" minlength="{$v['f_min_len']}" placeholder="请输入{$v['f_name']}" value="{$v['extdata']}" maxlength="{if $v['f_fixed_len']}{$v['f_fixed_len']} {else} {if $v['f_max_len']}{$v['f_max_len']}{else}255{/if}{/if}" >
+{/if}<input type="hidden" name="id[]" value="{$v['id']}">
+            
+                                  
+			{/loop}<!--改造完毕-->   
+            
+            
+		    <div class="form-group">
+              <label class="col-sm-2 control-label" for="goodsdesc">{$strServiceName}描述：</label>
+              <div class="col-sm-8 row">
+                 <textarea id="goodsdesc" name="goodsdesc" rows="10" class=" ">{$arrServiceInfo['content']}</textarea>
+              </div>
+            </div>
+
+
+           <div class="form-group">
+              <label class="col-sm-2 control-label">所属行业：</label>
+                   <div class="col-sm-4">
+                   <select class="form-control" name="indus_pid" id="indus_pid" onchange="getIndustry(this.value,'indus_id')">
+                     <option value="-1">请选择父行业</option>
+                     {loop $arrTopIndustrys $v}
+                     	<option value="{$v['indus_id']}" {if $arrTaskInfo['indus_pid'] ==$v['indus_id']||$arrServiceInfo['indus_pid'] ==$v['indus_id']} selected="selected"{/if}>
+                     	{$v['indus_name']}
+                     	</option>
+                     {/loop}
+                   </select>
+                 </div>
+                 <div class="col-sm-4">
+                   <select class="form-control" name="indus_id" id="indus_id">
+                     <option value="-1">请选择子行业</option>
+                     {if $arrTaskInfo['indus_id']||$arrServiceInfo['indus_id']}
+                      {loop $arrAllIndustrys $v}
+							<option value="{$v['indus_id']}" {if $arrTaskInfo['indus_id'] == $v['indus_id']||$arrServiceInfo['indus_id'] ==$v['indus_id']} selected="selected"{/if}>
+							{$v['indus_name']}
+							</option>
+                      {/loop}
+                     {/if}
+                   </select>
+                 </div>
+                 <div class="col-sm-offset-2 col-sm-8">
+                   <span class="help-block"></span>
+                 </div>
+           </div>
+            <div class="form-group">
+              <label class="col-sm-2 control-label" for="picker">上传图片：</label>
+                <div class="col-sm-8">
+                <div id="picker_1">上传附件</div>
+                	  <!-- <input type="file" id="upload" name="upload"> -->
+					  <p class="form-control-static">最多5个附件，每个附件不得超过{$basic_config['max_size']}M。</p>
+				  <input type="hidden"  name="fileid_1"  id="fileid_1">
+	              <input type="hidden"  name="file_ids" id="file_ids"  class="form-control" value="{$arrServiceInfo['pic']}">
+					 <!-- <img id="imagePreview" src="{$arrServiceInfo['pic']}" {if !$arrServiceInfo['pic']}class="hidden"{/if} width="100px;" height="100px;"> -->
+                </div>
+            </div>
+			<div class="form-group ">
+            <div class="col-sm-offset-2 col-sm-6">
+              <ul class="affix-list upload-file-list-info" id="editfileList_1">
+				{if !empty($arrImageLists)}
+	              {loop $arrImageLists $v}
+	              	<li class="affix-list-item" delete-image-id="{$v['file_id']}">{$v['file_name']}
+	              	<a href="javascript:void(0);" delete-image-id="{$v['file_id']}" data-class="delete-image">删除</a></li>
+	              {/loop}
+              {/if}
+              </ul>
+              <ul class="affix-list upload-file-list-info" id="fileList_1"></ul>
+            </div>
+          </div>
+
+            <div class="form-group">
+            <label for="goodsprice" class="col-sm-2 control-label">出售价格 ：</label>
+            <div class="col-sm-4">
+              <div class="input-group">
+                <span class="input-group-addon">￥</span>
+                <input type="text" class="form-control" id="goodsprice" name="goodsprice" placeholder="出售价格" value="{$arrServiceInfo['price']}">
+              </div>
+		        </div>
+            <div class="col-sm-4">
+				    <select name="unite_price" id="unite_price" class="form-control">
+                    {loop $arrPriceUnit $v}<option value="{$v}" {if $arrServiceInfo['unite_price']==$v}selected{/if}>/{$v} </option>
+                    {/loop}
+                </select>
+            </div>
+       		</div>
+{if $arrServiceInfo['model_id'] == '7'}
+
+
+<div class="form-group">
+            <label for="service_time" class="col-sm-2 control-label">完成时间 ：</label>
+            <div class="col-sm-3">
+               <input type="text" class="form-control" id="service_time" name="service_time" placeholder="承诺完成时间" value="{$arrServiceInfo['service_time']}">
+            </div>
+			<div class="col-sm-3">
+				<select name="unit_time" id="unit_time" class="form-control">
+						{loop $arrServiceUnit $v}
+							<option value="{$v}" {if $arrServiceInfo['unit_time']==$v}selected{/if}>{$v}</option>
+						{/loop}
+           		</select>
+            </div>
+       </div>
+
+{else}
+            <div class="form-group">
+            <label for="submit_method" class="col-sm-2 control-label">交付方式 ：</label>
+            <div class="col-sm-8 row">
+              <input class="border_n" type="radio" id="pay_out" name="submit_method" value="outside" {if $arrServiceInfo['submit_method']=='outside' ||!$arrServiceInfo['submit_method']}checked{/if}>
+                <label for="pay_out">
+                    联系客服
+                </label>
+                <input class="border_n" type="radio" id="pay_down" name="submit_method" value="inside" {if $arrServiceInfo['submit_method']=='inside'}checked{/if}>
+                <label for="pay_down">
+                    直接下载
+                </label>
+            </div>
+
+       </div>
+       <div class="form-group" id="submit_method">
+            <label for="upload" class="col-sm-2 control-label">{$strServiceName}源件：</label>
+            <div class="col-sm-3">
+              <p class="form-control-static">
+              	  <div id="picker_2">上传附件</div>
+	              <!-- <input type="file" id="file_upload_i" name="file_upload_i"> -->
+	              <input type="hidden"  name="fileid_2"  id="fileid_2">
+	              <input type="hidden"  name="file_path_2" id="file_path_2"  class="form-control" value="{$arrServiceInfo['file_path']}">
+              </p>
+            </div>
+            <div class="col-sm-7">
+              <p class="form-control-static">最多1个附件，不得超过{$basic_config['max_size']}M。</p>
+			   <p class="hidden" style="color: red" id="">请上传{$strServiceName}源件</p>
+            </div>
+
+          </div>
+          <!-- 上传附件 end -->
+
+          <div class="form-group ">
+            <div class="col-sm-offset-2 col-sm-6">
+              <ul class="affix-list upload-file-list-info" id="editfileList_2">
+				{if !empty($arrFileLists)}
+	              {loop $arrFileLists $v}
+	              	<li class="affix-list-item" delete-goodsfile-id="{$v['file_id']}">{$v['file_name']}
+	              	<a href="javascript:void(0);" delete-goodsfile-id="{$v['file_id']}" data-class="delete-goodsfile">删除</a></li>
+	              {/loop}
+              {/if}
+              </ul>
+              <ul class="affix-list upload-file-list-info" id="fileList_2"></ul>
+            </div>
+          </div>
+
+
+{/if}
+            <div class="form-group">
+              <div class="col-sm-offset-2 col-sm-10">
+                <button class="btn btn-default" type="submit" value="1" onclick="return isNextChecked();" >确定</button>
+                <span class="text-success" id="tipsUser"></span>
+              </div>
+            </div>
+          </form>
+          </div>
+          
+          <link rel="stylesheet" type="text/css" href="static/js/webuploader/webuploader.css">
+				<script type="text/javascript" src="static/js/webuploader/webuploader.js?r={RANDOM_PARA}"></script>
+				<script type="text/javascript" src="static/js/webuploader/kppw.webuploader.js"></script>
+				<script type="text/javascript">
+				var uploadsize = parseInt("{$basic_config['max_size']}");
+					uploadsize =  isNaN(uploadsize)? 1 : uploadsize;
+					$(function(){
+						var uploadsize = parseInt("{$basic_config['max_size']}");
+							uploadsize =  isNaN(uploadsize)? 1 : uploadsize;
+						$("#picker_1").KKUploader({
+							accept: {
+								extensions : '{$strExtTypes}'
+							},
+							fileNumLimit:5,
+							separator:',',
+							fileSingleSizeLimit:uploadsize*1024*1024,
+							hiddenName: 'file_ids',
+							hiddenValType: 2,
+							listName: 'fileList_1',
+							editListName: 'editfileList_1'
+						},
+						{
+							filename : 'file',
+							fileType : 'service'
+						});
+						
+					
+						$("#picker_2").KKUploader({
+							accept: {
+								extensions : '{$strExtTypes}'
+							},
+							fileNumLimit:1,
+							uploadEvents: {
+								uploadComplete:function(file){
+									var url = $("#"+file.id).find('.webuploader-pick-file-close').attr('data-fileurl');
+									$("#file_path_2").val(url);
+									$("#fileList_file_path_2").append('<li class="affix-list-item">'+json.msg.name+'</li>');
+								}
+							},
+							//separator:'|',
+							hiddenName: 'file_path_2',
+							hiddenValType: 2,
+							fileSingleSizeLimit:uploadsize*1024*1024,
+							listName: 'fileList_2',
+							editListName : 'editfileList_2'
+						},
+						{
+							filename : 'file',
+							fileType:'service'
+						});
+						
+						//改造官方上传插件 背景音乐
+						$("#picker_3").KKUploader({
+							accept: {
+								extensions : 'mp3'
+							},
+							fileNumLimit:1,
+							uploadEvents: {
+								uploadComplete:function(file){
+									var url = $("#"+file.id).find('.webuploader-pick-file-close').attr('data-fileurl');
+									$("#file_path_3").val(url);
+									$("#fileList_file_path_3").append('<li class="affix-list-item">'+json.msg.name+'</li>');
+								}
+							},
+							//separator:'|',
+							hiddenName: 'file_path_3',
+							hiddenValType: 2,
+							fileSingleSizeLimit:uploadsize*1024*1024,
+							listName: 'fileList_3',
+							editListName : 'editfileList_3'
+						},
+						{
+							filename : 'file',
+							fileType:'service'
+						});
+						
+					});
+				</script>
+          
+          
+          <script src="static/js/model/user/editwork.js"></script>
+          <script type="text/javascript">
+			var strUrl = "{$strUrl}";
+			var splitStr = ",";
+			window.UEDITOR_HOME_URL = "{$basic_config['website_url']}/static/js/ueditor/"; 
+		  </script>
+		  <script type="text/javascript" src="static/js/ueditor/ueditor.config.js"></script>
+			<!-- 编辑器源码文件 -->
+			<script type="text/javascript" src="static/js/ueditor/ueditor.all.min.js"></script>
+			<script type="text/javascript" src="static/js/ueditor/lang/zh-cn/zh-cn.js"></script>
+			<!-- 实例化编辑器 -->
+			<script type="text/javascript">
+				var ue = UE.getEditor('goodsdesc', {
+					//这里可以选择自己需要的工具按钮名称,此处仅选择如下五个
+					initialFrameWidth : '100%',
+					initialFrameHeight : '200',
+					toolbars: [[
+								'source', '|', 'undo', 'redo', '|',
+								'bold', 'italic', 'underline',  'superscript', 'subscript', 'removeformat',  'pasteplain', '|', 'forecolor', 'backcolor', 'cleardoc', '|',
+								'customstyle', 'paragraph', 'fontfamily', 'fontsize', '|',
+								'touppercase', 'tolowercase', '|',
+								'emotion','wordimage',
+					            'simpleupload'
+					]]
+				});
+			</script>
+
+

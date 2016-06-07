@@ -1,0 +1,211 @@
+<!--{template ADMIN_DIRECTORY/tpl/admin_header}-->
+<div class="page_title">
+    	<h1>热词管理&nbsp<a href="http://bbs.kppw.cn/bbs_redirect.php?c=5" target="_blank" style="color:red;font-size:small;">这是什么？</a></h1><br>
+		<input type="radio" name="switch" value="open" id="open" {if $arrHw[0][v] == 'open'} checked="checked" {/if} onchange="switchStatus(this)">开启
+		<input type="radio" name="switch" value="close" id="close"  {if $arrHw[0][v] == 'close'} checked="checked" {/if}  onchange="switchStatus(this)">关闭
+		<br>
+		<h2>搜索模式</h2>
+		<input type="radio" name="update" value="auto" id="auto" {if $arrUpdate[0][v] == 'auto'} checked="checked" {/if} onchange="autoUpdate(this)" >自动更新
+		<input type="radio" name="update" value="handle" id="handle" {if $arrUpdate[0][v] == 'handle'} checked="checked" {/if} onchange="autoUpdate(this)" >手动更新
+</div>
+<div class="box clearfix" id = "body">
+<form method="post" action="#" id="frm_hw_search">
+	<input type="hidden" name="do" value="{$do}">
+	<input type="hidden" name="view" value="{$view}">
+	<div class="box search p_relative">
+    	<div class="title"><h2>{$_lang['search']}</h2></div>
+    	<div class="detail" id="detail">
+    		<table cellspacing="0" cellpadding="0">
+				<tbody>
+					<tr>
+						<th>请输入编号</th>
+						<td>
+							<input type="text" class="txt" name="id" value="{$id}">
+						</td>
+						<th>请输入名称</th>
+						<td>
+							<input type="text" class="txt" name="title" value="{$title}">
+						</td>
+						<th>排序</th>
+						<td >
+						<select name="ord">
+                			<option value="1" {if $ord=='1'}selected="selected"{/if}>按编号升序</option>
+                			<option value="2" {if $ord=='2'}selected="selected"{/if}>按编号降序</option>
+                			<option value="3" {if $ord=='3'}selected="selected"{/if}>搜索量升序</option>
+							<option value="4" {if $ord=='4'}selected="selected"{/if}>搜索量降序</option>
+            			</select>
+           				<button class="pill" type="submit" value={$_lang['search']} name="sbt_search">
+								<span class="icon magnifier">&nbsp;</span>{$_lang['search']}
+							</button>
+						</td>
+					</tr>
+           		</tbody>
+			</table>
+    	</div>
+    </div>
+</form>
+<form method="post" action="#" id="frm_hw_add" onsubmit=" return validate_form(this)">
+	<input type="hidden" name="do" value="{$do}">
+	<input type="hidden" name="view" value="{$view}">
+	<div class="box search p_relative">
+    	<div class="detail" id="detail">
+    		<table cellspacing="0" cellpadding="0">
+				<tbody>
+					<tr>
+						<th>热词名称</th>
+						<td>
+							<input type="text" class="txt" name="words_add" id = "words_add">
+						</td>
+						<th>次数</th>
+						<td>
+							<input type="text" class="txt" name="count_add" id ="count_add">
+						</td>
+						<td>
+           				<button class="pill" type="submit" value="添加" name="sbt_add">
+								<span class="icon magnifier">&nbsp;</span>添加
+							</button>
+						</td>
+					</tr>
+           		</tbody>
+			</table>
+    	</div>
+    </div>
+</form>
+<div class="box list clearfix">
+<form method="post" action="index.php?do=tpl&view=hotwords" name="frm_hotwords" id="frm_hotwords">
+<div class="title"><h2>动态列表</h2></div>
+    <div class="detail">
+    	<table width="100%" border="0" cellspacing="0" cellpadding="0" class="tab_list">
+        	<tr class="item">
+        		<th>
+					<input type="checkbox" id="checkbox" onclick="checkall();" class="checkbox" >编号
+				</th>
+           		<th align="left">排序</th>
+           		<th>词语搜索</th>
+                <th>总搜索量</th>
+                <th>最近搜索时间</th>
+                <th>操作</th>
+            </tr>
+                {loop $arrHotWords $k $v}
+                <tr class="item">
+                	<td>
+                       <input type="checkbox" name="ckb[]" class="checkbox" value="{$v['id']}">{$v['id']}
+                    </td>
+                    <td>
+                        <input type="text" class="txt" name="sort" value = "{$v['sort']}" onchange="edit({$v['id']},this.value)">
+                    </td>
+                    <td>
+                        {$v['words']}
+                    </td>
+                    <td>
+                    	{$v['count']}
+                    </td>
+                    <td>
+                    	<!--{date('Y-m-d H:m',$v['time'])}-->
+                    </td>
+                    <td>
+                        <a href="index.php?do=tpl&view=hotwords&op=del&delid=$v['id']" onclick="return cdel(this)"  class="button"><span class="trash icon"></span>{$_lang['delete']}</a>
+                    </td>
+                </tr>
+				{/loop}
+				<tr>
+            	<td colspan="7">
+                    <div class="clearfix">
+					     <label for="checkbox" onclick="checkall(event);">{$_lang['select_all']}</label>
+	                     <input type="hidden" name="sbt_action" class="sbt_action" id="sbt_action"/>　
+                        <button class="pill negative button" type="submit" value="{$_lang['mulit_delete']}" name="sbt_action" onclick="return batch_act(this,'frm_hotwords')"><span class="icon trash">&nbsp;</span>{$_lang['mulit_delete']}</button>
+                    </div>
+                 </td>
+        	</tr>
+       </table>
+	   <div class="page">
+             {$pages['page']}
+       </div>
+	  </div>
+</form>
+</div>
+</div>
+<style type="text/css">
+	.show{
+		display:block;
+	}
+	.hidden{
+		display:none;
+	}
+</style>
+<script type="text/javascript" src="static/js/jquery.min.1.8.3.js"></script>
+<script type="text/javascript">
+	//加载时添加样式
+	$(function(){
+		var node = document.getElementById("open");
+		if(node.checked){
+			$("#body").addClass("show");
+		}else{
+			$("#body").addClass("hidden");
+		}
+	})
+	//检验添加表单
+	function validate_form(from){
+		if($("#words_add").val() ==""){
+			alert("请输入热词");
+			$("#words_add").focus();
+			return false;
+		}else if($("#count_add").val() == ""){
+			alert("请输入次数");
+			$("#count_add").focus();
+			return false;
+		}else if(isNaN($("#count_add").val())){
+			alert("请输入正确的数字");
+			$("#count_add").val("");
+			$("#count_add").focus();
+			return false;
+		}else{
+			return true;
+		}
+	}
+	//热词开启关闭功能
+	function switchStatus(node){
+		if(node.value == "open"){
+			if(confirm("确认开启热词功能?")){
+				$.get("index.php?do=tpl&view=hotwords&ac=open&status="+node.value);
+				$("#body").addClass("show");
+				$("#body").removeClass("hidden");
+			}else{
+				document.getElementById("close").checked=true;
+				$("#body").removeClass("show");
+				$("#body").addClass("hidden");
+			}
+		}else{
+			if(confirm("确认关闭热词功能?")){
+				$.get("index.php?do=tpl&view=hotwords&ac=open&status="+node.value);
+				$("#body").addClass("hidden");
+				$("#body").removeClass("show");
+			}else{
+				document.getElementById("open").checked=true;
+				$("#body").addClass("show");
+				$("#body").removeClass("hidden");
+			}
+		}
+	}
+	//自动手动更新功能
+	function autoUpdate(node){
+		if(node.value == "auto"){
+			if(confirm("确认开启自动更新?")){
+				$.get("index.php?do=tpl&view=hotwords&ac=handle&status="+node.value);
+			}else{
+				document.getElementById("handle").checked=true;
+			}
+		}else{
+			if(confirm("确认开启手动更新?")){
+				$.get("index.php?do=tpl&view=hotwords&ac=handle&status="+node.value);
+			}else{
+				document.getElementById("auto").checked=true;
+			}
+		}
+	}
+	//站长手动更改排序
+	function edit(id,val){
+		$.get("index.php?do=tpl&view=hotwords&ac=editlistorder&id="+id+"&sort="+val);
+	}
+</script>
+<!--{template ADMIN_DIRECTORY/tpl/admin_footer}-->

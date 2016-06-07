@@ -1,0 +1,26 @@
+<!--{template ADMIN_DIRECTORY/tpl/admin_header}-->  
+    <div class="box list">
+    	<div class="title"><h2>{$_lang['case_search']}</h2></div>
+        <div class="detail">
+        	<form action="" id='frm_list' method="post">
+               <div id="ajax_dom">
+               <input type="hidden" value="is_submit" name="1">
+               <input type="hidden" value="model_id" name="{$model_id}">
+                 <input type="hidden" value="'task_id" name="{$task_id}">
+               <table cellpadding="0" cellspacing="0">
+                <tbody>
+                	</tr><td>不通过原因</td></tr>
+					<tr>
+					<td><textarea rows="10" cols="40" name="reason"></textarea></td>
+					</tr>
+					<tr>
+					<tr>
+					<td><button type="submit">提交</button></td>
+					</tr>
+                </tbody>
+              </table>
+			  </div>
+        	</form>
+        </div>       
+    </div>
+<!--{template ADMIN_DIRECTORY/tpl/admin_footer}-->

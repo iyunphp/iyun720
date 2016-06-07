@@ -1,0 +1,860 @@
+<!--{template header}-->
+{if $mobile}
+<style>
+body{
+	background: #000000;
+}
+
+.game_comments_form button{
+	float: right;
+    padding: 0px;
+    width: 120px;
+    height: 28px;
+    border: 0px none;
+    background: #33ccff;
+    color: #ffffff;
+}
+
+.down_button {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    width: 120px;
+    height: 30px;
+    line-height: 30px;
+    color: #ffffff;
+    font-size: 14px;
+    background: #33ccff;
+    color: #ffffff;
+    border: 0px none;
+}
+</style>
+<div class="bg_img_panel" style="background: url(/static/img/bg.jpg?v=1) #000033; height:auto;">
+	<div style="margin-top: 20px;margin-left: 40px;"><img src="{$data['photo']}" style="width:165px; height: 113px;" /></div>
+	<div style="padding-top: 5px;margin-left: 40px;">
+		<h4 style="font-size: 24px;">{$data['name']}</h4>
+		<div style="margin-top: 10px;font-size: 14px;">
+			人气：{$data['views']}&nbsp;&nbsp;&nbsp;&nbsp;下载量：{$data['down_num']}
+		</div>
+		<div style="margin-top: 10px;font-size: 14px;">
+			<span {if $data['plat']=='Android'}style="color: #33ccff;"{/if}>Android</span>
+			&nbsp;&nbsp;&nbsp;&nbsp;
+			<span {if $data['plat']=='iOS'}style="color: #33ccff;"{/if}>iOS</span>
+			&nbsp;&nbsp;&nbsp;&nbsp;
+			<span {if $data['plat']=='Windows'}style="color: #33ccff;"{/if}>Windows</span>
+		</div>
+		<div style="margin-top: 10px;font-size: 14px; height: 30px;">
+			<span style="display: none;">
+				<span>
+					<img src="\static\img\sc_game.png" />1120
+				</span>
+				&nbsp;&nbsp;&nbsp;&nbsp;
+			</span>
+			<span  style="float: left;">
+				<img id="fxGame" src="\static\img\fx_game.png" style="float: left;margin-right: 20px;cursor:pointer;" />
+				&nbsp;&nbsp;&nbsp;&nbsp;
+				<style>
+				.jiathis_style{
+					display: none;
+				}
+				.jiathis_style a{
+					float: left;
+					margin-right: 10px;
+				}
+
+				.bg_img_panel .jiathis_style .jtico.jtico_tqq{
+					position: relative;
+					top: -1px;
+					width: 23px;
+					height: 26px !important;
+					background: url(/static/img/qq_game.png);
+				}
+
+				.bg_img_panel .jiathis_style .jtico.jtico_weixin{
+					position: relative;
+					top: -1px;
+					width: 34px;
+					height: 28px !important;
+					background: url(/static/img/wx_game.png);
+				}
+
+				.bg_img_panel .jiathis_style .pyq .jtico.jtico_weixin{
+					position: relative;
+					top: -1px;
+					width: 28px;
+					height: 27px !important;
+					background: url(/static/img/pyq_game.png);
+				}
+				</style>
+				<!-- JiaThis Button BEGIN -->
+				<div id="jiathisStyle" class="jiathis_style" style="float: left;margin-left: 10px;">
+					<a class="jiathis_button_tqq"></a>
+					<a class="jiathis_button_weixin"></a>
+					<a class="jiathis_button_weixin pyq"></a>
+				</div>
+				<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+				<script type="text/javascript" src="/static/js/jquery.qrcode.min.js" charset="utf-8"></script>
+				
+				<script type="text/javascript">
+				$(function(){
+					$('#fxGame').click(function(){
+						$('#jiathisStyle').toggle();
+					});
+				});
+				
+				function down(obj){
+					location.href = $(obj).attr('url');
+				}
+				</script>
+				<!-- JiaThis Button END -->
+			</span>
+		</div>
+		<div>
+			<button class="down_button" onclick="down(this)" url="/index.php?do=goods4&id={$data['id']}&action=down">
+				下载
+			</button>
+			<div id="code" style="margin-top:20px;"></div>
+		</div>
+	</div>
+</div>
+{else}
+<style>
+body{
+	background: #000000;
+}
+
+.left{
+	float: left;
+}
+
+.right{
+	float: right;
+}
+
+.blue{
+	color: #33ccff;
+}
+
+.bg_img_panel{
+	position: relative;
+	width: 100%;
+	height: 497px;
+	font-size: 14px;
+	color: #ffffff;
+	overflow: hidden;
+}
+
+.bg_img_panel h5{
+	margin: 130px 0px 0px 50px;
+    width: 100%;
+    color: #ffffff;
+    font-size: 30px;
+    font-weight: bolder;
+}
+
+.bg_img_mery{
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	width: 100%;
+	height: 497px;
+}
+
+.bg_img_mery .blue{
+	margin: 0px;
+    position: absolute;
+    width: 100%;
+    bottom: 175px;
+    color: #33ccff;
+    font-size: 14px;
+}
+
+.bg_img_mery .blue div{
+	margin: 0px auto;
+	width: 200px;
+}
+
+.bg_img_mery .file_size{
+	position: absolute;
+    width: 100%;
+    bottom: 135px;
+    text-align: center;
+}
+
+.bg_img_mery .button_panel{
+	position: absolute;
+    bottom: 90px;
+    width: 100%;
+} 
+
+.bg_img_mery .button_panel button{
+	margin: 0px;
+	padding: 0px;
+	border: 0px;
+	width: 200px;
+	height: 40px;
+	background: #33ccff;
+	line-height: : 40px;
+	font-size: 18px;
+}
+
+.bg_img_mery .menu{
+	position: absolute;
+    bottom: 60px;
+    width: 100%;
+    height: 20px;
+    text-align: center;
+}
+
+.bg_img_main div{
+	padding-left: 52px;
+    line-height: 20px;
+    margin-top: 30px;
+    font-size: 19px;
+    vertical-align: middle;
+}
+
+.bg_img_main img{
+	position: relative;
+    top: -3px;
+    margin-right: 5px;
+    cursor: pointer;
+}
+
+.menu_panel{
+	position: absolute;
+    width: 100%;
+    bottom: 30px;
+}
+
+.menu_panel .menu{
+	margin: 0px auto;
+	padding: 0px;
+	width: 150px;
+	height: 20px;
+}
+
+.menu_panel .menu li{
+	float: left;
+	margin: 0px 9px;
+    width: 12px;
+    height: 12px;
+	background: #999999;
+	cursor: pointer;
+
+	border-radius: 9px;
+	-webkit-border-radius: 9px;
+	-ms-border-radius: 9px;
+	-moz-border-radius: 9px;
+	-o-border-radius: 9px;
+}
+
+.menu_panel .menu li.selected{
+	background: #ffffff;
+}
+
+.mnav{
+	position: relative;
+    top: -1px;
+	border-bottom: 2px #999999 solid;
+	height: 46px;
+	background: #000000;
+}
+
+.mnav ul{
+	margin: 0px auto 0px;
+    padding: 8px 0px 0px 0px;
+	width: 240px;
+	height: 35px;
+	line-height: 35px;
+}
+
+.mnav ul li{
+	float: left;
+	margin: 0px 15px;
+	width: 50px;
+	text-align: center;
+	color: #ffffff;
+}
+
+.mnav ul li.selected{
+	border-bottom: 4px #33ccff solid;
+}
+
+.mnav ul li a{
+	color: #ffffff;
+	text-decoration: none;
+}
+
+.mnav ul li.selected a{
+	color: #33ccff;
+	text-decoration: none;
+}
+
+.mnav ul li a:hover{
+	text-decoration: none;
+}
+
+.mnav ul li.selected a:hover{
+	text-decoration: none;
+}
+
+.list{
+	margin-top: 40px;
+	padding-bottom: 50px;
+}
+
+.list_mery{
+	float: left;
+    margin: 0px 10px 20px;
+    width: 380px;
+}
+
+.list_mery .photo_panel{
+	position: relative;
+	height: 150px;
+}
+
+.list_mery .name{
+	position: absolute;
+    width: 100%;
+    bottom: 0px;
+    color: #ffffff;
+    line-height: 30px;
+    font-size: 18px;
+    text-align: center;
+    font-weight: bolder;
+}
+
+.list_mery img{
+	width: 100%;
+    height: 150px;
+}
+
+.list_mery .text_panel{
+	height: 120px;
+    font-weight: bolder;
+    background: rgba(255,255,255,0.8);
+    line-height: 28px;
+    text-indent: 10px;
+    padding-top: 5px;
+}
+
+.list_mery .text_panel button{
+	display: block;
+	margin: 12px auto 0px;
+	padding: 0px;
+	border: 0px none;
+	width: 120px;
+	height: 30px;
+	line-height: 30px;
+	font-size: 14px;
+	background: #338EAD;
+	color: #ffffff;
+}
+
+.bg_img_main{
+	position: absolute;
+    top: 0px;
+    right: 0px;
+    width: 497px;
+    height: 497px;
+    background: rgba(0,0,0,0.7);
+}
+
+.game_info{
+	padding: 0px 100px;
+	height: 415px;
+	color: #ffffff;
+	font-size: 18px;
+}
+
+.game_info h4{
+	margin-top: 30px;
+    border-left: 8px #33ccff solid;
+    text-indent: 5px;
+    color: #33ccff;
+    font-weight: bold;
+}
+
+.game_info .game_photo_panel{
+	margin-top: 40px;
+    margin-left: 50px;
+    height: 80px;
+}
+
+.game_info .game_photo{
+	float: left;
+	border-radius: 40px;
+    width: 80px;
+    vertical-align: middle;
+}
+
+.game_info .game_user_name{
+	padding-top: 30px;
+    padding-left: 90px;
+    line-height: 20px;
+    font-size: 18px;
+    font-weight: bolder;
+}
+
+.game_info .font_size{
+	margin-top: 20px;
+    padding-left: 25px;
+    line-height: 30px;
+    text-indent: 50px;
+}
+
+.game_info p{
+	margin-top: 10px;
+    padding-left: 25px;
+    padding-right: 25px;
+    line-height: 35px;
+    text-indent: 50px;
+    font-size: 16px;
+}
+
+.game_comments{
+	background: #ffffff;
+}
+
+.game_comments .layout_center{
+	padding: 30px 100px;
+}
+
+.game_comments h4{
+	margin: 0px;
+	border-left: 8px #000000 solid;
+	text-indent: 5px;
+	font-weight: bold;
+}
+
+.comments_photo_panel{
+	padding-left: 30px;
+	height: 80px;
+}
+
+.comments_photo_panel .comments_photo{
+	float: left;
+	width: 80px;
+	height: 80px;
+
+	border-radius: 40px;
+	-ms-border-radius: 40px;
+	-moz-border-radius: 40px;
+	-webkit-border-radius: 40px;
+	-border-radius: 40px;
+}
+
+.game_comments{
+	background: #cccccc;
+}
+
+.game_comments_mery{
+	margin-top: 30px; 
+    margin-left: 50px;
+}
+
+.comments_user_name{
+	padding-top: 30px;
+    padding-left: 90px;
+    line-height: 20px;
+    font-size: 18px;
+    font-weight: bolder;
+}
+
+.comments_user_name a{
+	color: #000000;
+}
+
+.game_comments_mery p{
+	padding-top: 20px;
+    padding-right: 120px;
+    text-indent: 40px;
+    line-height: 30px;
+	font-weight: bold;
+}
+
+.game_comments_form{
+	margin-top: 40px;
+	padding: 0px 120px 0px 50px;
+}
+
+.game_comments_form textarea{
+	width: 100%;
+	height: 120px;
+	background: #cccccc;
+}
+
+.game_comments_form .button_panel{
+	padding: 20px 0px;
+}
+
+.game_comments_form button{
+	float: right;
+    padding: 0px;
+    width: 120px;
+    height: 28px;
+    border: 0px none;
+    background: #33ccff;
+    color: #ffffff;
+}
+
+.game_tj{
+	padding: 0px 100px;
+	height: 600px;
+	color: #ffffff;
+	font-size: 18px;
+}
+
+.game_tj h4{
+	margin-top: 50px;
+    border-left: 8px #33ccff solid;
+    text-indent: 5px;
+    color: #33ccff;
+    font-weight: bold;
+}
+
+
+.game_tj .button_panel{
+	float: right;
+    padding: 0px;
+    border: 0px none;
+    width: 140px;
+    height: 28px;
+    background: #33ccff;
+    color: #ffffff;
+}
+
+.game_tj ul{
+	margin: 30px 0px 0px 0px;
+	padding: 0px;
+}
+
+.game_tj ul li{
+	float: left;
+	margin: 0px 5px;
+}
+
+.game_tj ul li img{
+	width: 345px; 
+    height: 155px;
+}
+
+.game_tj ul{
+	margin-top: 20px;
+}
+
+.game_tj .game_name{
+	line-height: 30px;
+	text-align: center;
+	color: #ffffff;
+}
+
+.down_button{
+	margin-top: 30px;
+	width: 240px; 
+	height: 50px; 
+	line-height: 50px; 
+	color: #ffffff; 
+	font-size: 24px; 
+	background: #33ccff; 
+	color: #ffffff;
+	border: 0px none;
+}
+
+.pic_middle{
+	float: left;
+    width: 80px !important;
+    height: 80px !important;
+    border-radius: 50px;
+    margin-right: 20px;
+}
+</style>
+<div class="bg_img_panel" style="background: url(/static/img/bg.jpg?v=1) #000033; ">
+	<div class="layout_center">
+		<div style="    float: left;margin-top: 45px;">
+			<img src="{$data['photo']}" style="width:600px; height: 400px;" />
+		</div>
+		<div style="padding-top: 50px;margin-left: 650px;">
+			<h4 style="font-size: 40px;">{$data['name']}</h4>
+			<div style="margin-top: 30px;font-size: 18px;">
+				人气：{$data['views']}&nbsp;&nbsp;&nbsp;&nbsp;下载量：{$data['down_num']}
+			</div>
+			<div style="margin-top: 15px;font-size: 18px;">
+				<span {if $data['plat']=='Android'}style="color: #33ccff;"{/if}>Android</span>
+				&nbsp;&nbsp;&nbsp;&nbsp;
+				<span {if $data['plat']=='iOS'}style="color: #33ccff;"{/if}>iOS</span>
+				&nbsp;&nbsp;&nbsp;&nbsp;
+				<span {if $data['plat']=='Windows'}style="color: #33ccff;"{/if}>Windows</span>
+			</div>
+			<div style="margin-top: 15px;font-size: 18px; height: 30px;">
+				<span style="float: left;">
+					<span>
+						<img id="scGame" src="\static\img\sc_game.png" style="margin-right: 5px;position: relative;top: -2px;cursor: pointer;" /><span id="scCount">{$scCount}</span>
+					</span>
+					&nbsp;&nbsp;&nbsp;&nbsp;
+				</span>
+				<script>
+				$('#scGame').click(function(){
+					$.ajax({
+						url: '/index.php?do=shoucang&type=2&obj_id={$id}&uid={$uid}&zan_type=add',
+						dataType: 'json',
+						success: function(data){
+							if(data.type == 'success'){
+								alert('收藏成功！');
+								$('#scCount').html(parseInt($('#scCount').html(), 10) + 1);
+							} else {
+								alert(data.error);
+							}
+						}
+					});
+				});
+				</script>
+				<span  style="float: left;">
+					<img id="fxGame" src="\static\img\fx_game.png" style="float: left;margin-right: 20px;cursor:pointer;" />
+					&nbsp;&nbsp;&nbsp;&nbsp;
+					<style>
+					.jiathis_style{
+						display: none;
+					}
+					.jiathis_style a{
+						float: left;
+						margin-right: 10px;
+					}
+
+					.bg_img_panel .jiathis_style .jtico.jtico_tqq{
+						position: relative;
+						top: -1px;
+						width: 23px;
+						height: 26px !important;
+						background: url(/static/img/qq_game.png);
+					}
+
+					.bg_img_panel .jiathis_style .jtico.jtico_weixin{
+						position: relative;
+						top: -1px;
+						width: 34px;
+						height: 28px !important;
+						background: url(/static/img/wx_game.png);
+					}
+
+					.bg_img_panel .jiathis_style .pyq .jtico.jtico_weixin{
+						position: relative;
+						top: -1px;
+						width: 28px;
+						height: 27px !important;
+						background: url(/static/img/pyq_game.png);
+					}
+					</style>
+					<!-- JiaThis Button BEGIN -->
+					<div id="jiathisStyle" class="jiathis_style" style="float: left;margin-left: 10px;">
+						<a class="jiathis_button_tqq"></a>
+						<a class="jiathis_button_weixin"></a>
+						<a class="jiathis_button_weixin pyq"></a>
+					</div>
+					<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+					
+					<script type="text/javascript">
+					$(function(){
+						$('#fxGame').click(function(){
+							$('#jiathisStyle').toggle();
+						});
+					});
+					
+					function down(obj){
+						$('.jiathis_button_weixin').click();
+						$('#jiathis_weixin_h3').html('扫描二维码下载应用！');
+						$('#jiathis_weixin_tip').html('').css('fontSize','16px').append('点击此处直接').append($('<a>').attr('href', '/index.php?do=goods4&id={$data["id"]}&action=down').html('下载')).append('该应用！');
+					}
+					</script>
+					<!-- JiaThis Button END -->
+				</span>
+			</div>
+			<div>
+				<button class="down_button" onclick="down(this)" url="/index.php?do=goods4&id={$data['id']}&action=down">
+					下载
+				</button>
+				<div id="code" style="margin-top:20px;"></div>
+			</div>
+		</div>
+	</div>
+</div>
+<div id="mnav" class="mnav">
+	<ul>
+		<li class="selected"><a href="javascript:">详情</a></li>
+		<li><a href="javascript:">评论</a></li>
+		<li><a href="javascript:">推荐</a></li>
+	</ul>
+</div>
+<div id="fixedMnav" class="mnav" style="position: fixed; width: 100%; top: 60px; display: none;">
+	<ul>
+		<li class="selected"><a href="javascript:">详情</a></li>
+		<li><a href="javascript:">评论</a></li>
+		<li><a href="javascript:">推荐</a></li>
+	</ul>
+</div>
+<div class="game_info layout_center">
+	<h4>游戏介绍 / BRIEF INTRODUCTION</h4>
+	<div class="game_photo_panel">
+		<!--{userpic($v['uid'],'middle')}-->
+		<div class="game_user_name">{$userData['username']}</div>
+	</div>
+	<div class="font_size">
+		<span style="display: none;">文件大小：122M&nbsp;&nbsp;&nbsp;&nbsp;</span>
+		所属类型：{$data['type']}
+	</div>
+	<div><p>{$data['text']}</p></div>
+</div>
+<div id="gameComments" class="game_comments">
+	<div class="layout_center">
+		<h4>评论/ COMMENTS</h4>
+		{loop $comments $k $v}
+		{if $v[uid]}
+		<div class="game_comments_mery" {if $k > 4}style="display:none;"{/if}>
+			<div class="comments_photo_panel">
+				<a target="_black" href="/index.php?do=seller&id={$v['uid']}"><img class="comments_photo" onerror="http://www.iyun720.com/data/avatar/default/man_middle.jpg" src="{$v['commenterIcon']}" /></a>
+				<div target="_black" class="comments_user_name"><a href="/index.php?do=seller&id={$v['uid']}">{$v['username']}</a></div>
+			</div>
+			<p>
+		    {$v['text']}
+			</p>
+		</div>
+		{else}
+		<div class="game_comments_mery" {if $k > 4}style="display:none;"{/if}>
+			<div class="comments_photo_panel">
+				<a target="_black" href="javascript:"><img class="comments_photo" src="http://www.iyun720.com/data/avatar/default/man_middle.jpg" /></a>
+				<div target="_black" class="comments_user_name"><a href="javascript:">游客</a></div>
+			</div>
+			<p>
+		    {$v['text']}
+			</p>
+		</div>
+		{/if}
+		{/loop}
+		{if $commentLength > 0}
+		<div style="padding-left: 90px;">
+			<a href="javascript:" style="color:#000000;" onclick="$('.game_comments_mery').show();$(this).hide();">查看全部</a>
+		</div>
+		{/if}
+		<div class="game_comments_form">
+			<textarea id="txtPinglun"></textarea>
+			<div class="button_panel"><button id="submitPinglun">评论</button></div>
+		</div>
+		<script>
+		$(function(){
+			$('#mnav li,#fixedMnav li').click(function(){
+				if($(this).index() == 0){
+					$('html, body').animate({scrollTop: 500}, 1000);
+				} else if($(this).index() == 1){
+					$('html, body').animate({scrollTop: 940}, 1000);
+				} else if($(this).index() == 2){
+					$('html, body').animate({scrollTop:940 + $('#gameComments').height()}, 1000);
+				}
+			});
+			$(window).scroll(function(){
+				var height = $('.bg_img_panel').height();
+				var scrollTop = $(window).scrollTop();
+				var gameCommentHeight = $('#gameComments').height();
+				if(scrollTop > height){
+					$('#fixedMnav').show();
+				}
+				else
+				{
+					$('#fixedMnav').hide();
+				}
+				if(scrollTop >= 940 + gameCommentHeight){
+					$('#fixedMnav').find('li').removeClass('selected').eq(2).addClass('selected');
+				} else if(scrollTop >= 940){
+					$('#fixedMnav').find('li').removeClass('selected').eq(1).addClass('selected');
+				} else {
+					$('#fixedMnav').find('li').removeClass('selected').eq(0).addClass('selected');
+				}
+			});
+		});
+		</script>
+		<script>
+			$('#submitPinglun').click(function(){
+				$.ajax({
+					url: '/index.php?do=goods4',
+					data: {
+						xid: '{$id}',
+						action: 'add_comment',
+						uid: '{$uid}',
+						currentCommentTitle: $('#txtPinglun').val(),
+						json: 'json'
+					},
+					success: function(data){
+						var gameCommentsMery = $('<div>').addClass('game_comments_mery');
+						var commentsPhotoPanel = $('<div>').addClass('comments_photo_panel');
+						var uid = '{$uid}';
+						var buid = uid;
+						var username = '{$username}';
+						if(buid != '' & buid < 10){
+							buid = '0' + uid;
+						}
+						if(uid == '' || uid == 0)
+						{
+							username = '游客';
+							$('<a>').attr('target', '_black').attr('href', 'javascript:').append(
+								$('<img>').addClass('comments_photo').attr('src', 'http://www.iyun720.com/data/avatar/default/man_middle.jpg')
+							).appendTo(commentsPhotoPanel);
+						}
+						else
+						{
+							$('<a>').attr('target', '_black').attr('href', '/index.php?do=seller&id=' + uid).append(
+								$('<img>').addClass('comments_photo').attr('onerror', '$(this).attr("src","http://www.iyun720.com/data/avatar/default/man_middle.jpg")').attr('src', "/data/avatar/000/00/00/" + uid + "_avatar_middle.jpg")
+							).appendTo(commentsPhotoPanel);
+						}
+						
+						$('<div>').attr('target', '_black').addClass('comments_user_name').append(
+							 $('<a>').html(username).attr('href', '/index.php?do=seller&id=' + uid)
+						).appendTo(commentsPhotoPanel);
+						commentsPhotoPanel.appendTo(gameCommentsMery);
+						$('<p>').html($('#txtPinglun').val()).appendTo(gameCommentsMery);
+						if($('#gameComments .game_comments_mery').length > 0)
+						{
+							gameCommentsMery.insertBefore($('#gameComments .game_comments_mery').eq(0));
+						}
+						else
+						{
+							gameCommentsMery.insertBefore($('#gameComments .game_comments_form').eq(0));
+						}
+						
+						$('#txtPinglun').val('');
+					}
+				});
+			});
+		</script>
+	</div>
+</div>
+<div class="game_tj">
+	<div class="layout_center" style="padding: 0px 100px;">
+		<h4>推荐/ RECOMNEND</h4>
+	</div>
+	<div class="layout_center" style="padding: 0px 40px;">
+		<div>
+			<ul>
+				<li>
+					<a href="/index.php?do=goods4&id={$hotData[0]['id']}">
+						<img src="{$hotData[0]['photo']}" />
+						<div class="game_name">{$hotData[0]['name']}</div>
+					</a>
+				</li>
+				<li>
+					<a href="/index.php?do=goods4&id={$hotData[1]['id']}">
+						<img src="{$hotData[1]['photo']}" />
+						<div class="game_name">{$hotData[1]['name']}</div>
+					</a>
+				</li>
+				<li>
+					<a href="/index.php?do=goods4&id={$hotData[2]['id']}">
+						<img src="{$hotData[2]['photo']}" />
+						<div class="game_name">{$hotData[2]['name']}</div>
+					</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+{/if}
+<!--{template footer}-->

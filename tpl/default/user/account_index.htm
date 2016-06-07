@@ -1,0 +1,137 @@
+<!--{template user/header}-->
+<div class="container">
+    <div class="nav-action">
+        <!--{template user/left_side}-->
+    </div>
+    <div class="content-panel">
+        <div class="tab">
+            <div class="active">
+                <a class="selected" href="index.php?do=user&view=account&op=auth">账号信息</a>
+            </div>
+        </div>
+        <div class="user-short">
+            <div class="media info">
+                <div class="media-body">
+                    <div class="user-info">
+                        <div class="media-left">
+                            <div class=" photo">
+                                <a href="index.php?do=user&view=account&op=chooseavatar"><!--{userpic($gUid,'larger')}--></a>
+                            </div>
+                            <h2 class="media-heading username">{$username}</h2>
+                        </div>
+                        <div class="media-min">
+                            <div class="p-row1">
+                                登录账号：{$gUsername}<a class="alter" href="index.php?do=user&view=account&op=basic">修改资料</a>
+                            </div>
+                            <div class="p-row1">
+                                注册时间：<!--{date('Y-m-d H:i:s',$gUserInfo['reg_time'])}-->
+                            </div>
+                            <div class="p-row1">
+                                绑定手机：{if $gUserInfo['mobile']}<!--{eval echo '*********'.substr($gUserInfo['mobile'],-2)}-->{else}暂无{/if} 
+                                {if $gUserInfo['is_perfect']!=1}<span class="warning">请前去<a href="index.php?do=user&view=account&op=basic">完善</a>用户资料</span>
+                                {/if}
+                            </div>
+                            <div class="p-row1">
+                                上次登录时间：<!--{eval echo date('Y年m月d日  H:i:s',$gUserInfo['last_login_time'])}-->
+                            </div>
+                            <div class="p-row1">
+                                个人主页:{if $autoshop==1}已开启{else}暂无&nbsp;&nbsp;&nbsp;请前去<a href="index.php?do=seller&id={$gUid}">已开启</a>{/if}
+                            </div>
+                        </div>
+                        <div class="media-right">
+                            <div class="p-row1">
+                                现金：<b class="money">{c:$gUserInfo['balance']}</b>
+                            </div>
+                            <div class="p-row1">
+                                <a href="index.php?do=user&view=finance&op=withdraw" class="btn btn-default btn-xs">提现</a>
+                                <a href="index.php?do=user&view=finance&op=rechargeonline" class="btn btn-default btn-xs">充值</a>
+                            </div>
+                           <!-- <div class="p-row1">
+                                <b>安全信息</b>
+                                {if $twoPassword==$gUserInfo['sec_code']}<span class="warning">支付与登录密码相同,建议修改</span>
+                                {/if}
+                            </div>-->
+                            <div class="p-row1">
+                              <!--  支付密码：*** <a class="alter" href="index.php?do=user&view=account&op=security">修改</a>
+                                <a class="get-back" href="javascript:void(0);" id="zh-zf-pwd">找回</a>-->
+                                <div class="p-row1">
+                                    登录密码：*** <a class="alter" href="index.php?do=user&view=account&op=password">修改</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="hidden">
+                    <div>
+                        <h4>协同概况</h4>
+                    </div>
+                    <div>
+                        <p>
+                        </p>
+                        <p>
+                        </p>
+                        <p>
+                        </p>
+                    </div>
+                </div>
+                <div class="content-panel zh-renzheng">
+                    <div class="tab_desc">
+                        <div class="table-responsive">
+                            <table class="table table-hover ">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            认证信息：
+                                        </th>
+                                    </tr>
+                                </thead>
+                                {loop $arrAuthItems $v}
+                                <tr>
+                                    <td>
+                                        <div class="media">
+                                            <div class="pull-left">
+                                                <img class="media-object" src="{$v['auth_big_ico']}" alt="{if in_array($v['auth_code'],array('realname','enterprise'))}身份认证{else}{$v['auth_title']}{/if}">
+                                            </div>
+                                            <div class="media-body">
+                                                <div class="pull-right">
+                                                    <span class="label mr_10 {if $v[auth_pass] =='1'} label-success {else} label-default {/if}">
+                                                    	{if $v[auth_pass] =='1'}
+															<i class="fa fa-check"></i>已认证
+                                                        {else}
+															未认证
+														{/if}
+													</span>
+													<a href="{$v[auth_url]}" class="btn btn-default btn-xs">{if $v[auth_pass] =='1'}查看认证{else}立即认证{/if}</a>
+                                                </div>
+                                                <strong class="media-heading">
+                                                	{if in_array($v['auth_code'],array('realname','enterprise'))}
+                                                    	身份认证
+                                                    {else}
+                                                    	{$v['auth_title']}
+                                                    {/if}
+												</strong>
+                                                <p>
+                                                    $v['auth_desc']
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                {/loop}
+                            </table>
+                        </div>
+                    </div>
+                    <!-- tab_desc end -->
+                </div>
+                <!-- content-panel end -->
+            </div>
+            <!-- media end -->
+        </div>
+        <!-- user-short end -->
+        <script type="text/javascript" src="static/js/model/user/account.js">
+        </script>
+    </div>
+    <!-- content-panel end -->
+</div>
+<!-- container end -->
+<!--{template user/footer}-->

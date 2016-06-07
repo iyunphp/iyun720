@@ -1,0 +1,103 @@
+<!--{template ADMIN_DIRECTORY/tpl/admin_header}-->
+<div class="box clearfix" id = "body">
+<form method="post" action="index.php?do=watermark" id="frm_hw_add">
+	<input type="hidden" name="do" value="{$do}">
+	<input type="hidden" name="view" value="{$view}">
+	<input type="hidden" name="submit" value="1">
+	<div class="box search p_relative">
+    	<div class="detail" id="detail">
+    		<table cellspacing="0" cellpadding="0">
+				<tbody>
+					<tr>
+						<th style="width:40px;">水印开启：</th>
+						<td>
+							<input type="radio" name="switch" value="1" {if $config['switch']}checked{/if}>开启
+							<input type="radio" name="switch" value="0" {if !$config['switch']}checked{/if}>关闭
+							<span style="color:red;">水印默认打在右下角</span>
+							
+							
+						</td>
+					</tr>
+					<tr>
+						<th style="width:40px;">生效限制：</th>
+						<td>
+							宽：<input type="text" class="txt" name="width" id = "width" value="{$config['width']}" onkeyup="clearstr(this);">
+						</td>
+					</tr>
+					<tr>
+						<th style="width:40px;"></th>
+						<td>
+							高：<input type="text" class="txt" name="hight" id ="hight" value="{$config['hight']}" onkeyup="clearstr(this);">
+						</td>
+					</tr>
+					<tr>
+						<th style="width:40px;"></th>
+						<td>
+							<span style="color:red;">低于这个范围的图片不加水印</span>
+						</td>
+					</tr>
+					<tr>
+						<th style="width:40px;">水印图片：</th>
+						<td>
+							<!--<input type="file" class="file" name="upload1" id="upload1">-->
+							<div id="picker">上传图片</div>
+							<div id="list1" class="affix-list upload-file-list-info" style="width:210px;"></div>
+				  			<a href="../$config['img']" id="imgPreviewA" target="_blank" {if !file_exists('../'.$config['img'])} class="hidden" {/if}  style="max-height:60px; display:inline-block"  >
+				  				<img id="imgPreview1" src="../{$config['img']}" {if !file_exists('../'.$config['img'])} class="hidden" {/if} style="max-height:60px;"   />
+							</a>
+				  			<input type="hidden" name="filepath1" id="filepath1" value="">
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+	           				<button class="pill" type="submit" value="保存" name="sbt_add">
+								<span class="icon magnifier">&nbsp;</span>保存
+							</button>
+							　
+							<span style="color:red;">(在开启七牛云网盘时不可用)</span>
+						</td>
+					</tr>
+           		</tbody>
+			</table>
+    	</div>
+    </div>
+</form>
+</div>
+
+<script type="text/javascript">
+	var baseurl = "{$basic_config['website_url']}";
+	var uploadsize = parseInt("{$basic_config['max_size']}");
+		uploadsize =  isNaN(uploadsize)? 1 : uploadsize;
+	$(function(){
+		$("#picker").KKUploader({
+				accept: {
+					extensions : 'jpg,jpeg,gif,png,bmp'
+				},
+				uploadEvents: {
+					uploadComplete:function(file){
+						var url = $("#"+file.id).find('.webuploader-pick-file-close').attr('data-fileurl');
+        				$('#imgPreview1').removeClass('hidden');
+					    $('#imgPreviewA').removeClass('hidden');
+					    $('#imgPreview1').attr('src','{REVIEW_BACKEND_PATH}'+url);
+					    $('#imgPreviewA').attr('href','{REVIEW_BACKEND_PATH}'+url);
+					}
+				},
+				fileNumLimit:1,
+				fileSingleSizeLimit:uploadsize*1024*1024,
+				listName:'list1',
+				hiddenName:'filepath1',
+				hiddenValType: 2
+			},
+			{
+				fileType:'sys',
+			  	objType:'tools',
+				filename : 'file',
+			});
+	});
+
+</script>
+<link rel="stylesheet" type="text/css" href="tpl/js/webuploader/webuploader.css">
+<script type="text/javascript" src="../static/js/jquery.min.js?r={RANDOM_PARA}"></script>
+<script type="text/javascript" src="tpl/js/webuploader/webuploader.js?r={RANDOM_PARA}"></script>
+<script type="text/javascript" src="tpl/js/webuploader/kppw.webuploader.js"></script>
+<!--{template ADMIN_DIRECTORY/tpl/admin_footer}-->

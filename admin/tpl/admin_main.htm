@@ -1,0 +1,115 @@
+<!--{template ADMIN_DIRECTORY/tpl/admin_header}-->
+<!--
+<div class="po_ab fixed-right adv ">
+		<a href="#">{$_lang['ad_leasing']}w150xh90</a>
+</div>
+-->
+<div class="page_title clearfix">
+    <h1>{$_lang['manage_index']}</h1>
+    <div class="tool">
+    </div>
+</div>
+<!--<div class="box tip clearfix p_relative" id="man_tips">
+    <div class="control">
+        <a href="javascript:void(0);" onclick="$('#man_tips').fadeOut();" title="{$_lang['close']}"><b>&times;</b></a>
+    </div>
+    <div class="title">
+        <h2>{$_lang['safe_report']}</h2>
+    </div>
+    <div class="detail pad10">
+        <ul>
+            <li>
+                {$_lang['suggest_rename_notice']}
+            </li>
+            <li>
+                {$_lang['suggest_hide_notice']}
+            </li>
+        </ul>
+    </div>
+</div>-->
+<div class="box user_quick clearfix">
+    <div class="detail pad10">
+        <ul>
+            <li class="avatar">
+                <a href="#" title="admin"><!--{userpic($admin_info['uid'],'small')}--></a>
+            </li>
+            <li class="name">
+                <span>{$_lang['good_morning']}</span>，{$_lang['public_admin_uid']}<b>{$admin_info['username']}</b>
+                <span class="clock"> - {$_lang['today_is']}<span id="date"><!--{date('Y-m-d H:i:s',time())}--></span></span>
+            </li>
+            <li class="statistics clearfix">
+                <ul>
+                    <li>
+                        <a href="index.php?do=user&view=list" class="button"><span class="icon check">&nbsp;</span>{$_lang['new_member']}($user_count)</a>
+                    </li>
+                    <li>
+                    	<select id="task_add" onchange="jump_list(this.value);">
+                    		<option id="task_add_option">新增任务({$task_all_count})</option>
+							{loop $model_list $k $v}
+                    		<option value="{$k}" >$v['model_name']({if $task_count[$k]['count']}{$task_count[$k]['count']}{else}0{/if})</option>
+							{/loop}
+
+                    	</select>
+                    </li>
+					<li>
+                        <a href="index.php?do=store&view=list" class="button"><span class="icon book">&nbsp;</span>店铺申请({$apply_shop_count})</a>
+                    </li>
+					<li>
+						<select id="service_add" onchange="jump_list(this.value);">
+                    		<option id="service_add_option" value="0">新增作品({$shop_all_count})</option>
+							{loop $shop_list $k $v}
+                    		<option value="{$k}" >$v['model_name']({if $shop_count[$k]['count']}{$shop_count[$k]['count']}{else}0{/if})</option>
+							{/loop}
+							{loop $shop_list $k $v}
+                    		<option value="{$k}" >$v['model_name']待审({if $shop_count_dai[$k]['count']}{$shop_count_dai[$k]['count']}{else}0{/if})</option>
+							{/loop}
+							{loop $shop_list $k $v}
+                    		<option value="{$k}" >$v['model_name']编辑待审({if $shop_count_edit[$k]['count']}{$shop_count_edit[$k]['count']}{else}0{/if})</option>
+							{/loop}
+							
+                    	</select>
+                    </li>
+                    <li>
+                        <a href="index.php?do=finance&view=withdraw" class="button"><span class="icon home">&nbsp;</span>{$_lang['withdraw_apply']}($withdraw_count)</a>
+                    </li>
+                    <li>
+                        <a href="index.php?do=finance&view=recharge" class="button"><span class="icon rss">&nbsp;</span>{$_lang['user_recharge']}($charge_count)</a>
+                    </li>
+                    <li>
+                        <a href="index.php?do=user&view=suggest" class="button"><span class="icon mail">&nbsp;</span>建议($proposal_count)</a>
+                    </li>
+					<li>
+                        <a href="index.php?do=trans&view=report" class="button"><span class="icon mail">&nbsp;</span>举报($report_count)</a>
+                    </li>
+					<li>
+                        <a href="index.php?do=trans&view=rights" class="button"><span class="icon mail">&nbsp;</span>维权($right_count)</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>
+
+
+
+<style type="text/css">
+		.hide{
+			display:none;
+		}
+	</style>
+<script type="text/javascript" src="$notice" charset="gbk">
+</script>
+<script type="text/javascript">
+	$(function(){
+		$("#task_add_option").addClass("hide");
+		$("#service_add_option").addClass("hide");
+	})
+	function jump_list(model_id){
+		if(model_id ==  '6' ||model_id ==  '7'  ){
+			window.location.href = 'index.php?do=model&model_id='+model_id+'&view=list';
+		}else{
+			window.location.href = 'index.php?do=model&model_id='+model_id+'&view=list';
+		}
+	}
+</script>
+<!--{template ADMIN_DIRECTORY/tpl/admin_footer}-->

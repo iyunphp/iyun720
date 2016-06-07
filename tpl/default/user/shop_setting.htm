@@ -1,0 +1,304 @@
+<!--{template user/header}-->
+<div class="container">
+  <div class="nav-action">
+		<!--{template user/left_side}-->
+  </div>
+  <!-- nav-action end -->
+  <div class="content-panel">
+      <div class="tab">
+        <a class="selected"  data-toggle="tab">主页设置</a>　　
+      </div>
+
+      <div class="tab_detail">
+
+
+
+		<div class="form-horizontal">
+			<div class="alert alert-success" id="shop_status1_desc" {if $shopInfo['shop_status'] =='3'||!$shopInfo['shop_status']}style="display:none"{/if}>
+			<p>
+				<i class="fa"></i> 关闭主页之后您将不再出现在服务商列表，同时您的作品将全部下架
+			</p>
+		    </div>
+			<div class="alert alert-success" id="shop_status2_desc" {if $shopInfo['shop_status'] =='1'}style="display:none"{/if}>
+			<p>
+				<i class="fa fa-check-circle"></i> 您需要先开启主页之后才能作品发布操作
+			</p>
+		    </div>
+
+
+			<div class="form-group">
+				<label class="col-sm-2 control-label" for="shop_name">主页状态：</label>
+				<div class="col-sm-8">
+					<label class="radio-inline">
+					  <input type="radio" name="shop_status" id="shop_status1" value="open"　{if $shopInfo['shop_status'] =='1'} checked="checked" {/if}> 开启
+					</label>
+					<label class="radio-inline">
+					  <input type="radio" name="shop_status" id="shop_status2" value="close" {if $shopInfo['shop_status'] =='3'||!$shopInfo['shop_status']} checked="checked" {/if}> 关闭
+					</label>
+				</div>
+			</div>
+		</div>
+
+
+
+
+      		<!-- 主页设置 start -->
+          <form role="form" action="{$strUrl}" method="post" class="form-horizontal" name="editShopForm" id="editShopForm" {if $shopInfo['shop_status'] =='3'||!$shopInfo['shop_status']}style="display:none;"{/if}>
+          	<input type="hidden" name="formhash" id="formhash" value="{FORMHASH}">
+            
+
+
+			
+			<div class="form-group">
+              <label class="col-sm-2 control-label" for="shop_name">主页名称：</label>
+                <div class="col-sm-8">
+                  <input type="text"  name="shop_name" id="shop_name"  class="form-control" value="{$shopInfo['shop_name']}">
+                </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-2 control-label" for="shop_slogans">简介：</label>
+              <div class="col-sm-8">
+                 <textarea id="shop_slogans" name="shop_slogans" maxlength="50" rows="5" class="form-control">{$shopInfo['shop_slogans']}</textarea>
+				 <span class="help-block"><i class="fa"></i>您的主页广告语直接影响到他人对您的第一印象，请慎重对待。最多50字。</span>
+              </div>
+            </div>
+			<div class="form-group">
+              <label class="col-sm-2 control-label">所在地：</label>
+              <div class="col-sm-10 row">
+                <div class="col-sm-3">
+                  <select class="form-control" name="province" id="province" onchange="getZone(this.value,'city');">
+                  	<option>选择省份</option>
+					{loop $arrProvinces $k $v}
+					<option value="{$v['id']}" {if $shopInfo['province']==$v[id]}selected="selected"{/if}>{$v['name']}</option>
+					{/loop}
+                  </select>
+                  </div>
+                <div class="col-sm-3">
+                  <select class="form-control" name="city" id="city" onchange="getZone(this.value,'area');">
+                  	<option>选择城市</option>
+					{if $shopInfo['city']}
+					<option value="{$arrCity['id']}" selected="selected">{$arrCity['name']}</option>
+					{/if}
+                  </select>
+                </div>
+               <div class="col-sm-3">
+                  <select class="form-control" name="area" id="area" >
+                  	<option>选择区域</option>
+					{if $shopInfo['area']}
+					<option value="{$arrArea['id']}" selected="selected">{$arrArea['name']}</option>
+					{/if}
+                  </select>
+                </div>
+              </div>
+            </div>
+			<div class="form-group">
+		      	<label class="col-sm-2 control-label" for="address">详细地址：</label>
+		        <div class="col-sm-4">
+		          <input type="hidden"  name="address" id="address"  class="form-control" value="{$shopInfo['address']}">
+				  <div id="span_address" style="padding-top:8px;">{$shopInfo['address']}</div>
+		    	</div>
+				<div class="col-sm-4">
+					<input type="hidden" name="coordinate" id="coordinate" value="{$shopInfo['coordinate']}">
+					{if $shopInfo['coordinate']}
+		          <a href="javascript:showMap('{$gUserInfo[uid]}');" class="btn btn-default btn-sm">查看地图</a><a href="javascript:setMap('{$gUserInfo[uid]}');" class="btn btn-default btn-sm">重新定位</a>
+				  {else}
+				  <a href="javascript:setMap('{$gUserInfo[uid]}');" class="btn btn-default btn-sm">标注地图</a>
+				  {/if}
+		    	</div>
+		  	</div>
+			<div class="form-group">
+		      	<label class="col-sm-2 control-label" for="address">主页头部图片:</label>
+		        <div class="col-sm-6">
+		       <!--   <a href="javascript:changeBanner('{$uid}');void(0);" id="change_banner">点击更改图片</a>-->
+						<img id="banner_img" onerror="this.src='tpl/default/img/store_banner.jpg'" src="{if $shopInfo['banner']}{$shopInfo['banner']}{else}tpl/default/img/store_banner.jpg{/if}" alt="banner" class="img-responsive mb_20">
+						<!--<input type="file" class="file" name="upload1" id="upload1">
+					 	<input type="hidden"  name="file_id" id="fileid"  class="form-control">-->
+						
+						<div id="picker">上传图片</div>
+						<input type="hidden"  name="fileid" id="fileid"  class="form-control">
+					 	<input type="hidden"  name="banner" id="banner_path"  class="form-control">
+				</div>
+				<div class="col-sm-4"><p class="text-info mb_10"><i class="fa fa-info-circle"></i> <strong>提示</strong> 最佳图片尺寸：1200*280像素</p></div>
+				
+			</div>
+			<div class="form-group ">
+				<div class="col-sm-offset-2 col-sm-6">
+					<ul class="affix-list upload-file-list-info" id="fileList">
+						
+					</ul>
+				</div>
+			</div>
+			
+			<div class="form-group">
+				<label class="col-sm-2 control-label" for="address">主页背景图片:</label>
+					<div id="bground" class="col-sm-6">
+						<img id="background_img" class="img-responsive mb_20" onerror="this.src='tpl/default/img/store_banner.jpg'" src="{if $shopInfo['shop_background']}{$shopInfo['shop_background']}{else}tpl/default/img/store_banner.jpg{/if}">
+						<div class="form-inline pull-right">
+		                    <div class="checkbox">
+		                        <label>
+		                          <input type="checkbox" name="repeat" value="repeat-x" {if $arrBackgroudStyle['repeat']=='repeat-x'}checked="checked"{/if}> 平铺
+		                        </label>
+		                      </div>
+		                    <select id="position" name="position" class="form-control">
+		                        <option value="left top" {if $arrBackgroudStyle['position']=='left top'}selected="selected"{/if}>居中对齐</option>
+		                        <option value="center top" {if $arrBackgroudStyle['position']=='center top'}selected="selected"{/if}>居左对齐</option>
+		                        <option value="right top" {if $arrBackgroudStyle['position']=='right top'}selected="selected"{/if}>居右对齐</option>
+		                     </select>
+		                </div>
+						 <!--<input type="file" class="file" name="upload2" id="upload2">
+						 <input type="hidden"  name="file_id" id="fileid"  class="form-control">-->
+						 
+						 <div id="picker1" style="width:88px;">上传图片</div>
+						 <input type="hidden"  name="fileid1" id="fileid1"  class="form-control">
+				 		 <input type="hidden"  name="background" id="background_path"  class="form-control">
+		            </div>
+					<div class="col-sm-4">
+						<p class="text-info mb_10">
+		                    <i class="fa fa-info-circle"></i> <strong>提示</strong>
+		                    主页背景图片,宽度必须为950px。支持.jpg,.gif,.png,.jpeg格式。
+		                </p>
+					</div>
+		    	</div>
+				<div class="form-group ">
+					<div class="col-sm-offset-2 col-sm-6">
+						<ul class="affix-list upload-file-list-info" id="fileList1">
+							
+						</ul>
+					</div>
+				</div>
+<!-- 
+			<div class="form-group">
+              <label class="col-sm-2 control-label" for="seo_title">SEO标题：</label>
+                <div class="col-sm-8">
+                  <input type="text"  name="seo_title" id="seo_title"  class="form-control" value="{$shopInfo['seo_title']}">
+                </div>
+            </div>
+
+			<div class="form-group">
+              <label class="col-sm-2 control-label" for="seo_keyword">SEO关键词：</label>
+                <div class="col-sm-8">
+                  <input type="text"  name="seo_keyword" id="seo_keyword"  class="form-control" value="{$shopInfo['seo_keyword']}">
+                </div>
+            </div>
+			  <div class="form-group">
+              <label class="col-sm-2 control-label" for="seo_desc">SEO描述：</label>
+              <div class="col-sm-8">
+                 <textarea id="seo_desc" name="seo_desc" rows="5"   class="form-control"> {$shopInfo['seo_desc']}</textarea>
+              </div>
+-->
+            <div class="form-group">
+              <div class="col-sm-offset-2 col-sm-10">
+                <button class="btn btn-default" type="submit" value="1" >保存</button>
+                <span class="text-success" id="tipsUser"></span>
+              </div>
+            </div>
+          </form>
+      		<!-- 基本资料 end -->
+      </div>
+  </div>
+  </div>
+<script src="static/js/model/user/shop.js"></script>
+<script type="text/javascript">
+        $(function(){
+        	$("input[name='shop_status']").click(function(){
+				var flag = false;
+				
+				if($(this).val() == 'close'){
+						var confirm = $.scojs_confirm({
+						  content: "关闭主页的同时会将您的作品下架，确定要关店吗？",
+						  action: function() {
+						    flag = true;
+						  },
+						  onClose: function() {
+						    flag = false;
+							this.destroy();
+							$('#shop_status1').prop('checked',true);
+							$('#shop_status2').prop('checked',false);
+						  }
+						});
+						confirm.show();
+				}else{
+					flag = true;
+				}
+				
+				if(flag == true){
+					$.post('index.php?do=user&view=shop&op=setting',{ajaxop:'setstatus',setstatus:$(this).val()},function(){
+						if($('#shop_status1').attr('checked')){
+							$('#editShopForm').show();
+							$('#shop_status2_desc').hide();
+							$('#shop_status1_desc').show();
+						}
+						else{
+							$('#editShopForm').hide();
+							$('#shop_status2_desc').show();
+							$('#shop_status1_desc').hide();
+						}
+					});
+				}
+				
+			});
+        });
+</script>
+
+<link rel="stylesheet" type="text/css" href="static/js/webuploader/webuploader.css">
+		<script type="text/javascript" src="static/js/webuploader/webuploader.js?r={RANDOM_PARA}"></script>
+		<script type="text/javascript" src="static/js/webuploader/kppw.webuploader.js"></script>
+		<script type="text/javascript">
+		
+		
+		
+		
+			$(function(){
+				var uploadsize = parseInt("{$basic_config['max_size']}");
+					uploadsize =  isNaN(uploadsize)? 1 : uploadsize;
+				$("#picker").KKUploader({
+					accept: {
+						extensions : 'jpg,gif,png,jpeg'
+					},
+					fileNumLimit:1,
+					hiddenName: 'fileid',
+					uploadEvents: {
+						uploadComplete:function(file){
+							var url = $("#"+file.id).find('.webuploader-pick-file-close').attr('data-fileurl');
+							$('#banner_path').val(url);
+							$('#banner_img').prop('src',url);
+							$('.webuploader-pick-file-close').on('click','.close',function(){
+								$('#banner_img').prop('src','tpl/default/img/store_banner.jpg');
+							});
+						}
+					},
+					separator:',',
+					fileSingleSizeLimit:uploadsize*1024*1024,
+				},
+				{
+					filename : 'file',
+				});
+				
+				$("#picker1").KKUploader({
+					accept: {
+						extensions : 'jpg,gif,png,jpeg'
+					},
+					fileNumLimit:1,
+					hiddenName: 'fileid1',
+					uploadEvents: {
+						uploadComplete:function(file){
+							var url = $("#"+file.id).find('.webuploader-pick-file-close').attr('data-fileurl');
+							$('#background_path').val(url);
+							$('#background_img').prop('src',url);
+							$('.webuploader-pick-file-close').on('click','.close',function(){
+								$('#background_img').prop('src','tpl/default/img/store_banner.jpg');
+							});
+						}
+					},
+					separator:',',
+					fileSingleSizeLimit:uploadsize*1024*1024,
+					listName: 'fileList1'
+				},
+				{
+					filename : 'file',
+				});
+			});
+		</script>
+
+
+<!--{template user/footer}-->

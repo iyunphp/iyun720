@@ -1,0 +1,16 @@
+{if $arrShowCustoms && $c_open =='1'} 
+<div class="detail-custom" style=" display:none">
+	<h3 class="min-title">参数</h3>
+	<ul>
+	{loop $arrShowCustoms $k $v} 
+		{if $v['data']}
+			{loop $v['data'] $kk $vv} 
+				{if $vv['fieldname']&&$vv['content']}
+					<li title="{$vv['content']}"><strong>{$vv['fieldname']}:</strong>{$vv['content']}</li>	
+				{/if} 
+			{/loop}
+		{/if} 
+	{/loop}
+	</ul>
+</div>
+{/if}

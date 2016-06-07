@@ -1,0 +1,187 @@
+<!--{template user/header}-->
+<style>
+    .tab_detail form{
+        margin-top: 35px;
+    }
+
+    .action-bar{
+        margin-top: 10px;
+    }
+    
+    .action-item label{
+        margin-left: 20px;
+        padding-left: 10px;
+        padding-top: 5px;
+        float: left;
+        width: 100px;
+    }
+
+    .action-item button{
+        width: 90px;
+        height: 35px;
+        color: #fff;
+        background-color: #286090;
+        border-color: #204d74;
+
+        border-radius: 3px;
+        -moz-border-radius: 3px;
+        -ms-border-radius: 3px;
+        -o-border-radius: 3px;
+        -webkit-border-radius: 3px;
+    }
+
+    .upload input{
+        display: none;
+    }
+
+    .upload label{
+        margin: 0px;
+        padding: 0px;
+    }
+
+    .error{
+        border: 1px #ff0000 solid;
+    }
+
+    .tip{
+        margin-left: 10px;
+        color: #ff0000;
+    }
+</style>
+<div class="container">
+    <div style="margin: 30px 0px;">
+        <div class="tab">
+            <a href="#" {if $op == 'service'} class="selected" {/if}>添加专辑</a>
+        </div>
+        <div class="tab_detail">
+            <form action="{$strUrl}" method="post" name="searchServiceForm" id="searchServiceForm" onsubmit="return vail_form()">
+                <div class="action-bar">
+                    <div class="action-item">
+                        <label>专辑名称：</label>
+                        <input name="name" placeholder="请输入专辑名称" class="form-control" id="name" value="" />
+                        <span class="tip"></span>
+                    </div>
+                </div>
+                <div class="action-bar">
+                    <div class="action-item">
+                        <label>专辑关键字：</label>
+                        <input name="keywords" placeholder="请输入专辑关键字" class="form-control" id="keywords" value="" />
+						<span class="tip"></span>
+                    </div>
+                </div>
+                <div class="action-bar">
+                    <div class="action-item">
+                        <label>专辑图片：</label>
+                        <span style="display: block;padding-top: 5px;float: left;">
+                            <span id="upload" class="upload" style="position: relative;display: block;float: left;width: 200px;height: 20px;line-height: 20px;">上传图片</span>
+                            <input type="hidden"  name="txt_upload" id="txt_upload"  class="form-control" value="">
+							<span class="tip"></span>
+                        </span>
+						<span class="tip"></span>
+                    </div>
+                    <div class="col-sm-offset-2 col-sm-7">              
+                        <ul class="affix-list upload-file-list-info" id="edit_fileList_upload"></ul>
+                        <ul class="affix-list upload-file-list-info" id="fileList_upload"></ul>
+                    </div>
+
+                </div>
+                <script type="text/javascript" src="static/js/webuploader/webuploader.js?r={RANDOM_PARA}"></script>
+                <script type="text/javascript" src="static/js/webuploader/kppw.webuploader.js"></script>
+                <script>
+                //官方上传插件
+                $(function(){
+                    $("#upload").KKUploader(
+                      {
+                        accept: {
+                            extensions  : '{$strExtTypes2}'
+                        },
+                        fileNumLimit    : 1, 
+                        separator       : ',',
+                        fileVal         : 'dfdsf',
+                        listName        : "fileList_upload",
+                        hiddenName      : 'txt_upload',
+                        hiddenValType   : 2,
+                        editListName    : 'edit_fileList_upload'
+                      },
+                      {
+                        filename        : 'ewdfew',
+                        fileType        : 'service'
+                      }
+                    ).click(function(){
+                        $(this).find('input').click();
+                    });
+
+                });
+
+                
+                </script>
+                <div class="action-bar">
+                    <div class="action-item">
+                        <label>专辑介绍：</label>
+						<textarea placeholder="请输入专辑内容" class="form-control" id="text" name="text" style="width: 400px; height: 180px;"></textarea>
+						<span class="tip"></span>
+                    </div>
+                </div>
+                
+                <div {if $username != 'admin'}style="display: none;"{/if}>
+                    <div class="action-item">
+                        <label>专辑类型：</label>
+                        <select name="type" class="form-control" style="width: 200px;">
+                            <option value="0">公共专辑</option>
+                            <option value="1">私有专辑</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="action-bar">
+                    <div class="action-item">
+                        <label></label><button>提交</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+  </div>
+ <script>
+function vail_form(){
+    return vail_name();
+}
+
+function vail_name(){
+    var name = $('#name').val();
+	var keywords = $('#keywords').val();
+	var txt_upload = $('#txt_upload').val();
+	var text = $('#text').val();
+    if(name == ''){
+        $('#name').addClass('error');
+        $('#name').next().html('用户名不能为空！');
+        return false;
+    }
+	$('#name').removeClass('error');
+    $('#name').next().html('');
+	if(keywords == ''){
+		$('#keywords').addClass('error');
+		$('#keywords').next().html('关键字不能为空！');
+		return false;
+	}
+	$('#keywords').removeClass('error');
+    $('#keywords').next().html('');
+	if(txt_upload == ''){
+		$('#txt_upload').addClass('error');
+		$('#txt_upload').next().html('专辑图片不能为空！');
+		return false;
+	}
+	$('#txt_upload').removeClass('error');
+    $('#txt_upload').next().html('');
+	if(text == ''){
+		$('#text').addClass('error');
+		$('#text').next().html('关键字不能为空！');
+		return false;
+	}
+	$('#text').removeClass('error');
+    $('#text').next().html('');
+    return true;
+}
+ </script>
+  		
+<!--{template user/footer}-->

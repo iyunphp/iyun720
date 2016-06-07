@@ -1,0 +1,140 @@
+<!--{template ADMIN_DIRECTORY/tpl/admin_header}-->
+<div class="page_title">
+  <h1>{$model_info['model_name']}{$_lang['task_config']}</h1>
+    <div class="tool">
+      <a href="index.php?do=model&model_id={$model_id}&view=config&op=config" >{$_lang['basic_config']}</a>
+      <a href="index.php?do=model&model_id={$model_id}&view=config&op=control">{$_lang['control_config']}</a>
+      {if !in_array($model_id,array(6,7))}<a href="index.php?do=model&model_id={$model_id}&view=config&op=priv">{$_lang['private_config']}</a>{/if}
+      <a href="index.php?do=custom&view=fields&model_id={$model_id}" class="here">自定义输入字段</a>
+     </div>
+</div>
+<div class="box tip clearfix p_relative" id="man_tips">
+   <div class="control"><a href="javascript:void(0);" title={$_lang['close']} onclick="$('#man_tips').fadeOut();"><b>&times;</b></a></div>
+   <div class="title"><h2>{$_lang['tips']}</h2></div>
+   <div class="detail pad10">
+      <ul>
+      	{if $model_id==6}
+         	<li>*上传作品时，在作品名称下可添加自定义属性对作品进行详细描述</li>
+		{elseif model_id==7}
+         	<li>*上传服务时，在服务名称下可添加自定义属性对服务进行详细描述</li>
+       	{else}
+         	<li>*发布任务时，在任务名称下可添加自定义属性对任务进行详细描述</li>
+		{/if}
+      </ul>
+   </div>
+</div>
+<div class="box search p_relative">
+	<div class="title">
+		<h2>{$model_info['model_name']}-自定义输入字段    <a href="index.php?do=custom&view=editfields&model_id={$model_id}">添加自定义字段</a></h2>
+	</div>
+	<div class="detail" id="detail">
+			<table cellspacing="0" cellpadding="0">
+				<tbody>
+					<tr>
+						<td>是否开启：
+							<input type="radio" class="txt" name="open_custom" value="1" {if $model_info['open_custom'] =='1'} checked="checked"{/if}>是
+							<input type="radio" class="txt" name="open_custom" value="0" {if $model_info['open_custom'] !='1'} checked="checked"{/if}>否
+						</td>
+					</tr>
+					
+				</tbody>
+			</table>
+	</div>
+</div>
+<div class="box list">
+	
+	<div class="detail">
+		<!--<span style="color:red;">{$_lang['warm_prompt']}</span>-->
+		<div id="ajax_dom">
+			<input type="hidden" name="page" value="{$page}">
+			<table width="100%" border="0" cellspacing="0" cellpadding="0">
+				<tr class="title">
+					<th>排序	</th>
+                    <th>数据字段</th>
+					<th>字段名</th>
+					<!-- <th>必填</th> -->
+					<th>字段提示</th>
+					<th>长度限制(字符)</th>
+					<!-- <th>校验正则类型</th> -->
+					<th>错误提示</th>
+					<th>操作</th>
+				</tr>
+				{loop $dataList $key $value}
+				<tr class="item">
+					<td>
+						<input type="text" class="txt set-listorder" size="4" value="{$value['listorder']}" data-id="{$value['id']}">
+					</td>
+                    <td>{$value['f_code']}</td>
+					<td>{$value['f_name']}</td>
+					<!-- <td>{if $value['f_required']=='1'}是{else}否{/if}</td> -->
+					<td>
+						{$value['f_tips']}
+					</td>
+					
+					<td>
+						{if $value['f_fixed_len']}{$value['f_fixed_len']} {else} 
+						
+						{if $value['f_min_len']}  
+							{$value['f_min_len']}
+						{/if}  
+						{if $value['f_max_len']}  
+							- {$value['f_max_len']}
+						{/if}  
+						
+						{/if}
+					</td>
+					<!-- <td>
+						{$value['f_regex']}
+					</td> -->
+					<td>
+						{$value['f_warning']}
+					</td>
+					<td>
+						<a class="button dbl_target" href="index.php?do=custom&view=editfields&model_id={$model_id}&id={$value['id']}" >
+							<span class="icon pencil">&nbsp;</span>
+							修改
+						</a>
+						<a class="button dbl_target" href="index.php?do=custom&view=fields&model_id={$model_id}&id={$value['id']}&ac=del" onclick="return cdel(this);">
+							<span class="icon trash">&nbsp;</span>
+							{$_lang['delete']}
+						</a>
+					</td>
+				</tr>
+				{/loop}
+
+			</table>
+			{if $pages['page']}<div class="page">{$pages['page']}</div>{/if}
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+var url = "{$url}";
+$(function(){
+	$(".set-listorder").blur(function(){
+		var id = $(this).attr('data-id');
+		var ordernum = parseInt($(this).val());
+		if(!isNaN(ordernum)){
+			$.post(url,{id:id,ordernum:ordernum,opajax:'setorder'},function(json){
+				
+			},'json');
+		}
+	});	
+	$("input[name='open_custom']").click(function(){
+		var opennum = parseInt($(this).val());
+		if(!isNaN(opennum)){
+			$.post(url,{opennum:opennum,opajax:'setopen'},function(json){
+				if(opennum){
+					art.dialog({
+					    content: '已开启'
+					});
+				}else{
+					art.dialog({
+					    content: '已关闭'
+					});
+				}
+			},'json');
+		}
+	});	
+});
+</script>
+<!--{template ADMIN_DIRECTORY/tpl/admin_footer}-->

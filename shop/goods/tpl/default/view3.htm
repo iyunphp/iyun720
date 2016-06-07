@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>{$arrServiceInfo['title']}</title>
+    <meta name="keywords" content="{$strPageKeyword}">
+    <meta name="description" content="{$strPageDescription}">    
+	
+	<meta name="viewport" content="width=device-width,initial-scale=1 ,user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style” content=black" />
+	<meta name="author" content="iyun720" />
+	
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<link href="/tpl/default/css/p.css" rel="stylesheet" type="text/css">
+	<script src="static/js/jquery.min.js"></script>
+	<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+	<style>
+		html { height:100%; }
+		body { height:100%; overflow:hidden; margin:0; padding:0; font-family:Arial, Helvetica, sans-serif; font-size:16px; color:#FFFFFF; background-color:#000000; }
+		.pano{
+			position:relative;
+			width:100%;
+			height:100%; 
+		}
+		
+		.menu{
+			position: absolute;
+			width: 100%;
+			height: 40px;
+			line-height: 40px;
+			color: #ffffff;
+			z-index: 10;
+			text-shadow: 2px 2px 1px #000000;
+		}
+		
+		.menu h3{
+			float: left;
+			margin: 10px 10px 0px 10px;
+			font-size: 24px;
+		}
+		
+		.menu .popularity{
+			float: left;
+			margin-top: 11px;
+			font-size: 14px;
+		}
+		
+		.menu .right{
+			float: right;
+			margin-top: 6px;
+			height: 40px;
+			line-height: 40px;
+		}
+		
+		.menu .right a{
+			float: right;
+		    margin-left: 10px;
+		    margin-right: 10px;
+		    width: 36px;
+		    height: 40px;
+		}
+		
+		.menu .right .fp{
+			display: block;
+		    margin-top: 11px;
+		    width: 36px;
+		    height: 30px;
+		    background: url(/static/img/ico/min_icons.png?v=2) -1px -1px;
+		}
+		
+		.menu .right .fx{
+			display: block;
+		    margin-top: 8px;
+		    width: 32px;
+		    height: 30px;
+		    background: url(/static/img/ico/min_icons.png?v=2) -37px 0px;
+		}
+		
+		.menu .right .fx_panel{
+			position: relative;
+			float: right;
+			width: 55px;
+			height: 55px;
+		}
+		
+		.menu .right .fx_panel .options{
+			display: none;
+			position: absolute;
+			left: 10px;
+			top: 30px;
+			width: 30px;
+			height: 210px;
+
+
+		}
+		
+		.menu .right .fx_panel .options a{
+			float: left;
+		    display: block;
+		    margin: 10px 0px 0px 0px;
+		    padding: 0px;
+		    height: 42px;
+		}
+		
+		.menu .qq_fx{
+			display: block;
+		    margin-top: 8px;
+		    margin-left: 0px;
+		    width: 24px;
+		    height: 27px;
+		    background: url(/static/img/ico/min_icons.png?v=2) -75px -1px;
+		}
+		
+		.menu .wx_fx, .menu .bdsharebuttonbox.bdshare-button-style0-16 .wx_fx, .menu .right .fx_panel .options a.wx_fx{
+			display: block;
+		    margin-top: 0px;
+		    margin-left: 0px;
+		    width: 32px;
+		    height: 28px;
+		    background: url(/static/img/ico/min_icons.png?v=2) 0px -30px;
+		}
+		
+		.menu .pyq_fx, .menu .bdsharebuttonbox.bdshare-button-style0-16 .pyq_fx, .menu .right .fx_panel .options a.pyq_fx{
+			display: block;
+
+		    margin-top: 3px;
+		    margin-left: 0px;
+		    width: 28px;
+		    height: 27px;
+		    background: url(/static/img/ico/min_icons.png?v=2) -33px -30px;
+
+		}
+		
+		.menu2{
+			position: absolute;
+			right: 14px;
+			top: 46%;
+			z-index: 5;
+		}
+		
+		.menu2 a{
+			margin-bottom: 10px;
+			display: block;
+			width: 30px;
+		}
+		
+		.menu2 a .info{
+			display: block;
+			width: 29px;
+			height: 29px;
+			background: url(/static/img/ico/min_icons.png?v=2) -71px -28px;
+		}
+		
+		.menu2 a .music{
+			display: block;
+    		width: 29px;
+    		height: 29px;
+    		background: url(/static/img/ico/min_icons.png?v=2) -1px -57px;
+		}
+		
+		.menu2 a .music.dis{
+			background: url(/static/img/ico/min_icons.png?v=2) -33px -116px;
+		}
+		
+		.menu2 a .map{
+			display: block;
+    		width: 29px;
+    		height: 35px;
+    		background: url(/static/img/ico/min_icons.png?v=2) -70px -85px;
+		}
+		
+		.menu2 a .gyroscope{
+			display: block;
+    		width: 29px;
+    		height: 29px;
+    		background: url(/static/img/ico/min_icons.png?v=2) -1px -115px;
+		}
+		
+		.menu2 a .gyroscope.dis{
+			background: url(/static/img/ico/min_icons.png?v=2) -1px -145px;
+		}
+		
+		.menu2 a .telphone{
+			display: block;
+		    width: 29px;
+		    height: 29px;
+		    background: url(/static/img/ico/min_icons.png?v=2) -30px -145px;
+		}
+		
+		.menu2 a .all_full{
+			display: block;
+			margin-left: 8px;
+			margin-top: 8px;
+			width: 43px;
+			height: 42px;
+			background: url(/static/img/ico/icons.png?v=2) -1px -126px;
+		}
+		
+		.yinying{
+			display: none;
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			background: #000000;
+			z-index: 49;
+			
+			opacity: 0.6;
+			-ms-opacity: 0.6;
+			-webkit-opacity: 0.6;
+			-moz-opacity: 0.6;
+			-o-opacity: 0.6;
+		}
+		
+		.infos{
+			display: none;
+			position: absolute;
+			padding-bottom: 40px;
+			border: 1px #b8b8b8 solid;
+			width: 80%;
+			max-width: 1050px;
+			font-size: 28px;
+			background: #ffffff;
+			z-index: 10000;
+			
+			border-radius: 3px;
+			-ms-border-radius: 3px;
+			-moz-border-radius: 3px;
+			-webkit-border-radius: 3px;
+			-o-border-radius: 3px;
+		}
+		
+		.infos h3{
+			border-bottom: 1px #858585 solid;
+			height: 50px;
+			color: #000000;
+			line-height: 50px;
+			margin: 0px;
+			font-weight: bolder;
+			text-indent: 20px;
+			font-size: 20px;
+		}
+		
+		.infos h3 .close{
+			float: right;
+		    margin-top: 16px;
+		    margin-right: 10px;
+		    width: 26px;
+		    height: 26px;
+		    background: url(/static/img/ico/min_icons.png?v=2) -63px -120px;
+		    cursor: pointer;
+		}
+		
+		.info_text{
+			padding-top: 10px;
+			padding-left: 42px;
+			padding-right: 42px;
+			padding-bottom: 30px;
+			border-bottom: 1px #858585 solid;
+			color: #858585;
+			font-size: 26px;
+			line-height: 40px;
+			text-indent: 50px;
+		}
+		
+		.infos .pinglun{
+			color: #242424;
+		}
+		
+		.infos .pinglun h5{
+			margin: 0px;
+			font-size: 20px;
+			line-height: 40px;
+			text-indent: 20px;
+			color: #242424;
+		}
+		
+		.infos .pinglun ul{
+			margin: 0px;
+			padding-left: 20px;
+		}
+		
+		.infos .pinglun li{
+			margin-bottom: 15px;
+			height: 20px;
+			line-height: 20px;
+			list-style: none;
+			font-size: 15px;
+			color: #b8b8b8;
+		}
+		
+		.infos .pinglun li .sicon{
+			float: left;
+			margin-right: 10px;
+			width: 15px;
+			height: 15px;
+			background:#a9a9a9;
+			
+			border-radius: 25px;
+			-ms-border-radius: 25px;
+			-moz-border-radius: 25px;
+			-o-border-radius: 25px;
+			-webkit-border-radius: 25px;
+		}
+		
+		.infos .fb{
+			margin: 0px 20px;
+    		padding-top: 0px;
+    		padding-bottom: 00px;
+		}
+		
+		.infos .fb textarea{
+			margin-bottom: 10px;
+			padding: 5px;
+			width: 100%;
+			height: 150px;
+			font-size: 28px;
+			line-height: 32px;
+		}
+		
+		.infos .fb button{
+			width: 100px;
+		    height: 30px;
+		    font-size: 14px;
+		    line-height: 20px;
+		    cursor: pointer;
+		}
+		
+		.maps{
+			display: none;
+			position: absolute;
+			border: 1px #b8b8b8 solid;
+			width: 90%;
+			max-width: 880px;
+			background: #ffffff;
+			z-index: 10000;
+			
+			border-radius: 3px;
+			-ms-border-radius: 3px;
+			-moz-border-radius: 3px;
+			-webkit-border-radius: 3px;
+			-o-border-radius: 3px;
+		}
+		
+		.maps h3{
+			border-bottom: 1px #858585 solid;
+			height: 50px;
+			color: #000000;
+			line-height: 50px;
+			margin: 0px;
+			font-weight: bolder;
+			text-indent: 30px;
+			font-size: 25px;
+		}
+		
+		.maps h3 .close{
+			float: right;
+			margin-top: 12px;
+			margin-right: 10px;
+			width: 26px;
+			height: 26px;
+			background: url(/static/img/ico/icons.png?v=2) -94px -185px;
+			cursor: pointer;
+		}
+	</style>
+	<script>
+	var pano = document.getElementById('pano');
+	var isClick = false;
+	var panoTag = 0;
+	var mLeft = 0;
+	var mTop = 0;
+	
+	function init(){
+		document.getElementById('pano').onmousedown = function(ev){
+			down_pano(ev);
+		}
+		
+		document.getElementById('pano').onmouseup = function(ev){
+			up_pano(ev);
+		}
+		
+		$('#aFp').click(function(){
+			krpanoSWFObject.call("webvr.enterVR();switch(plugin[skin_gyro].enabled); if(plugin[skin_gyro].enabled, skin_showmap(false));");
+			$('.menu').hide();
+			$('.menu2').hide();
+		});
+		
+		$('#aFx').click(function(){
+			$(this).parent().find('.options').toggle();
+		});
+		
+		$('#aInfo').click(function(){
+			$('#yinying').show();
+			to_center($('#infos').show());
+		});
+		
+		$('#allFull').click(function(){
+			//alert('fff')
+			//pano.call("webvr.enterVR()");
+		});
+		
+		$('#infos .close').click(function(){
+			$('#infos').hide();
+			$('#yinying').hide();
+		});
+		
+		$('#aMusic').click(function(){
+			$(this).find('.music').toggleClass('dis');
+			krpanoSWFObject.call("pausesoundtoggle(bgsnd);");
+			 
+		});
+		
+		$('#allFull').click(function(){
+			krpanoSWFObject.call("switch(fullscreen);");
+			
+		});
+		
+		$('.menu').show();
+		$('.menu2').show();
+		
+		$('#aMaps').click(function(){
+			$('#yinying').show();
+			to_center($('#maps').show());
+		});
+		
+		$('#aGyroscope').click(function(){
+			$(this).find('.gyroscope').toggleClass('dis');
+			krpanoSWFObject.call("switch(plugin[skin_gyro].enabled); if(plugin[skin_gyro].enabled, skin_showmap(false));");
+			
+		});
+		
+		$('#aTelphone').click(function(){
+			$('#yinying').show();
+			to_center($('#telphones').show());
+		});
+		
+		$('#telphones .close').click(function(){
+			$('#yinying').hide();
+			$('#telphones').hide();
+			
+		});
+		
+		$('#maps .close').click(function(){
+			$('#maps').hide();
+			$('#yinying').hide();
+		});
+		
+		
+	}
+	
+	function onexitvr(){
+		$('.menu').show();
+		$('.menu2').show();
+	}
+	
+	function down_pano(ev){
+		clearTimeout(panoTag);
+		isClick = true;
+		panoTag = setTimeout(function(){
+			isClick = false;
+		}, 1000);
+		
+		var oEvent=ev||event;
+		var oLeft = mLeft = oEvent.clientX;
+		var oTop = mTop = oEvent.clientY;
+	}
+	
+	function up_pano(ev){
+		clearTimeout(panoTag);
+		
+		var oEvent=ev||event;
+		var oLeft=oEvent.clientX;
+		var oTop=oEvent.clientY;
+		if(isClick && oLeft == mLeft && oTop == mTop && ev.button == 1){
+			isClick = false;
+			pano_callback();
+		}
+	}
+	// test
+	function pano_callback(){
+		var parent = window.parent;
+		if(parent.iframe_callback){
+			parent.iframe_callback();
+		}
+	}
+	
+	function to_center(obj){
+		var width = $(window).width();
+		var height = $(window).height();
+		var top = $(window).scrollTop();
+		var eleWidth = obj.width();
+		var eleHeight = obj.height();
+		obj.css({
+			left: (width - eleWidth) / 2,
+			top: top + (height - eleHeight) * 2 / 5
+		}); 
+	}
+	</script>
+</head>
+<body onload="init()" style="overflow-y: scroll;">
+<script src="{$js}"></script>
+{if !$_GET['nouser']}
+<span id="iframeInfoPanel" class="iframe_info_panel">
+	<span >
+		<span class="iframe_info_user_data">
+			<a href="/index.php?do=seller&id=$arrSellerInfo['uid']" target="_top">
+				<!--{userpic($arrSellerInfo['uid'],'larger')}--><span>作者：{if $arrSellerInfo['shop_name']}{$arrSellerInfo['shop_name']}{else}{$arrSellerInfo['username']}{/if}</span>
+			</a>
+		</span>
+	</span>
+</span>
+{/if}
+<div id="menu" class="menu" style="display: none;">
+	{if $arrServiceInfo['logo']}
+	<h3><img style="height: 30px;" src="{$arrServiceInfo['logo']}" alt="{$arrServiceInfo['title']}" /></h3>
+	<span class="popularity" style="margin-top: 6px;">人气 {$arrServiceInfo['view']}</span>
+	{else}
+	<h3>{$arrServiceInfo['title']}</h3>
+	<span class="popularity">人气 {$arrServiceInfo['view']}</span>
+	{/if}
+	
+	<div class="right">
+		<div class="fx_panel">
+			<a id="aFx" href="javascript:"><span class="fx"></span></a>
+			<div class="options">
+				<a href="http://share.v.t.qq.com/index.php?c=share&a=index&url=http%3A%2F%2Fwww.iyun720.com%2Findex.php%3Fdo%3Dview3%26sid%3D{$sid}&title={$arrServiceInfo['title']}&appkey=801cf76d3cfc44ada52ec13114e84a96"><span class="qq_fx"></span></a>
+				<!--
+				<a id="aWxFx" href="javascript:"><span class="wx_fx"></span></a>
+				<a href="javascript:"><span class="pyq_fx"></span></a>
+				-->
+				<div class="bdsharebuttonbox">
+					<a href="#" class="bds_weixin wx_fx" data-cmd="weixin"></a>
+					<a href="#" class="bds_weixin pyq_fx" data-cmd="weixin"></a>
+				</div>
+			</div>
+			<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdPic":"","bdStyle":"0","bdSize":"16"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+		</div>
+		<a id="aFp" href="javascript:"><span class="fp"></span></a>
+	</div>
+</div> 
+<div id="menu2" class="menu2" style="display: none;">
+	<a id="aMusic" href="javascript:"><span class="music"></span></a>
+	<a id="aInfo" href="javascript:"><span class="info"></span></a>
+	<a id="aMaps" href="javascript:"><span class="map"></span></a>
+	<a id="aGyroscope" href="javascript:"><span class="gyroscope"></span></a>
+	{if $arrServiceInfo['telphone']}
+	<a id="aTelphone" href="javascript:"><span class="telphone"></span></a>
+	{/if}
+	<!--
+		<a id="allFull" href="javascript:"><span class="all_full"></span></a>
+	-->
+</div>
+{if  $arrSellerInfo['uid'] == '60'}
+	{if $n!='f'}
+	<img src="/tpl/default/images/logo2.png" alt="云游VR | 全景VR，全景图片，VR视频，智慧旅游，360度全景看房，航拍，虚拟现实内容" style="position: absolute;left: 20px;bottom: 25px;width: 100px;z-index: 10;">
+	{/if}
+{/if}
+<div id="yinying" class="yinying"></div>
+<div id="infos" class="infos">
+	<h3>{$arrServiceInfo['title']}<span class="close"></span></h3>
+	{if $content}
+	<div class="info_text">
+		{$content}
+	</div>
+	{/if}
+	<div id="pinglun" class="pinglun">
+		<h5>评论（<span id="pinglunCount">{$count}</span>）</h5>
+		<ul>
+			{loop $datas $data}
+			<li><span class="sicon"></span>{$data['text']}</li>
+			{/loop}
+		</ul>
+	</div>
+	<div class="fb">
+		<textarea id="txtPinglun"></textarea>
+		<div><button onclick="send_pinglun()">发表</button></div>
+	</div>
+</div>
+<div id="telphones" class="infos">
+	<h3>联系我们<span class="close"></span></h3>
+	<div class="info_text" style="padding-top: 30px;padding-bottom: 90px;">
+		{$arrServiceInfo['telphone']}
+	</div>
+</div>
+<script charset="utf-8" src="http://map.qq.com/api/js?v=2.exp&key=NTMBZ-TFX3P-RNXDW-VKOTM-ATXUZ-D7FDX"></script>
+<div id="maps" class="maps">
+	<style>
+	.map_panel{
+		width: 100%;
+		height:400px;
+		color:#000000;
+	}
+	</style>
+	<h3>地图<span class="close"></span></h3>
+	<div id="mapPanel" class="map_panel"></div>
+	<script>
+	$(function(){
+		 map_init();
+		 krpanoSWFObject.call("set(layer[skin_thumbs_scrollleft].visible, false);");
+		 krpanoSWFObject.call("set(layer[skin_thumbs_scrollright].visible, false);");
+	});
+	function map_init(){
+		var map = new qq.maps.Map(document.getElementById("mapPanel"), {
+			center: new qq.maps.LatLng(39.916527,116.397128),      // 地图的中心地理坐标。
+			zoom:8                                                 // 地图的中心地理坐标。
+		});
+		var centerMarker = new qq.maps.Marker({ map: map });
+		var str = '广东省深圳市宝安区银田路4号智谷科技园H栋1楼智客空间孵化基地';
+		{if $arrServiceInfo['areatext']}
+		str = "{$arrServiceInfo['areatext']}";
+		{/if}
+		
+		searchKeyword.ss = new qq.maps.SearchService({
+			//检索成功的回调函数
+			complete: function(results) {
+				//设置回调函数参数
+				var pois = results.detail.pois;
+				var infoWin = new qq.maps.InfoWindow({
+					map: map
+				});
+				var latlngBounds = new qq.maps.LatLngBounds();
+				//调整地图视野
+				map.setCenter(pois[0].latLng);
+				map.setZoom(18);
+				centerMarker.setPosition(map.getCenter());
+				//select_address(pois);
+			},
+			//若服务请求失败，则运行以下函数
+			error: function() {
+				console.log("地图查询异常！");
+			}
+		});
+		map_init.city = "深圳";
+		searchKeyword(str);
+	}
+	
+	function searchKeyword(keyword) {
+		var searchService = searchKeyword.ss;
+		//clearOverlays(markers);
+		//根据输入的城市设置搜索范围
+		searchService.setLocation(map_init.city);
+		//设置搜索页码
+		searchService.setPageIndex(1);
+		//设置每页的结果数
+		searchService.setPageCapacity(10);
+		//根据输入的关键字在搜索范围内检索
+		searchService.search(keyword);
+	}
+	</script>
+</div>
+<div id="pano" class="pano">
+	<noscript><table style="width:100%;height:100%;"><tr style="vertical-align:middle;"><td><div style="text-align:center;">ERROR:<br/><br/>Javascript not activated<br/><br/></div></td></tr></table></noscript>
+	<script>
+	function send_pinglun(){
+		var text_pinglun = $('#txtPinglun').val();
+		if(text_pinglun == ''){
+			alert('评论不能为空！');
+			return;
+		}
+		$.ajax({
+			url: '/index.php?do=view3&vid={$sid}&json=json&type=add',
+			data:{
+				text: text_pinglun
+			},
+			dataType: 'json',
+			type: 'post',
+			success: function(data){
+				data = data.data;
+				if(data.type == 'success'){
+					list = data.list;
+					$('#txtPinglun').val('');
+					alert('发表成功！');
+					$('#pinglun ul').html('');
+					for(var i in list){
+						$('<li>').append(
+							$('<span>').addClass('sicon')
+						).append(list[i].text).appendTo('#pinglun ul');
+					}
+					$('#pinglunCount').html(data.count);
+				}
+				else
+				{
+					alert(data.error);
+				}
+			}
+		});
+	}
+	
+	function selecthtml5usage()
+	{
+	// check for Android MQQBrowser:
+	//if( navigator.userAgent.indexOf("Android") >= 0 && navigator.userAgent.indexOf("QQ") >= 0 )
+	//return "auto+css3d";
+	// for all other cases use html5=auto:
+	return "prefer";
+	}
+	embedpano({swf:"{$swf}", xml:"{$xml}", target:"pano", html5:selecthtml5usage(), initvars:{design:"flat"}, passQueryParameters:true});
+	var krpanoSWFObject = document.getElementById("krpanoSWFObject");
+	{if $n == 'f'}
+	krpanoSWFObject.call("set(layer[skin_control_bar].visible, false);");
+	krpanoSWFObject.call("set(layer[skin_splitter_bottom].visible, false);");
+	krpanoSWFObject.call("set(layer[skin_map_container].visible, false);");
+	krpanoSWFObject.call("set(layer[get(skin_layer)].visible, false);");
+	//krpanoSWFObject.call("set(layer[get(skin_thumbborder)].visible, false);");
+	krpanoSWFObject.call("set(layer[skin_buttonglow].visible, false);");
+	krpanoSWFObject.call("set(layer[skin_scroll_window].y, -5);");
+	{/if}
+	krpanoSWFObject.call("set(plugin[snd].visible, false);");
+	</script>
+</div>
+</body>
+</html>

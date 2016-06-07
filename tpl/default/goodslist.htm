@@ -1,0 +1,231 @@
+<!--{template header}-->
+<style>
+.body{
+	background:#f0f0f0;
+}
+
+.list{
+	padding: 0px 50px;
+}
+
+.zp_max_img{
+	position:relative;
+	display: inline-block;
+	width: 66.66%;
+	vertical-align: middle;
+}
+
+.zp_max_img img{
+	width: 100%;
+}
+
+.zp_max_img h5{
+	display: none;
+	margin: 0px;
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    height: 30px;
+    line-height: 30px;
+    background: rgba(0,0,0,0.4);
+    text-indent: 10px;
+    color: #ffffff;
+}
+
+.zp_max_img:hover h5{
+	display: block;
+}
+
+.zp_middle_img{
+	position:relative;
+	display: inline-block;
+	width: 33.33%;
+	vertical-align: middle;
+}
+
+.zp_middle_img img{
+	width: 100%;
+}
+
+.zp_middle_img h5{
+	display: none;
+	margin: 0px;
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    height: 30px;
+    line-height: 30px;
+    background: rgba(0,0,0,0.4);
+    text-indent: 10px;
+    color: #ffffff;
+}
+
+.zp_middle_img:hover h5{
+	display: block;
+}
+
+.zp_middle_img div{
+	position: relative;
+}
+
+.zp_min_img{
+	position:relative;
+	display: inline-block;
+	width: 33.33%;
+	vertical-align: middle;
+}
+
+.zp_min_img div{
+	position: relative;
+}
+
+.zp_min_img img{
+	width: 100%;
+}
+
+.zp_min_img h5{
+	display: none;
+	margin: 0px;
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    height: 30px;
+    line-height: 30px;
+    background: rgba(0,0,0,0.4);
+    text-indent: 10px;
+    color: #ffffff;
+}
+
+.zp_min_img div:hover h5{
+	display: block;
+}
+</style>
+<div class="main">
+	<div class="filter">
+		<div style="padding: 0px 50px;">
+			<div class="collapse navbar-collapse navbar-ex1-collapse ">
+			<a class="upload_good btn btn-info" href="index.php?do=pubgoods">上传作品</a>
+		  </div>
+		</div>
+	</div>
+	<div id="post-list">
+		<!--datas-->
+		<div class="list">
+			<div style="margin-top: 6px;">
+				<div class="zp_middle_img" style="padding-right: 4px;">
+					<div>
+						<a href="/index.php?do=goods&id={$arrServices[0]['service_id']}">
+							<img src="{$arrServices[0]['thumbnail']}" />
+							<h5>$arrServices[0]['title']</h5>
+						</a>
+					</div>
+				</div><div class="zp_middle_img" style="padding: 0px 2px">
+					<div>
+						<a href="/index.php?do=goods&id={$arrServices[1]['service_id']}">
+							<img src="{$arrServices[1]['thumbnail']}" />
+							<h5>$arrServices[1]['title']</h5>
+						</a>
+					</div>
+				</div><div class="zp_middle_img" style="padding-left: 4px;">
+					<div>
+						<a href="/index.php?do=goods&id={$arrServices[2]['service_id']}">
+							<img src="{$arrServices[2]['thumbnail']}" />
+							<h5>$arrServices[2]['title']</h5>
+						</a>
+					</div>
+				</div>
+			</div>
+			<div style="margin-top: 6px;">
+				<div class="zp_max_img">
+					<a href="/index.php?do=goods&id={$arrServices[3]['service_id']}">
+						<img src="{$arrServices[3]['thumbnail']}" />
+						<h5>$arrServices[3]['title']</h5>
+					</a>
+				</div><div class="zp_min_img">
+					<div style="padding-left:6px;">
+						<a href="/index.php?do=goods&id={$arrServices[4]['service_id']}">
+							<img src="{$arrServices[4]['thumbnail']}" />
+							<h5>$arrServices[4]['title']</h5>
+						</a>
+					</div>
+					<div style="padding-left: 6px;margin-top: 5px;">
+						<a href="/index.php?do=goods&id={$arrServices[5]['service_id']}">
+							<img src="{$arrServices[5]['thumbnail']}" />
+							<h5>$arrServices[5]['title']</h5>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="list">
+
+			<div style="margin-top: 6px;">
+				<div class="zp_min_img" style="padding-right: 6px;">
+					<div>
+						<a href="/index.php?do=goods&id={$arrServices[6]['service_id']}">
+							<img src="{$arrServices[6]['thumbnail']}" />
+							<h5>$arrServices[6]['title']</h5>
+						</a>
+					</div>
+					<div style="margin-top: 6px;" style="padding-right: 6px;">
+						<a href="/index.php?do=goods&id={$arrServices[7]['service_id']}">
+							<img src="{$arrServices[7]['thumbnail']}" />
+							<h5>$arrServices[7]['title']</h5>
+						</a>
+					</div>
+				</div><div class="zp_max_img">
+					<a href="/index.php?do=goods&id={$arrServices[8]['service_id']}">
+						<img src="{$arrServices[8]['thumbnail']}" />
+						<h5>$arrServices[8]['title']</h5>
+					</a>
+				</div>
+			</div>
+		</div>
+		<!--datas-->
+	</div>
+	 <div class="list-page" style="display: none;">
+		<ul class="pagination pagination-sm pull-right">
+			{$strPages['page']}
+		</ul>
+	</div>
+</div>
+<script>
+//{$_GET['json']}---{$json}
+
+
+
+	var page = 1;
+	var pageCount = 1;
+	var isLoad = false;
+	$(function(){
+		pageCount = parseInt($('.pagination .fl_l').html().split('/')[1], 10);
+		$(window).scroll(function(){
+			if($(window).scrollTop() + $(window).height() > $(document).height() - 10){
+				if(!isLoad){
+					load_data();
+				}
+			}
+		});
+	});
+	function load_data(){
+		isLoad = true;
+		page ++;
+		if(page > pageCount){
+			return;
+		}
+		$.ajax({
+			url    : '/index.php?do=goodslist&die=die&page=' + page,
+			type   : 'json',
+			success: function(data){
+				isLoad = false;
+				data = data.split('<!--datas-->');
+				$('#post-list').append(data[1]);
+				console.log(data[1]);
+			}
+		});
+		
+	}
+	
+</script>
+<!--{template footer}-->

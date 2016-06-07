@@ -1,0 +1,38 @@
+<header class="header">
+    <div class="container">
+        <div class="header-website">
+            <div class="brand-logo">
+                <a href="{SITEURL}"><img src="{$strWebLogo}" alt="{$strPageTitle}"></a>
+            </div><!-- brand-logo end--><!--<div class="header-location">
+            全国站
+            <div class="localtion-layer">
+            <a href="javascript:void(0);" data-toggle="dropdown">[切换城市<span class="caret"></span>]</a>
+            <ul class="dropdown-menu for-city" role="menu" aria-labelledby="dLabel">
+            {loop $arrDisplaypro $k $v}
+            <li><a href="javascript:void(0);" role="menuitem" tabindex="-1">$v['name']</a></li>
+            {/loop}
+            </ul>
+            </div>--><!-- localtion-layer end--><!--</div>--><!-- header-location end-->
+        </div>
+        <div class="header-function">
+            <div class="header-search">
+                
+            </div>
+            <!-- header-search end-->
+            {if $arrTopIndus && $indus_arr}
+            <div class="header-keywords">
+                热门搜索：
+                {loop $arrTopIndus $k $v}
+                	{if $indus_arr[$v['indus_id']]['indus_name']}
+                		<a href="index.php?do=tasklist&i=$v['indus_id']" class="marked marked-tags">{$indus_arr[$v['indus_id']]['indus_name']}</a>
+                	{/if}
+                {/loop}
+            </div>
+            {/if}
+            <!-- header-keywords end-->
+        </div>
+        <!-- header-function end-->
+    </div>
+    
+</header>
+<!-- header end-->

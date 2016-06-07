@@ -1,0 +1,2 @@
+<?php
+//eval(analytic($str));

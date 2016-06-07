@@ -1,0 +1,51 @@
+<!--{template top}-->
+<!--{template seller/banner}-->
+<!--{template seller/nav}-->
+<link href="/tpl/default/css/style2.css" rel="stylesheet">
+            <div class="store_info_box ">
+            	{if $arrServiceLists && $arrSellerInfo['autoshop']==1}   
+            	<div class="box-body same-type mb_10">
+                <ul class="min-list img row">
+                  {loop $arrServiceLists $k $v}
+                    <li class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+                        <a title="$v['title']" href="index.php?do=goods&id=$v['service_id']">
+                            <div class="min-list-img"><!--{eval $arrPic=explode(',',$v['pic']);$img=strstr($arrPic[0],'http');}-->                               
+                                <img alt="$v['title']" onerror='$(this).attr("src","tpl/default/img/shop/shop_default_big.jpg")' alt="$v['title']" {if $img}src="{$arrPic[0]}" width="600" height="200" style=" max-height:200px; overflow:hidden" {else}src="<!--{eval echo keke_shop_class::output_pics($v['file_path'],210,1,1,$v['service_id'])}-->"  width="100%" height="200" style=" max-height:200px; overflow:hidden"{/if}>
+								{$v['file_type']}
+							</div>
+                            <div class="min-list-title">{$v['title']}</div>
+                        </a>
+                    </li>
+                    {/loop}
+                </ul>
+            </div>
+				   {else}
+				   {if $arrSellerInfo['autoshop']!=1}
+				   		<dd class="list-item text-center">
+			              <!--{template noshop}-->
+                       </dd>
+				   {else}
+					   <dd class="list-item text-center">
+			              <!--{template nodata}-->
+                       </dd>
+                   {/if}
+					  {/if}
+				  <!-- list list-img  end-->
+
+				  <div class="list-page">
+				    <div class="page-tips pull-left">
+				      显示 {$strPages['st']}~{$strPages['en']} 项 ###共 {$intGoodsCount} 个作品
+				    </div>
+				    <ul class="pagination pagination-sm pull-right">
+				       {$strPages['page']}
+				    </ul>
+				  </div>
+				  <!-- list-page end -->
+
+            </div><!-- store_info_box end -->
+
+</div><!-- store_down end-->
+</div><!-- store_detail end -->
+</div><!-- space_body end-->
+</div><!-- #space_bg end-->
+<!--{template footer}-->

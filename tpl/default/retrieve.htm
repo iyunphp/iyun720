@@ -1,0 +1,155 @@
+<!--{template header}-->
+<div class="container">
+    <div class="col-xs-0 col-sm-1 col-md-3 col-lg-3"></div>
+<div class="col-xs-12 col-sm-10 col-md-6 col-lg-6">
+        <div class="login-and-register-container">
+            <div class="login-box">
+                <div class="page-header">
+                    <h1>忘记了密码？</h1>
+                </div>
+                {if !$_SESSION['retrieve']['step']}
+                <form role="form" action="index.php?do=retrieve" class="form-horizontal" name="getForm1" id="getForm1" method="post">
+                    <input type="hidden" name="formhash" id="formhash" value="{FORMHASH}">
+					<input type="hidden" name="step" id="step" value="step2">
+                    <div class="form-group">
+                        <div class="col-xs-12 col-sm-10 col-md-6 col-lg-6">
+                            <p class="mb_20 text-info">
+                                <i class="fa fa-info-circle"></i>
+                                输入您注册的帐号以发送重置密码邮件。您可能需要查看垃圾邮件文件夹查看邮件。
+                            </p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-12 col-sm-10 col-md-6 col-lg-6">
+                            请填写您需要找回的帐号:
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-12 col-sm-10 col-md-6 col-lg-6">
+                            <input type="account" class="form-control" name="account" id="account" placeholder="请您输入用户名/邮箱">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                       <div class="col-xs-12 col-sm-10 col-md-6 col-lg-6">
+                            <input type="text" class="form-control" id="getPasswordCode" name="getPasswordCode" placeholder="请输入验证码" value="">
+                        </div>
+                        <div class="col-xs-7 code-img hidden " id="show_secode_menu_content">
+                            <img id="secode_img" src="index.php?do=ajax&view=captcha" onclick="change();document.getElementById('secode_img').src='index.php?do=ajax&view=captcha&sid='+Math.random(); return false;"><a href="javascript:change();javascript:document.getElementById('secode_img').src='index.php?do=ajax&view=captcha&sid='+Math.random();void(0);">换一组</a>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-offset-3 col-xs-5">
+                            <button type="submit" class="btn btn-primary">
+                                下一步
+                            </button>
+                        </div>
+                    </div>
+                </form>
+                {else}
+                <form role="form" action="index.php?do=retrieve" class="form-horizontal" name="getForm2" id="getForm2" method="post">
+                    <input type="hidden" name="formhash" id="formhash" value="{FORMHASH}">
+                    <input type="hidden" name="subvalid" id="subvalid" value="valid">
+                    <div class="form-group">
+                        <div class="col-xs-7 form-control-static col-xs-offset-3">
+                            <p class="mb_20 text-info">
+                                <i class="fa fa-info-circle"></i>
+                                为了你的帐号安全，请完成身份验证
+                            </p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-3 control-label">
+                            邮箱：
+                        </label>
+                        <div class="col-xs-7 form-control-static">
+							<!--{eval echo kekezu::set_star($_SESSION['retrieve']['userinfo']['email'], 2, 9,3,'*');}-->
+                           (验证码即将发送到此邮箱)
+                        </div>
+                        <label class="col-xs-2 control-label">
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-3 control-label">
+                            验证码：
+                        </label>
+                        <div class="col-xs-2 ">
+                            <input type="text" name="valid_code" id="valid_code" class="form-control" placeholder="请输入验证码" maxlength="6">
+                        </div>
+                        <div class="col-md-4 form-control-static">
+                            <button type="button" id="send-valid-code" class="btn btn-default ">
+                                发送验证码
+                            </button>
+							<span id="send-success" style="margin-left:5px;"></span>
+                        </div>
+                        
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-offset-3 col-xs-5">
+                            <button type="submit" class="btn btn-primary">
+                                下一步
+                            </button>
+                        </div>
+                    </div>
+                </form>
+                {/if}
+            </div>
+            <!-- login-box end -->
+        </div>
+        <!-- login-and-register-container end -->
+    </div>
+    <div class="col-xs-0 col-sm-1 col-md-3 col-lg-3"></div>
+    <!-- col-xs-5 end -->
+</div>
+<script type="text/javascript" src="static/js/model/register/register.js"></script>
+<script type="text/javascript" src="static/js/cookies.js"></script>
+<script type="text/javascript">
+    function change(){
+        $("#getPasswordCode").val("");
+    }
+	
+	//发送验证码
+    document.getElementById('send-valid-code').onclick = function(){
+		TimeCountdown(this);
+		$.post('index.php?do=retrieve',{ajax:'sendcode'},function(json){
+			if(json.status == '1'){
+				//tipsOp('发送成功','success');
+				$("#send-success").html("验证码已发送");
+			}
+		},'json');
+    };
+	
+    var initwait = 60;//初始化计数时间
+    var wait = 60; //倒计时
+	var stime = Cookies.get('send_time');//获取cookie保存的倒计时时间戳
+	var ctime = getCurrTime();//当前时间戳
+	if(stime != undefined){
+		if(stime - ctime>0){
+			wait = stime - ctime;
+			TimeCountdown(document.getElementById('send-valid-code'));
+		}
+	}
+	//时间倒计时
+    function TimeCountdown(o){
+        if (wait == 0) {
+            o.removeAttribute("disabled");
+            o.innerHTML = "发送验证码";
+            wait = initwait;
+        }else {
+			if(!Cookies.get('send_time')){
+				Cookies.set('send_time', getCurrTime()+initwait, { expires: initwait }); 
+			}
+            o.setAttribute("disabled", true);
+            o.innerHTML =  wait + "秒后重新发送";
+            wait--;
+            setTimeout(function(){
+                TimeCountdown(o);
+            }, 1000);
+        }
+    }
+	//获取当前时间戳
+	function getCurrTime(){
+		var now = new Date(); //获取系统日期，即Sat Jul 29 08:24:48 UTC+0800 2006 
+		return Math.ceil(now.getTime()/1000);
+	}
+</script>
+<!--{template footer}-->

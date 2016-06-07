@@ -1,0 +1,59 @@
+<!--{template top}-->
+<script src="static/js/model/user/user.js"></script>
+<script src="static/js/model/user/transaction.js"></script>
+<!-- 首页 start -->
+<nav class="top-nav">
+	<div class="container">
+		<div class="nav-header">
+			<a class="nav-brand" href="index.php?do=user&view=account">用户中心</a>
+		</div>
+		<!-- nav-header end -->
+		<ul class="menu">
+			<li class="line"></li>
+			<!-- <li><a href="index.php?do=user" {if $view=='collect'||$view=='finance'||$view=='focus'||$view=='prom'||$view=='shop'||$view=='transaction'||$view=='index'}class="selected"{/if}><i class="fa fa-tachometer"></i> <span>首页</span></a></li> -->
+			<li class="line"></li>
+            <li>
+				<a href="index.php?do=user&view=wk" {if $view== 'wk'}class="selected"{/if}>
+					<span>我是摄影师</span>
+				</a>
+			</li>
+			<li class="line"></li>
+			<li>
+				<a href="index.php?do=user&view=account" {if $view== 'account' || $view=='finance' || $view=='focus' || $view=='prom'}class="selected"{/if}>
+					<i class="fa fa-cogs"></i>
+					<span>帐号设置</span>
+				</a>
+			</li>
+			<li class="line"></li>
+			<!--<li>
+				<a href="index.php?do=user&view=gz" {if $view== 'gz'}class="selected"{/if}>
+					<span>我是雇主</span>
+				</a>
+			</li>-->
+			<li class="line"></li>
+			
+
+			<!-- 	<li>
+				<a href="index.php?do=user&view=message&op=trends" {if $view== 'message'}class="selected"{/if}>
+					<i class="fa fa-envelope"></i>
+					<span>我的消息</span>
+					{if $messagecount}
+					<span class="badge">{$messagecount}</span>
+					{/if}
+				</a>
+			</li>
+			<li class="line"></li>
+		<li>
+				<a href="index.php?do=seller&id={$gUid}" target="_blank">
+					<i class="fa fa-home"></i>
+					<span>我的主页</span>
+				</a>
+			</li>
+			<li class="line"></li> -->
+		</ul>
+		<!-- menu end -->
+		
+	</div>
+	<!-- container end -->
+</nav>
+<!-- nav end -->

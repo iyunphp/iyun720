@@ -1,0 +1,162 @@
+<!--{template ADMIN_DIRECTORY/tpl/admin_header}-->
+ <div class="page_title">
+    	<h1></h1>
+
+</div>
+<!--页头结束-->
+{if $ac=='add'}
+<div class="box post">
+    <div class="tabcon">
+        	<div class="title"><h2></h2></div>
+            <div class="detail">
+                <form method="post" action="index.php?do={$do}&view={$view}" id="frm_art_edit" enctype="multipart/form-data">
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+
+
+                      <tr>
+                        <th scope="row">模板名</th>
+                        <td> <input type="text" class="txt" style=" width:260px;"
+						 name="template_name" id="template_name"
+						 value=""
+                        			 limit = "required:true"
+                                     msg = '请输入模板名称'
+                                     title='请输入模板名称'
+                                     msgArea="msg_txt_username"/><span id="msg_txt_username"></span>
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <th scope="row">模板标题</th>
+                        <td><input type="text" class="txt" style=" width:260px;"
+						name="template_title"
+						id="template_title"
+						value=""
+                        			 limit = "required:true"
+                                     msg = '请输入模板标题'
+                                     title='请输入模板标题'
+                                     msgArea="msg_art_source"/><span id="msg_art_source"></span>
+                       </td>
+                      </tr>
+
+				       <tr>
+                     <th scope="row">模板内容</th>
+                       <td>
+                        <textarea rows="30" name="template_content" id="template_content"  cols="70"></textarea>
+					</td>
+					 </tr>
+
+					 <script type="text/javascript" src="{$_K['siteurl']}/static/js/ueditor/ueditor.config.admin.js"></script>
+					<!-- 编辑器源码文件 -->
+					<script type="text/javascript" src="{$_K['siteurl']}/static/js/ueditor/ueditor.all.min.js"></script>
+					<script type="text/javascript" src="{$_K['siteurl']}/static/js/ueditor/lang/zh-cn/zh-cn.js"></script>
+					 <!-- 实例化编辑器 -->
+				    <script type="text/javascript">
+				        var ue = UE.getEditor('template_content', {
+				            //这里可以选择自己需要的工具按钮名称,此处仅选择如下五个
+				        	initialFrameWidth: '80%',
+				        	initialFrameHeight: '400'
+				        });
+				    </script>
+                    <tr>
+                        <th scope="row">&nbsp;</th>
+                    	<td>
+                    	<button name="sbt_edit" value="1" onclick="return test();" class="positive primary pill button" >
+                    	<span class="check icon"></span>{$_lang['submit']}</button>
+
+                    	</td>
+                    </tr>
+                    </table>
+                </form>
+              </div>
+       </div>
+</div>
+{/if}
+{if $ac=='edit'}
+<div class="box post">
+    <div class="tabcon">
+        	<div class="title"><h2></h2></div>
+            <div class="detail">
+                <form method="post" action="index.php?do={$do}&view={$view}" id="frm_art_edit" enctype="multipart/form-data">
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+
+
+                      <tr>
+                        <th scope="row">模板名</th>
+                        <td> <input type="text" class="txt" style=" width:260px;"
+						 name="template_name" id="template_name"
+						 value="{$tasktemInfo[template_name]}"
+                        			 limit = "required:true"
+                                     msg = '请输入模板名称'
+                                     title='请输入模板名称'
+                                     msgArea="msg_txt_username"/><span id="msg_txt_username"></span>
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <th scope="row">模板标题</th>
+                        <td><input type="text" class="txt" style=" width:260px;"
+						name="template_title"
+						id="template_title"
+						value="{$tasktemInfo[template_title]}"
+                        			 limit = "required:true"
+                                     msg = '请输入模板标题'
+                                     title='请输入模板标题'
+                                     msgArea="msg_art_source"/><span id="msg_art_source"></span>
+                       </td>
+                      </tr>
+
+				       <tr>
+                     <th scope="row">模板内容</th>
+                       <td>
+                        <textarea rows="30" name="template_content" id="template_content"  cols="70">{$tasktemInfo[template_content]}</textarea>
+					</td>
+					 </tr>
+
+					 <script type="text/javascript" src="{$_K['siteurl']}/static/js/ueditor/ueditor.config.admin.js"></script>
+					<!-- 编辑器源码文件 -->
+					<script type="text/javascript" src="{$_K['siteurl']}/static/js/ueditor/ueditor.all.min.js"></script>
+					<script type="text/javascript" src="{$_K['siteurl']}/static/js/ueditor/lang/zh-cn/zh-cn.js"></script>
+					 <!-- 实例化编辑器 -->
+				    <script type="text/javascript">
+				        var ue = UE.getEditor('template_content', {
+				            //这里可以选择自己需要的工具按钮名称,此处仅选择如下五个
+				        	initialFrameWidth: '80%',
+				        	initialFrameHeight: '400'
+				        });
+				    </script>
+                    <tr>
+                        <th scope="row">&nbsp;</th>
+                    	<td>
+                    	<button name="sbt_edit" value="1" onclick="return test();" class="positive primary pill button" >
+                    	<span class="check icon"></span>{$_lang['submit']}</button>
+
+                    	</td>
+                    </tr>
+                    </table>
+                </form>
+              </div>
+       </div>
+</div>
+{/if}
+<script type="text/javascript">
+var ac="{$ac}";
+var tasktemid="{$tasktemid}";
+function test(){
+	if(checkForm(document.getElementById('frm_art_edit'),false).toString()=='false'){
+		return false;
+	}else{
+		var template_name=$("#template_name").val();
+		var template_title = $("#template_title").val();
+		var template_content=$("#template_content").val();
+		art.dialog.data("tasktemid",tasktemid);
+    	art.dialog.data("template_name",template_name);
+    	art.dialog.data("template_title",template_title);
+    	art.dialog.data("template_content",template_content);
+    	art.dialog.data("ac",ac);
+    	art.dialog.data("ispass","ok");
+    	art.dialog.close();
+	}
+}
+</script>
+<!--主体结束-->
+<!--{template ADMIN_DIRECTORY/tpl/admin_footer}-->

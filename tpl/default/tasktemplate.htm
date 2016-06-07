@@ -1,0 +1,46 @@
+
+
+<div class="modal-body">
+	<ul class="nav nav-tabs " role="tablist">
+		{loop $arr_task_template $k $v}
+		<li role="presentation" {if !$k}  class="active" {/if}>
+			<a href="#task_template$v[id]" role="tab" data-toggle="tab"><span style="max-width:4em;overflow:hidden; height:1.5em; display:block;text-align:center;">{$v[template_name]}</span></a>
+		</li>
+
+		 {/loop}
+	</ul>
+
+	<!-- Tab panes -->
+	<div class="tab-content mt_10">
+		{loop $arr_task_template $k2 $v2}
+
+		<div role="tabpanel" class="tab-pane {if !$k2}active{/if}" id="task_template$v2[id]">
+			
+				<h5 class="text-center _div_template_title">{$v2[template_title]}</h5>
+				<div class="_div_template_content ws_break" style="height:10em; overflow:auto;">
+					{$v2[template_content]}
+				</div>
+			
+		</div>
+		{/loop}
+	</div>
+	 
+</div>
+<div class="modal-footer"><button type="button" id="btn_insert" class="btn btn-primary">插入模板</button></div>
+
+
+ 
+<!--{eval $countEdit=count($arr_task_template);}-->
+<script type="text/javascript">
+	var countEdit = "{$countEdit}";
+</script>
+<script type="text/javascript">
+$("#btn_insert").click(function(){
+	 var _div_template_content = $("._div_template_content:visible").html();
+	  var title_num=$('._div_template_title:visible').text();
+	 $(".close").click();
+	 $('#txt_title').val(title_num);
+	 UE.getEditor('tar_content').setContent(_div_template_content);
+});
+
+</script>

@@ -1,0 +1,436 @@
+<!--{template header}-->
+<style>
+.index_slide_panel .buttons{
+	background-color: #1b1b1b;
+}
+
+.index_slide_panel .buttons .left{
+	background-color: #1b1b1b;
+}
+
+.index_slide_panel .buttons .right{
+	background-color: #1b1b1b;
+}
+
+.author_goods div{
+	position: relative;
+}
+
+.author_goods div .file_type{
+	position: absolute;
+	margin-left: -20px;
+}
+
+@media (max-width: 980px) {
+	.author_goods div .file_type{
+		position: absolute;
+		margin-left: -10px;
+		top: 60%;
+		width: 20px;
+		height: 20px;
+	}
+}
+
+.main h2.index_hot{
+	border-bottom: 0px none;
+}
+
+.author_list .min_img{
+	background: #ffffff;
+}
+
+@media (max-width: 680px) {
+	.hot_list .big_img h4{
+		height: 24px;
+		font-size: 12px;
+		line-height:24px;
+	}
+	
+	.hot_list .min_img h4{
+		height: 24px;
+		font-size: 12px;
+		line-height:24px;
+	}
+}
+
+@media (max-width: 430px) {
+	.author_list .min_img{
+		width: 98%;
+	}
+}
+
+.footer{
+	margin-top: 0px;
+}
+</style>
+<!-- 幻灯片 -->
+<div id="indexSlidePanel" class="index_slide_panel" style="min-height: 180px;">
+	<div class="index_slide">
+		<img src="http://view.iyun720.com/pic/236/35039b1ca650d9bc56f6b79d79ee5df5.jpg?r=2016021502" style="visibility: hidden;"/>
+		<div class="iframe_panel slide_mery">
+			<img src="http://view.iyun720.com/pic/421/b7700fdfccbd5c93f9443fa340df86d4.jpg?r=2016032312"/>
+			<a href="/index.php?do=goods&id=421"></a>
+			<iframe sid="421" src="index.php?do=view&sid=421&music=1&n=f" width="100%" height="680" frameborder="0"></iframe>
+		</div>
+		<div class="iframe_panel slide_mery">
+			<img src="http://view.iyun720.com/pic/352/ce2d979c8a0b699bd1f31f7fe8a301b1.jpg"/>
+			<a href="/index.php?do=goods&id=352"></a>
+			<iframe sid="352" src="" width="100%" height="680" frameborder="0"></iframe>
+		</div>
+		
+		<a href="index.php?do=article&id=348&page=1"><img class="slide_mery" src="http://www.iyun720.com/data/uploads/sys/ad/93367617566e806a3f1f6.jpg?r=1" /></a>
+	
+		<!--
+		<a href="index.php?do=article&id=348&page=1"><img class="slide_mery" src="http://view.iyun720.com/pic/236/35039b1ca650d9bc56f6b79d79ee5df5.jpg?r=2016021502" /></a>
+		-->
+		<a href="index.php?do=pubgoods"><img class="slide_mery" src="http://www.iyun720.com/data/uploads/sys/ad/794757318566c5c39250d9.jpg?r=1" /></a>
+		<div class="iframe_panel slide_mery" style="display: none;">
+			<img src="http://view.iyun720.com/pic/172/14ee2773791188a50c07bec10ccebaf1.jpg?r=2016011202"/>
+			<a href="/index.php?do=goods&id=172"></a>
+			<iframe sid="172" src="" width="100%" height="680" frameborder="0"></iframe>
+		</div>
+		<div class="iframe_panel slide_mery" style="display: none;">
+			<img src="http://view.iyun720.com/pic/169/faa8be032904693c334a36004973ee33.jpg?r=2016011202"/>
+			<a href="/index.php?do=goods&id=169"></a>
+			<iframe sid="169" src="" width="100%" height="680" frameborder="0"></iframe>
+		</div>
+		<div class="iframe_panel slide_mery" style="display: none;">
+			<img src="http://view.iyun720.com/pic/96/87b08bce74b9900f7ed204a99d64dc41.jpg?r=2016010703"/>
+			<a href="/index.php?do=goods&id=96"></a>
+			<iframe sid="96" src="" width="100%" height="680" frameborder="0"></iframe>
+		</div>
+		<div class="iframe_panel slide_mery" style="display: none;">
+			<img src="http://view.iyun720.com/pic/236/35039b1ca650d9bc56f6b79d79ee5df5.jpg?r=2016021512"/>
+			<a href="/index.php?do=goods&id=236"></a>
+			<iframe sid="236" src="" width="100%" height="680" frameborder="0"></iframe>
+		</div>
+		<div class="iframe_panel slide_mery" style="display: none;">
+			<img src="http://view.iyun720.com/pic/232/c5b182ee56cb367e840eac95ff06f8fe.jpg?r=2016021512"/>
+			<a href="/index.php?do=goods&id=232"></a>
+			<iframe sid="232" src="" width="100%" height="680" frameborder="0"></iframe>
+		</div>
+		<div id="indexSlideLeft" class="index_slide_left"></div>
+		<div id="indexSlideRight" class="index_slide_right"></div>
+		<div class="clear"></div>
+	</div>
+	<div id="buttons" class="buttons" style="display: none;">    
+		<a id="buttonsLeft" class="left" href="javascript:"></a>
+		<a id="buttonsRight" class="right" href="javascript:"></a>
+		<div class="button_main_panel">
+			<div class="button_main">
+				
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+var indexSlideTag = 0;
+var indexObj = null;
+$(function(){
+	if($(window).width() < 800){
+		$('#indexSlidePanel').children('.index_slide').find('.iframe_panel:not(:first)').remove();
+	}
+	indexObj = new (function(){
+		this.focus = 0;
+		this.imgElements = $('#indexSlidePanel').children('.index_slide').find('.slide_mery');
+		this.clock = false;
+		this.showWidth = 0;
+		
+		this.init = function(){
+			var imgElements = this.imgElements;
+			var length = imgElements.length;
+			var aElement = null;
+			var imgElement = null;
+			//alert(buttonMainWidth);
+			for(var i = 0; i < length; i++){
+				imgElement = imgElements.eq(i);
+				aElement = $('<a>').attr('src', 'javascript:').appendTo('.buttons .button_main').click(function(){
+					indexObj.change_img($(this).index());
+				});
+				//alert('a');
+				if(imgElement.find('img').length > 0){
+					$('<img>').attr('src', imgElement.find('img').attr('src')).appendTo(aElement);
+				} else {
+					$('<img>').attr('src', imgElement.attr('src')).appendTo(aElement);
+				}
+				
+			}
+			this.init_buttons();
+			$(window).resize(function(){
+				indexObj.init_buttons();
+			});
+			
+			$('#indexSlideLeft').click(function(){
+				indexObj.change(-1);
+			});
+			$('#indexSlideRight').click(function(){
+				indexObj.change(1);
+			});
+			$('#buttonsLeft').click(function(){
+				indexObj.change(-1);
+			});
+			$('#buttonsRight').click(function(){
+				indexObj.change(1);
+			});
+		};
+		
+		this.init_buttons = function(){
+			var buttonMainWidth = $('.buttons .button_main_panel').width();
+			var showLength = parseInt((buttonMainWidth) / 157, 10);
+			var showWidth = (buttonMainWidth) / showLength;
+			var imgElements = this.imgElements;
+			if($(window).width() < 600){
+				$('#indexSlideLeft').show();
+				$('#indexSlideRight').show();
+				$('#buttons').hide();
+			} else {
+				$('#indexSlideLeft').hide();
+				$('#indexSlideRight').hide();
+				$('#buttons').show();
+				this.showWidth = showWidth;
+				$('.buttons .button_main_panel a').css('width', showWidth - 3);
+			}
+			imgElements.css('left', $(window).width() * -1);
+			imgElements.eq(this.focus).css('left', 0);
+			
+		};
+		
+		this.change = function(_num){
+			var focus = this.focus;
+			var length = this.imgElements.length;
+			focus += _num;
+			focus = (focus + length) % length;
+			this.change_img(focus);
+		};
+		
+		this.change_img = function(_num){
+			var sid = '';
+			if(_num != this.focus && !this.clock)
+			{
+
+				var imgElements = this.imgElements;
+				var windowWidth = $(window).width();
+				var that = this;
+				var newElement = imgElements.eq(_num);
+				var oldElement = imgElements.eq(this.focus);
+				if(newElement.children('iframe').length > 0){
+					sid = newElement.children('iframe').attr('sid');
+					if(isNaN(sid))
+					{
+						newElement.children('iframe').attr('src', sid);
+					}
+					else
+					{
+						newElement.children('iframe').attr('src', 'index.php?do=view&&music=1&n=f&sid=' + sid);
+					}
+				}
+				newElement.css('left', windowWidth).show();
+				newElement.animate({'left': 0}, 800);
+				oldElement.animate({'left': windowWidth * -1}, 800);
+				this.focus = _num;
+				this.clock = true;
+				setTimeout(function(){
+					that.clock = false;
+					if(oldElement.children('iframe').length > 0){
+						oldElement.children('iframe').attr('src', '');
+					}
+				}, 800);
+			}
+		};
+		
+		this.set_location = function(){
+			var ele = this.imgElements.eq(this.focus);
+			if(ele.find('a').length > 0){
+				location.href = ele.find('a').attr('href');
+			} else {
+				location.href = ele.attr('href');
+			}
+		}
+		
+		$('#indexSlidePanel').hover(
+			function(){
+				clearInterval(indexSlideTag);
+			}, 
+			function(){
+				indexSlideTag = setInterval(function(){
+					//indexObj.change(1);
+				}, 10000);
+			}
+		);
+		indexSlideTag = setInterval(function(){
+			//indexObj.change(1);
+		}, 10000);
+		
+		this.init_buttons();
+		this.init();
+	})();
+	
+});
+
+function iframe_callback(){
+	indexObj.set_location();
+}
+</script>
+<div style="">
+	<a href="/sdmf/">
+		<img src="/static/img/gg3.png" style="width: 100%" />
+	</a>
+</div>
+<div class="main">
+	<h2 class="index_hot"><div class="layout_center">热门VR作品</div></h2>
+	<div class="layout_center hot_list">
+		
+		{loop $arrRecommGoodsLists $k $v}
+			{if $k==0}
+			<div class="big_img">
+				<a href="index.php?do=goods&id=$v['service_id']">
+					<img alt="$v['title']" onerror='$(this).attr("src","tpl/default/img/shop/shop_default_big.jpg")' alt="$v['title']" {if $img}src="{$arrPic[0]}" width="600" height="200" style=" max-height:200px; overflow:hidden" {else}src="<!--{eval echo keke_shop_class::output_pics($v['file_path'],210,1,1,$v['service_id'])}-->"{/if}>
+					{$v['file_type']}
+					<h4>{$v['title']}</h4>
+				</a>		
+			</div>
+			{else}
+			<div class="min_img">
+				<a href="index.php?do=goods&id=$v['service_id']">
+					<img alt="$v['title']" onerror='$(this).attr("src","tpl/default/img/shop/shop_default_big.jpg")' alt="$v['title']" {if $img}src="{$arrPic[0]}" width="600" height="200" style=" max-height:200px; overflow:hidden" {else}src="<!--{eval echo keke_shop_class::output_pics($v['file_path'],210,1,1,$v['service_id'])}-->"{/if}>
+					{$v['file_type']}
+					<h4>{$v['title']}</h4>
+				</a>		
+			</div>
+			{/if}
+		
+		{/loop}
+		<div class="clear"></div>
+	</div>
+	<div style="height: 30px;"></div>
+	<div style="">
+		<a href="/vr/">
+			<img src="/static/img/gg2.jpg" style="width: 100%" />
+		</a>
+	</div>
+	<div style="border-bottom: 1px #cccccc solid;">
+		<div class="layout_center">  
+			<h2 class="index_hot"><div class="layout_center">活跃VR开发者</div></h2>
+		</div>
+	</div>
+	<div style="background:#f5f5f5">
+		<div class="layout_center" >  
+			<div class="author_list" style="padding-bottom: 20px;">
+				{loop $arrNerLists $k $v}
+				<div class="min_img">
+					<a title="{$v['service'][0]['title']}" href="index.php?do=goods&id=$v['service'][0]['service_id']" onclick="_hmt.push(['_trackEvent', 'imagelink', 'click', 'LayoutPress'])">
+						<img src="<!--{eval echo keke_shop_class::output_pics($v['service'][0]['file_path'],210,1,1,$v['service'][0]['service_id'])}-->" alt="{$v['service'][0]['title']}" onload="imgLoaded(this)">
+						<!--{eval echo get_file_type($v['service'][0]['file_path'])}-->
+					</a>                                       
+					<!--{eval $creditLevel = unserialize($v['seller_level'])}-->
+					<a class="userphoto" href="index.php?do=seller&id=$v['uid']" >
+					 <!--{userpic($v['uid'],'middle')}--> 
+					</a>
+					<div class="author_info">
+						<div class="author_name">
+							<a class="list-title" href="index.php?do=seller&id={$v['uid']}" title="{$v['shop_name']}">$v['username']</a>
+						</div>
+						<div class="author_text">
+							<span>热度：<font>{$v['views']}</font></span>  
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							<span>作品：<font>{$v['service_num']}</font></span>
+						</div>
+						<div class="button_panel">
+							<button value="{$v['uid']}" class="gz" {if $v['follow'] > 0}style="display: none;"{/if}>关注</button>
+							<button {if $v['follow'] <= 0}style="display: none;"{/if} value="{$v['uid']}" class="qx">取消</button>
+						</div>
+
+					</div>      
+					<div class="clear"></div>
+				</div>
+				{/loop}      
+				<div class="clear"></div>
+			 </div>
+			 <div class="clear"></div>
+		</div>
+	</div>
+</div>
+<!-- container end -->
+<script type="text/javascript">
+	$('.gz').click(function(){
+		var v = $(this).attr('value');
+		var that = $(this);
+		$.ajax({
+			url: '/index.php?do=ajax&view=follow&op=add&id=' + v,
+			dataType: 'json',
+			success: function(data){
+				that.hide().next().show();
+			}
+		});
+	});
+	$('.qx').click(function(){
+		var v = $(this).attr('value');
+		var that = $(this);
+		$.ajax({
+			url: '/index.php?do=ajax&view=follow&op=del&id=' + v,
+			dataType: 'json',
+			success: function(data){
+				that.hide().prev().show();
+			}
+		});
+	});
+    $(function(){
+		
+		
+		
+        $('#jcarousel_bid').jcarousel({
+            wrap: 'circular',
+            animation: 500,
+            vertical: true
+        }).jcarouselAutoscroll({
+            scroll: '+=1',
+            interval: 3000
+        }).mouseenter(function(){
+            $(this).jcarouselAutoscroll('stop');
+        }).mouseleave(function(){
+            $(this).jcarouselAutoscroll('start');
+        });
+
+        $('#jcarousel_stats').jcarousel({
+            wrap: 'circular',
+            vertical: true
+        }).jcarouselAutoscroll({
+            scroll: '+=1'
+        }).mouseenter(function(){
+            $(this).jcarouselAutoscroll('stop');
+        }).mouseleave(function(){
+            $(this).jcarouselAutoscroll('start');
+        });
+    });
+
+</script>
+<div>
+	<a href="https://item.taobao.com/item.htm?spm=a312a.7700824.w4023-14125586475.2.9oDfVQ&id=524828813221">
+		<img src="/static/img/gg1.jpg" style="width: 100%" />
+	</a>
+</div>
+<style>
+.links{
+	padding: 10px 20px;
+	background: #ffffff;
+}
+
+.links h5{
+	margin: 8px 0px;
+    padding: 0px;
+    font-size: 13px;
+}
+
+.links a{
+	margin-right: 20px;
+	color: #000000;
+}
+</style>
+<div class="layout_center links">
+	<h5>友情链接</h5>
+	{loop $links $k $v}
+	<a href="{$v['link_url']}" target="_blank">{$v['link_name']}</a>
+	{/loop}
+</div>
+<!--{template footer}-->

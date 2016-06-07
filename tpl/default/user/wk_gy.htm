@@ -1,0 +1,86 @@
+<!--{template user/header}-->
+<div class="container">
+	<div class="nav-action">
+		<!--{template user/left_side}-->
+	</div>
+	<div class="content-panel">
+		<div class="tab">
+			<a href="index.php?do=user&view=wk&op=gy" {if $op== 'gy'} class="selected"{/if}>我接受的雇佣</a>
+		</div>
+		<div class="tab_detail">
+			<div class="action-bar">
+				<form action="{$strUrl}" method="post" name="SearchForm" id="SearchForm">
+					<div class="action-item">
+						<input type="text" placeholder="请输入编号" class="form-control" name="id" id="id" value="{$id}" maxlength="10">
+					</div>
+					<div class="action-item">
+						<input type="text" placeholder="请输入雇主名称" class="form-control" name="gzname" id="gzname" value="{$gzname}" maxlength="30">
+					</div>
+					<div class="action-item">
+						<select class="form-control" name="s" id="s">
+							<option value="-1">全部</option>
+							{loop $arrStatus $k $v}
+							<option value="{$k}" {if $s==$k} selected="selected"{/if}>{$v}</option>
+							{/loop}
+						</select>
+					</div>
+					<div class="action-item">
+						<select class="form-control" name="o" id="o">
+							{loop $arrListOrder $k $v}
+							<option value="{$k}" {if $o==$k} selected="selected"{/if}>{$v}</option>
+							{/loop}
+						</select>
+					</div>
+					<div role="toolbar" class="action-item btn-toolbar">
+						<div class="btn-group">
+							<button class="btn btn-default" type="submit">搜索</button>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="table-responsive">
+				<table class="table table-hover">
+					<thead>
+						<tr>
+							<th>编号</th>
+							<th>雇主</th>
+							<th>金额(元)</th>
+							<th>发起时间</th>
+							<th>状态</th>
+							<th>操作</th>
+						</tr>
+					</thead>
+					<tbody>
+						{if $arrLists} {loop $arrLists $k $v}
+						<tr>
+							<td>{$v['id']}</td>
+							<td>{$v['order_username']}</td>
+							<td>{$v['price']}</td>
+							<td>
+								<!--{eval echo date('Y-m-d H:i:s',$v['order_time'])}-->
+							</td>
+							<td>{$arrStatus[$v['order_status']]}</td>
+							<td>
+								{if !in_array($v['order_status'] ,array('complete','close','arbitral'))}
+								<a href="index.php?do=gy&id={$v['seller_uid']}&orderId={$v['order_id']}" data-title="查看订单">查看订单</a>
+								{else} -- {/if}
+							</td>
+						</tr>
+						{/loop} {else}
+						<tr>
+							<td colspan="5" class="text-center">暂数据</td>
+						</tr>
+						{/if}
+					</tbody>
+				</table>
+			</div>
+			<div class="clearfix">
+				{if $strPages}
+				<ul class="pagination pagination-sm pull-right">{$strPages}
+				</ul>
+				{/if}
+			</div>
+		</div>
+	</div>
+</div>
+<!--{template user/footer}-->

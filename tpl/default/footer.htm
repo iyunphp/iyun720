@@ -1,0 +1,205 @@
+<style>
+.footer .layout_center{
+	max-width: 900px;
+}
+.footer ul{
+	float: left;
+	margin: 0px 0px;
+	padding: 0px;
+	width: 33%;
+}
+
+@media (max-width: 780px) {
+	.footer ul.left{
+		width: 30%;
+	}
+
+	.footer ul.middle{
+		width: 40%;
+	}
+
+	.footer ul.right{
+		width: 30%;
+	}
+}
+
+.footer ul li{
+	text-align: left;
+
+}
+
+.footer ul li a{
+	color: #ffffff;
+}
+</style>
+<div id="fix-box" style="display:none;">
+  <a id="top" href="javascript:void(0);"><i class="fa fa-angle-up"></i></a>
+  <!--
+  <a id="bugfk" href="/index.php?do=bug"><span style="font-size: 16px;">BUG</span><br/>反<br/>馈</a>
+  -->
+</div>
+<!-- #fix-box end -->
+<script src="tpl/default/js/bootstrap.min.js"></script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<div class="footer">
+	<div class="layout_center">
+		<ul class="left" >
+			<li><a href="">主页</a></li>
+			<li><a href="">关于我们</a></li>
+			<li><a href="">发现摄影师</a></li>
+			<li><a href="/index.php?do=login">登录</a>/<a href="/index.php?do=register">注册</a></li>
+			
+		</ul>
+		<ul class="middle">
+			
+			<li><a href="">联系我们</a></li>
+			<li><a href="">IOS应用程序</a></li>
+			<li><a href="">Android应用</a></li>
+			<li><a href="http://www.miitbeian.gov.cn">粤ICP备15089970号</a></li>
+		</ul>
+		<ul class="right">
+			<li><a href="">商标/版权所有</a></li>
+			<li><a href="">使用条款</a></li>
+			<li><a href="/index.php?do=bug">BUG反馈</a> </li>
+			<li>
+				<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1257140389'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s95.cnzz.com/z_stat.php%3Fid%3D1257140389' type='text/javascript'%3E%3C/script%3E"));</script>
+			</li>
+		</ul>
+	</div>
+</div>     
+
+     <script type="text/javascript">
+	
+	$(document).ready(function(){
+		//$('#post-list .post-featured-image img').load(function(){
+			
+			$('#post-list .post-featured-image img').height($('#post-list .post-featured-image img').width()/4);
+			$('.min-list-img img').height($('.min-list-img img').width()/4);
+			$('.albums').height($('#example img').height());
+			
+		//});
+		//$('#example img').load(function(){
+		  // 加载完成  
+		  
+			$('#example img').load(function(){
+				$('.albums').height($('#example img').height());
+				
+				var move = -15;
+				//缩放比例，1.2 =120％
+				var zoom = 1.2;
+				oldwidth = $('#example img').height();
+				oldheight = $('#example img').height();
+				width = $('#example img').height() * zoom;
+				height = $('#example img').height() * zoom;
+				
+				//在对这些缩略图的鼠标滑过事件
+				$('.albums').hover(function(){
+					//根据缩放百分比设置宽度和高度
+					//移动和缩放图像
+					$(this).find('img').stop(false,true).animate({'width':width, 'height':height, 'top':move, 'left':move}, {duration:200});
+					//显示标题
+					$(this).find('div.caption').stop(false,true).fadeIn(200);
+				},function(){
+					//复位图像
+					$(this).find('img').stop(false,true).animate({'width':oldwidth, 'height':oldheight, 'top':'0', 'left':'0'}, {duration:100});	
+					//隐藏标题
+					$(this).find('div.caption').stop(false,true).fadeOut(200);
+				});	  
+				
+			});		
+		 
+		  
+		  //移动像素的图像
+			var move = -15;
+			//缩放比例，1.2 =120％
+			var zoom = 1.2;
+			oldwidth = $('#example img').height();
+			oldheight = $('#example img').height();
+			width = $('#example img').height() * zoom;
+			height = $('#example img').height() * zoom;
+			
+			//在对这些缩略图的鼠标滑过事件
+			$('.albums').hover(function(){
+				//根据缩放百分比设置宽度和高度
+				//移动和缩放图像
+				$(this).find('img').stop(false,true).animate({'width':width, 'height':height, 'top':move, 'left':move}, {duration:200});
+				//显示标题
+				$(this).find('div.caption').stop(false,true).fadeIn(200);
+			},function(){
+				//复位图像
+				$(this).find('img').stop(false,true).animate({'width':oldwidth, 'height':oldheight, 'top':'0', 'left':'0'}, {duration:100});	
+				//隐藏标题
+				$(this).find('div.caption').stop(false,true).fadeOut(200);
+			});	  
+		//});
+	});
+	$(window).resize(function(){
+			$('#post-list .post-featured-image img').width('100%');
+			$('.min-list-img img').width('100%');
+			$('.albums').width('100%');
+			$('.pic_middle').width('100%');
+			
+     		$('#post-list .post-featured-image img').height($('#post-list .post-featured-image img').width()/4);
+			$('.min-list-img img').height($('.min-list-img img').width()/4);
+			$('.albums').height($('.albums').width());
+			$('.pic_middle').height($('.pic_middle').width());
+			$('.pic_middle').height('100%');
+			$('.goods_info .pic_middle').height($('.goods_info .pic_middle').width());
+			
+   });
+	</script>
+    
+
+
+
+{if $uid}
+  <!--{eval kekezu::update_oltime($uid,$username)}-->
+{/if}
+
+
+
+
+<script type="text/javascript">
+$(function(){
+  $('.color-selected .nav-sub-list a').click(function() {
+    var css = $(this).attr('data-css');
+    var color = $(this).attr('data-rel');
+    $('.nav-item-link span.style-color').removeClass().addClass('style-color '+ color);
+    $('#active-style').attr('href', 'tpl/default/'+ css +'/style.css');
+    $('#active-style-user').attr('href', 'tpl/default/'+ css +'/user.css');
+    $('#active-style-store').attr('href', 'tpl/default/'+ css +'/store.css');
+    $('#active-style-home').attr('href', 'tpl/default/'+ css +'/home.css');
+  });
+  
+  var divWidth = $('.goods_info .pic_middle').width();
+	$('.goods_info .pic_middle').css({'height':divWidth});
+})
+
+
+
+</script>
+
+
+<script type="text/javascript">
+var uid='{$uid}';
+var UseIm= '{OPEN_IM}';
+var actionDo = '{$do}';
+var username='{$username}';
+var auid = '{$oauth_user_info[account]}';
+var atype ='{$wb_type}';
+var sessionId = "<!--{eval echo session_id();}-->";
+
+$(function(){
+    $("img.lazy").lazyload({
+        effect: "fadeIn"
+    });
+});
+
+{if $exec_time_traver}
+$(function(){
+   $.get('js.php?op=time&r='+Math.random());
+})
+{/if}
+</script>
+</body>
+</html>

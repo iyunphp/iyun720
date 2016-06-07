@@ -1,0 +1,80 @@
+<!--{template user/header}-->
+<div class="container">
+<div class="nav-action">
+    <!--{template user/left_side}-->
+  </div>
+
+  <div class="content-panel">
+    <div class="tab">
+    	<a href="#" {if $op == 'service'} class="selected" {/if}>我的游戏</a>
+		<a style="float: right;" href="index.php?do=user&view=transaction&op=game_add">添加</a>
+    </div>
+    <div class="tab_detail">
+     	<!--<ul class="nav nav-pills second-nav">
+          <li {if !$intModelId } class="active" {/if}><a href="index.php?do=user&view=transaction&op=service" >全部</a></li>
+          <li {if $intModelId == '6'} class="active" {/if}><a href="index.php?do=user&view=transaction&op=service&intModelId=6" >文件</a></li>
+          <li {if $intModelId == '7'} class="active" {/if}><a href="index.php?do=user&view=transaction&op=service&intModelId=7" >服务</a></li>
+        </ul>-->
+    <div class="action-bar">
+    <form action="{$strUrl}" method="post" name="searchServiceForm" id="searchServiceForm" style="display: none;">
+        <div class="action-item">
+        <input type="text" placeholder="请输入编号" class="form-control" name="intId" id="intId" value="{$intId}">
+        </div>
+        <div class="action-item">
+        <input type="text" placeholder="请输入名称" class="form-control" name="strTitle" id="strTitle" value="{$strTitle}">
+        </div>
+        <div role="toolbar" class="action-item btn-toolbar">
+          <div class="btn-group">
+            <button class="btn btn-default" type="submit">搜索</button>
+          </div>
+        </div>
+      </form>
+      </div>
+	  <style>
+	  .table-hover td{
+		line-height: 50px;
+	  }
+	  </style>
+      <div class="table-responsive">
+        <table class="table table-hover">
+        <thead>
+          <tr>
+            <th style="width: 60px;">编号</th>
+            <th>名称</th>
+            <th>平台</th>
+          	<th style="width: 80px;">类型</th>
+            <th>图像</th>
+            <th>下载地址</th>
+            <th style="width: 60px;">操作</th>
+          </tr>
+        </thead>
+        <tbody>
+        {if $datas}
+        {loop $datas $k $v}
+          <tr>
+            <td>{$v['id']}</td>
+            <td>{$v['name']}</td>
+            <td>{$v['plat']}</td>
+            <td>{$v['type']}</td>
+            <td><img src="{$v['photo']}" style="width: 100px;height: 50px;" /></td>
+            <td><a href="{$v['file_url']}" target="_blank">{$v['file_url']}</a></td>
+            <td>
+                <a href="index.php?do=user&view=transaction&op=game_add&ct=edit&id={$v['id']}">编辑</a>
+                <br/>
+                <a href="index.php?do=user&view=transaction&op=game_add&ct=del&id={$v['id']}">删除</a>
+            </td>
+          </tr>
+         {/loop}
+         {else}
+         	<tr>
+         		<td colspan="7" class="text-center">暂无相关作品</td>
+         	</tr>
+         {/if}
+        </tbody>
+      </table>
+      </div>
+    </div>
+  </div>
+  </div>
+  <!-- 我的消息 end &content-panel end -->
+<!--{template user/footer}-->

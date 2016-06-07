@@ -1,0 +1,103 @@
+<!--{template ADMIN_DIRECTORY/tpl/admin_header}-->
+<div class="page_title">
+    <h1>任务模板</h1>
+    <div class="tool">
+    	 <a href=javascript:temedit("index.php?do=task&view=tasktemplet&ac=add"); void(0);>添加模板</a>
+    </div>
+</div>
+	
+<div class="box list">
+    	<div class="title"><h2>{$_lang['reply_list']}</h2></div>
+        <div class="detail">
+  		<form action="index.php?do={$do}&view={$view}" id='frm_list' method="post">
+  			<input type="hidden" name="page" value="{$page}">
+			<input type="hidden" name="w[page_size]" value="{$w['page_size']}">
+			<div id="ajax_dom">
+  			<table  cellpadding="0" cellspacing="0">
+  				<thead>
+  					 <tr>
+  					 <th>
+						<input type="checkbox" id="checkbox" onclick="checkall();" class="checkbox" >编号
+					</th>
+					
+                    <th width="10%">
+                        模板名
+                    </th>
+                    <th width="10%">
+                      标题
+                    </th>
+                    <th width="38%">
+                      内容
+                    </th>
+                    <th width="15%">
+                      {$_lang['operate']}
+                    </th>
+                </tr>
+				</thead>
+				<tbody>
+                {loop $tasktem_arr $v}
+                <tr class="item">
+                	<td>
+                		<input type="checkbox" name="ckb[]" class="checkbox" value="{$v['id']}">{$v['id']}
+                	</td>
+                   
+                    <td>
+					{$v['template_name']}
+                    </td>
+                    <td>
+                    {$v['template_title']}
+                    </td>
+                    <td>
+                    <!--{eval echo kekezu::cutstr(strip_tags(html_entity_decode(str_replace("&nbsp;","",$v['template_content']))),150);}-->
+                    </td>
+                    <td>
+                        <a href=javascript:temedit("index.php?do=task&view=tasktemplet&tasktemid=$v[id]&ac=edit"); void(0); class="button dbl_target"><span class="pen icon"></span>{$_lang['edit']}</a>
+                       <a href="index.php?do=task&view=tasktemplet&ac=del&tasktemid=$v[id]" onclick="return cdel(this);" class="button"><span class="trash icon"></span>{$_lang['delete']}</a>
+                    </td>
+                </tr>
+				{/loop}
+				</tabody>
+				<tfoot>
+				 <tr>
+                    <td colspan="5">
+	                    
+						
+	                       <label for="checkbox" onclick="checkall(event);">{$_lang['select_all']}</label>
+	                        <input type="hidden" name="sbt_action" class="sbt_action"/>
+	                        <button name="sbt_action" type="submit" value={$_lang['mulit_delete']} onclick="return batch_act(this,'frm_list');" class="pill negative" ><span class="icon trash"></span>{$_lang['mulit_delete']}</button>
+						
+					</td>	
+				</tr>		
+				</tfoot>
+  			</table>
+			<div class="page">{$pages['page']}</div>
+			</div>
+		</form>
+      </div>
+</div>	 
+<script type="text/javascript">
+function temedit(url){
+	art.dialog.open(url,{
+		title:"新建模板",
+		height:700,
+		width:800,
+		closeFn:function (){
+					var ispass=art.dialog.data('ispass');
+					if(ispass=='ok'){
+					var template_title = art.dialog.data('template_title');
+					var tasktemid=art.dialog.data("tasktemid");
+					var template_content = art.dialog.data('template_content');
+					var template_name = art.dialog.data('template_name');
+					var ac = art.dialog.data("ac");
+					art.dialog.data('ispass','no');
+				 	//window.location.href='index.php?do=task&view=tasktemplet_edit&tasktemid='+tasktemid+'&is_submit=1'+'&template_title='+template_title+'&template_content="'+template_content+'"&template_name='+template_name+'&ac='+ac; 
+				 	$.post('index.php?do=task&view=tasktemplet_edit&tasktemid='+tasktemid+'&is_submit=1'+'&template_title='+template_title+'&template_name='+template_name,{"template_content":template_content,"ac":ac},function(data){
+				 		window.location.href="index.php?do=task&view=tasktemplet&ac=freshen";
+				 	})
+					} 
+					
+			}
+		},false); 
+}
+</script>
+<!--{template ADMIN_DIRECTORY/tpl/admin_footer}-->

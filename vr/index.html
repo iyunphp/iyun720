@@ -1,0 +1,297 @@
+﻿<!DOCTYPE HTML>
+<!--[if lt IE 7]> <html dir="ltr" lang="zh-cn" id="ie6"> <![endif]--><!--[if IE 7]>    <html dir="ltr" lang="zh-cn" id="ie7"> <![endif]--><!--[if IE 8]>    <html dir="ltr" lang="zh-cn" id="ie8"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html dir="ltr" lang="zh-cn">
+<!--<![endif]-->
+<head>
+    <title>云游VR作品 | 全景VR，全景图片，VR视频，智慧旅游，360度全景看房，航拍，虚拟现实内容-云游VR</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE" />        
+    <meta name="keywords" content="云游VR，全景VR，全景图片，VR视频，智慧旅游，360度全景看房，航拍，虚拟现实内容-云游VR">
+    <meta name="description" content="云游VR，全景VR，全景图片，VR视频，智慧旅游，360度全景看房，航拍，虚拟现实内容-云游VR">       
+    <meta name="viewport" content="width=device-width,initial-scale=1 ,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style” content=black" />
+    <meta name="author" content="iyun720" />
+    <meta name="copyright" content="云游VR，全景VR，全景图片，VR视频，智慧旅游，360度全景看房，航拍，虚拟现实内容-云游VR" />	
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="/favicon.ico" type="image/x-icon"/>
+	<style>
+	
+	</style>
+<!--[if lt IE 9]>
+    <script src="static/js/html5.js" type="text/javascript"></script>
+    <script src="static/js/respond.min.js" type="text/javascript"></script>
+<![endif]-->
+<style>
+body{
+	margin: 0px;
+	padding: 0px;
+}
+
+.layout_center{
+	margin: 0px auto;
+	max-width: 1340px;
+}
+
+.slide{
+	position: relative;
+	margin: 0px;
+	padding: 0px;
+	width: 100%;
+	overflow: hidden;
+}
+
+.slide_ipl{
+}
+
+.slide img{
+	width: 100%;
+}
+
+.slide_ipl{
+	position: absolute;
+    left: 0px;
+    top: 0px;
+    height: 100%;
+    width: 100%;
+}
+
+.slide_ipl img{
+	position: absolute;
+	height: 100%;
+}
+
+.slide ul{
+	position: absolute;
+	bottom: 0px;
+	margin: 0px;
+	padding: 0px;
+	width: 100%;
+	height: 30px;
+	text-align: center;
+	z-index: 10;
+}
+
+.slide ul li{
+	display: inline-block;
+	width: 34px;
+	height: 8px;
+	background: url(nav_bg.png);
+	cursor: pointer;
+}
+
+.slide ul li.selected{
+	background: url(nav_bg_select.png);
+}
+
+.list{
+	background: #ffffff;
+}
+
+.list_mery{
+	position: relative;
+	display: inline-block;
+}
+
+.list_mery img{
+	width: 100%;
+}
+
+.list_mery .text{
+    position: absolute;
+    bottom: 3px;
+	width: 100%;
+	color: #ffffff;
+    font-size: 14px;
+	text-align: center;
+    line-height: 30px;
+	background: rgba(68,149,24,0.6);
+    z-index: 5;
+}
+
+@media (min-width: 1340px) {
+	.list{
+		margin-top: 50px;
+		margin-bottom: 50px;
+	}
+}
+
+</style>
+<script src="/static/js/jquery.min.1.8.3.js"></script>
+</head>
+<body>
+<div style="position: relative;">
+<img src="dc0.jpg" style="width: 100%;"/>
+<span  style="position: absolute;bottom: 31%;right: -50px;width: 240px;height: 28px;">
+	<img id="fxGame" src="\static\img\fx_game.png" style="float: left;margin-right: 20px;cursor:pointer;" />
+	&nbsp;&nbsp;&nbsp;&nbsp;
+	<style>
+	.jiathis_style{
+		display: none;
+	}
+	.jiathis_style a{
+		float: left;
+		margin-right: 10px;
+	}
+
+	.jiathis_style .jtico.jtico_tqq{
+		position: relative;
+		top: -1px;
+		padding-left: 0px !important;
+		width: 23px;
+		height: 26px !important;
+		background: url(/static/img/qq_game.png);
+	}
+
+	.jiathis_style .jtico.jtico_weixin{
+		position: relative;
+		top: -1px;
+		padding-left: 0px !important;
+		width: 34px;
+		height: 28px !important;
+		background: url(/static/img/wx_game.png);
+	}
+
+	.jiathis_style .pyq .jtico.jtico_weixin{
+		position: relative;
+		top: -1px;
+		padding-left: 0px !important;
+		width: 28px;
+		height: 27px !important;
+		background: url(/static/img/pyq_game.png);
+	}
+	</style>
+	<!-- JiaThis Button BEGIN -->
+	<div id="jiathisStyle" class="jiathis_style" style="float: left;margin-left: 10px;">
+		<a class="jiathis_button_tqq"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_weixin pyq"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+	<script type="text/javascript" src="/static/js/jquery.qrcode.min.js" charset="utf-8"></script>
+	
+	<script type="text/javascript">
+	$(function(){
+		$('#fxGame').click(function(){
+			$('#jiathisStyle').toggle();
+		});
+	});
+	
+	function down(obj){
+		location.href = $(obj).attr('url');
+	}
+	</script>
+	<!-- JiaThis Button END -->
+</span>
+</div>
+<div class="list layout_center">
+	<div>
+		<div class="list_mery"  style="margin-right: 0.5%;width: 33%;">
+			<img src="1.jpg" />
+			<div class="text">虚拟城镇建设蓝图</div>
+		</div><div class="list_mery" style="margin-right: 0.5%;width: 33%;">
+			<img src="2.jpg" />
+			<div class="text">虚拟地产楼盘</div>
+		</div><div class="list_mery" style="width: 33%">
+			<img src="3.jpg" />
+			<div class="text">虚拟样板间</div>
+		</div>
+	</div>
+	<div>
+		<div class="list_mery" style="width: 50%;">
+			<img src="4.jpg" />
+			<div class="text">虚拟样板间1</div>
+		</div><div class="list_mery" style="width: 50%;">
+			<img src="5.jpg" />
+			<div class="text">虚拟样板间2</div>
+		</div>
+	</div>
+</div>
+<img src="dc1.jpg" style="width: 100%;" />
+<div class="layout_center">
+	<div id="slide" class="slide">
+		<img src="nav0.jpg" style="visibility:hidden;" />
+		<div id="slideIpl" class="slide_ipl">
+			<img src="nav0.jpg" />
+			<img src="nav1.jpg" style="display:none;"/>
+			<img src="nav2.jpg" style="display:none;" />
+			<img src="nav3.jpg" style="display:none;"/>
+			<img src="nav4.jpg" style="display:none;" />
+		</div>
+		<ul id="nav">
+			<li class="selected"></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+		</ul>
+	</div>
+</div>
+<img src="dc2.jpg" style="width: 100%;" />
+<script>
+var slideFocus = 0;
+var isMove = false;
+var slideTag = 0;
+
+$(function(){
+	$('#nav li').click(function(){
+		if(slideFocus == $(this).index() || isMove){
+			return;
+		}
+		$(this).parent().find('.selected').removeClass('selected');
+		$(this).addClass('selected');
+		change_focus($(this).index());
+	});
+	$('#slide').hover(function(){
+		clearInterval(slideTag);
+	},function(){
+		star_slide_change();
+	});
+	star_slide_change();
+
+});
+
+function change_focus(_num){
+	var width = $('#slideIpl').width();
+	var imgEle = $('#slideIpl').find('img');
+	if(slideFocus == _num || isMove){
+		return;
+	}
+	if(_num < slideFocus)
+	{
+		imgEle.eq(_num).css('left', width * -1).show();
+		imgEle.eq(slideFocus).animate({
+			left: width
+		});
+		imgEle.eq(_num).animate({
+			left: 0
+		});
+	}
+	else
+	{
+		imgEle.eq(_num).css('left', width).show();
+		imgEle.eq(slideFocus).animate({
+			left: width * -1
+		});
+		imgEle.eq(_num).animate({
+			left: 0
+		});
+	}
+	
+	slideFocus = _num;
+	isMove = true;
+	setTimeout(function(){
+		isMove = false;
+	}, 1000);
+}
+
+function star_slide_change(){
+	clearInterval(slideTag);
+	slideTag = setInterval(function(){
+		$('#nav li').eq((slideFocus + 1) % $('#nav li').length).click();
+	}, 5000);
+}
+</script>
+</body>
+</html>

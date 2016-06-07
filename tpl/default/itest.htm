@@ -1,0 +1,12 @@
+<!--{template header}-->
+
+<button id="btn">获取列表</button>
+
+<script type="text/javascript">
+$(function() {
+	$("#btn").click(function(){
+		$.post('index.php?do=ajax&view=im',{'action':'get_contact_list'},function(json){},'json');
+	});
+});
+</script>
+<!--{template footer}-->

@@ -1,0 +1,132 @@
+<!--{template ADMIN_DIRECTORY/tpl/admin_header}-->
+<div class="page_title">
+    	<h1>短信模板</h1>
+         <div class="tool">
+            <a href="index.php?do=msg&view=internal" {if $view == 'internal'}class="here"{/if} > {$_lang['sms_config']}</a>
+            <a href="index.php?do=msg&view=intertpl" {if $view == 'intertpl'}class="here"{/if} > {$_lang['sms_tpl_edit']}</a>
+    	</div>
+</div>
+<div class="box post">
+        <div class="tabcon">
+        	<div class="title"><h2> {$_lang['sms_email_config_manage']}</h2></div>
+			 <div class="detail">
+
+    <form name="frm_config_msg" action="index.php?do=msg&view=intertpl" method="post">
+        <input type="hidden" name="hdn_tpl_code" id="hdn_tpl_code" value="{$slt_tpl_code}">
+        <table width="96%" height="" border="0" cellspacing="0" cellpadding="0" >
+            <tr>
+                 <th scope="row" width="130">
+                    {$_lang['type_of_sms_email']}{$_lang['zh_mh']}
+                </th>
+                <td>
+                    <select name="slt_tpl_code" id="slt_tpl_code" class="ps vm">
+                        <option value="-1">{$_lang['select_tpl_type']}</option>
+						{loop $config_msg_arr $v}
+							<option {if $slt_tpl_code==$v['k']}selected="selected"{/if}  value="{$v['k']}">{$v['desc']}{$_lang['msg_tips']}</option>
+						{/loop}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                 <th scope="row">
+                    {$_lang['sms_email_content']}{$_lang['zh_mh']}
+                </th>
+                <td>
+                    <div class="field" style="margin-left:-10px;*margin-left:0">
+                    	  <textarea name="tar_msg_temp_content" id="system-create-location_1"  cols="70" >{$msg_tpl['content']}</textarea>
+                    		 <script type="text/javascript" src="{$_K['siteurl']}/static/js/ueditor/ueditor.config.admin.js"></script>
+					<!-- 编辑器源码文件 -->
+					<script type="text/javascript" src="{$_K['siteurl']}/static/js/ueditor/ueditor.all.min.js"></script>
+					<script type="text/javascript" src="{$_K['siteurl']}/static/js/ueditor/lang/zh-cn/zh-cn.js"></script>
+									    <!-- 实例化编辑器 -->
+
+                    </div>
+                </td>
+            </tr>
+            
+            {if $now_v['send_mobile_sms']==1}
+            <tr>
+                 <th scope="row">
+                    短信内容{$_lang['zh_mh']}
+                </th>
+                <td>
+                    <div class="field" style="margin-left:-10px;*margin-left:0">
+                    	  <textarea name="tar_msg_mobile_content" id="tar_msg_mobile_content"  cols="70" >{$msg_tpl['mobile_content']}</textarea>
+                    </div>
+                </td>
+            </tr>
+            {/if}
+
+            <tr>
+            	<th scope="row">&nbsp;</th>
+				<td>
+					<div class="clearfix padt10">
+					  <button class="positive primary pill button" type="submit" name='sbt_edit' value="{$_lang['submit']}"><span class="check icon"></span>{$_lang['submit']}</button>
+
+                 </div>
+				</td>
+
+            </tr>
+        </table>
+    </form>
+</div></div></div>
+<script type="text/javascript">
+    var Editor = UE.getEditor('system-create-location_1', {
+        //这里可以选择自己需要的工具按钮名称,此处仅选择如下五个
+    	initialFrameWidth: '80%',
+    	initialFrameHeight: '400'
+    });
+
+	$(function(){
+		
+		
+		$("#slt_tpl_code").change(function(){
+			var selectValue = $(this).val();
+            if (selectValue != '-1') {
+                var url = "index.php?do=msg&view=intertpl";
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    cache: false,
+                    async: false,
+                    data: "tpl_code=" + selectValue,
+                    dataType: "json",
+                    error: function(json){
+//                        Editor.setContent('');
+							$("#system-create-location_1").val('');
+							if($("#tar_msg_mobile_content")){
+								$("#tar_msg_mobile_content").val('');
+							}
+                        $("#hdn_tpl_code").val('');
+                        $('#list').html("{$_lang['null_result_please_retry_later']}");
+
+                    },
+                    success: function(json){
+                        if (json.status == 0) {
+                            $('#list').html("{$_lang['null_tpl_content']}");
+                        }
+                        else {
+							var data=json.data;
+							var contentText = data.content;
+                            $('#list').html('');
+//                            Editor.setContent(contentText);
+								$("#system-create-location_1").val(contentText);
+								if($("#tar_msg_mobile_content")){
+									$("#tar_msg_mobile_content").val(data.mobile_content);
+								}
+                            $("#hdn_tpl_code").val(data.k);
+                        }
+                    }
+                });
+            }
+            else {
+				art.dialog.alert("{$_lang['select_tpl']}");
+//                Editor.setContent('');
+				$("#system-create-location_1").val('');
+                $('#tar_msg_mobile_content').val('');
+                return false;
+            }
+		})
+	})
+</script>
+<!--{template ADMIN_DIRECTORY/tpl/admin_footer}-->

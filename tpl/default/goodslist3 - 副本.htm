@@ -1,0 +1,153 @@
+<!--{template header}-->
+<style>
+body{
+	background:#f0f0f0;
+}
+
+.list_mery{
+	position: relative;
+	float: left;
+    margin-right: 0.5%;
+    width: 33%;
+    display: inline-block;
+}
+
+.list_mery.last{
+	margin-right: 0px;
+}
+
+.list_mery img{
+	width: 100%;
+}
+
+.list_mery .user_data{
+	margin-bottom: 20px;
+	height: 90px;
+	background:#ffffff;
+}
+
+.file_type{
+	top: 30%;
+	width: 53px;
+	height: 46px;
+}
+
+.user_data_photo{
+	margin: 0px auto;
+    display: block;
+    width: 50px;
+}
+
+.user_data_photo a{
+	display: block;
+    margin: 0px auto;
+	padding: 5px 0px;
+    width: 50px;
+    overflow: hidden;
+	
+	
+}
+
+.user_data_photo a img{
+	border-radius: 25px;
+	-ms-border-radius: 25px;
+	-moz-border-radius: 25px;
+	-o-border-radius: 25px;
+	-webkit-border-radius: 25px;
+}
+
+.user_data .username{
+	text-align: center;
+}
+
+.user_data .username a{
+	color: #000000;
+	font-size: 14px;
+}
+</style>
+<div class="main" style="margin-top: 30px;">
+    	<div class="filter" style="display: none">
+        	<div class="container">
+            	<div class="collapse navbar-collapse navbar-ex1-collapse ">                
+                <a class="upload_good btn btn-info" href="index.php?do=pubgoods">上传作品</a>
+              </div>
+            </div>
+        </div>
+    	<div class="container goods_list">
+            <div class="row" id="post-list">
+				<!--datas-->
+                {loop $arrServices $k $v}
+                <div class="list_mery {if $k % 3 == 2}last{/if}" >
+
+					<div>
+						<a href="index.php?do=goods&id=$v['service_id']" title="$v['title']"> 
+						   <!--<img src="tpl/default/img/grey.gif" class="lazy" width="600" height="200" data-original="{eval echo keke_shop_class::output_pics($v['file_path'],210,1,1,$v['service_id'])}"  alt="$v['title']">-->
+						   <!--{eval $arrPic=explode(',',$v['pic']);$img=strstr($arrPic[0],'http');}-->
+						<img alt="$v['title']" onerror='$(this).attr("src","tpl/default/img/shop/shop_default_big.jpg")' alt="$v['title']" {if $img}src="{$arrPic[0]}" width="600" height="200" {else}src="<!--{eval echo keke_shop_class::output_pics($v['file_path'],210,1,1,$v['service_id'])}-->" {/if}>
+					   {$v['file_type']}
+					   </a>
+					  
+						
+					</div>
+					<div class="user_data">
+						<div class="user_data_photo">
+							<a href="index.php?do=seller&id={$v['uid']}"><!--{userpic($v['uid'],'middle')}--> </a>
+						</div>
+						<div class="username">
+							<a href="index.php?do=seller&id={$v['uid']}" title="$v['username']">{$v['username']}</a>
+						</div> 
+						
+                    </div>
+                </div>
+                {/loop}
+				<!--datas-->
+            </div> 
+            <div class="list-page" style="display: none;">
+				<ul class="pagination pagination-sm pull-right">
+					{$strPages['page']}
+				</ul>
+			</div>
+        </div>
+    </div>
+	
+	<script>
+	//{$_GET['json']}---{$json}
+
+
+    
+		var page = 1;
+		var pageCount = 1;
+		var isLoad = false;
+		$(function(){
+			pageCount = parseInt($('.pagination .fl_l').html().split('/')[1], 10);
+			$(window).scroll(function(){
+				if($(window).scrollTop() + $(window).height() > $(document).height() - 10){
+					if(!isLoad){
+						load_data();
+					}
+				}
+			});
+		});
+		function load_data(){
+			console.log('load_data');
+			isLoad = true;
+			page ++;
+			if(page > pageCount){
+				return;
+			}
+			$.ajax({
+				url    : '/index.php?do=goodslist3&die=die&page=' + page,
+				type   : 'json',
+				success: function(data){
+					isLoad = false;
+					data = data.split('<!--datas-->');
+					$('#post-list').append(data[1]);
+					console.log(data[1]);
+				}
+			});
+			
+		}
+		
+	</script>
+
+<!--{template footer}-->

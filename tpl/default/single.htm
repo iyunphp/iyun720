@@ -1,0 +1,61 @@
+{if $_GET['telphone']}
+<div class="container">
+	<div id="main">
+		<div class="for-advertise">
+			<!--{ad_show(NEWSINFO_HEAD)}-->
+		</div>
+		<div class="single">
+			<!--<ul class="nav nav-tabs single-nav">-->
+				{loop $_footerAbouts $k $v}
+				<!--<li {if $id==$v[ 'art_id']}class="active"{/if}>
+					<a href="{if $v['art_source']}{$v['art_source']}{else}index.php?do=single&id={$v['art_id']} {/if}">{$v['art_title']}</a>
+				</li>-->
+				{/loop}
+				<!--<li>
+					<a href="index.php?do=map" target="_blank">网站地图</a>
+				</li>-->
+			<!--</ul>-->
+			<div class="single-body ">
+				<div id="server-info" class=" single-detail">
+               <!-- <h1 style="text-align:center">{$arrArtInfo['art_title']}</h1>-->
+					<!--{eval echo stripslashes(htmlspecialchars_decode(stripslashes($arrArtInfo['content'])))}-->
+				</div>
+			</div>
+		</div>
+		<div class="for-advertise">
+			<!--{ad_show(NEWSINFO_BOTTOM)}-->
+		</div>
+	</div>
+</div>
+{else}
+<!--{template header}-->
+<div class="container">
+	<div id="main">
+		<div class="for-advertise">
+			<!--{ad_show(NEWSINFO_HEAD)}-->
+		</div>
+		<div class="single">
+			<!--<ul class="nav nav-tabs single-nav">-->
+				{loop $_footerAbouts $k $v}
+				<!--<li {if $id==$v[ 'art_id']}class="active"{/if}>
+					<a href="{if $v['art_source']}{$v['art_source']}{else}index.php?do=single&id={$v['art_id']} {/if}">{$v['art_title']}</a>
+				</li>-->
+				{/loop}
+				<!--<li>
+					<a href="index.php?do=map" target="_blank">网站地图</a>
+				</li>-->
+			<!--</ul>-->
+			<div class="single-body ">
+				<div id="server-info" class=" single-detail">
+               <!-- <h1 style="text-align:center">{$arrArtInfo['art_title']}</h1>-->
+					<!--{eval echo stripslashes(htmlspecialchars_decode(stripslashes($arrArtInfo['content'])))}-->
+				</div>
+			</div>
+		</div>
+		<div class="for-advertise">
+			<!--{ad_show(NEWSINFO_BOTTOM)}-->
+		</div>
+	</div>
+</div>
+<!--{template footer}-->
+{/if}

@@ -1,0 +1,188 @@
+<!--{template ADMIN_DIRECTORY/tpl/admin_header}-->
+ <script src="../static/js/uploadify/jquery.uploadify.min.js?r={RANDOM_PARA}" type="text/javascript"></script>
+<link href="../static/js/uploadify/uploadify.css" rel="stylesheet">
+	<div class="page_title">
+    	<h1>{$_lang['rule_manage']}</h1>
+     	<div class="tool">
+        <a href="index.php?do=$do&view=$view"        {if $op!='edit'}class="here"{/if}>{$_lang['credit_rules_manage']}</a>
+        <a href="index.php?do=$do&view=$view&op=edit" {if $op=='edit'}class="here"{/if}>{$_lang['add_credit_rules']}</a>
+		</div>
+    </div>
+		<div class="box post">
+        <div class="tabcon">
+        	<div class="title"><h2>{if $mark_rule_id}{$_lang['edit_rules']}{else}{$_lang['add_rules']}{/if}</h2></div>
+            <div class="detail">
+               <form action="{$url}" method="post" name="frm1" id="frm1" enctype="multipart/form-data">
+               	   <input type="hidden" name="hdn_mark_rule_id" value="$mark_rule_id">
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                      <tr>
+                        <th scope="row" width="200">{$_lang['credit_value']}{$_lang['zh_mh']}</th>
+                        <td><input name="txt_g_value" type="text" value="{$mark_info['g_value']}" class="txt" style=" width:260px;" />
+					  </td>
+                      </tr>
+					  <tr>
+                        <th scope="row" width="200">{$_lang['ability_value']}{$_lang['zh_mh']}</th>
+                        <td><input name="txt_m_value" type="text" value="{$mark_info['m_value']}" class="txt" style=" width:260px;" />
+					  </td>
+                      </tr>
+                     <tr>
+                        <th scope="row">{$_lang['employer_name']}{$_lang['zh_mh']}</th>
+                        <td> <input name="txt_g_title" type="text" value="{$mark_info['g_title']}" class="txt" style=" width:260px;" /></td>
+                      </tr>
+
+					  <tr>
+                        <th scope="row">{$_lang['witkey_name']}{$_lang['zh_mh']}</th>
+                        <td> <input name="txt_m_title" type="text" value="{$mark_info['m_title']}" class="txt" style=" width:260px;" /></td>
+                      </tr>
+					 <tr>
+                       <th scope="row">{$_lang['employer_icon']}{$_lang['zh_mh']}</th>
+					   <td>
+						        <!--<input type="file" class="file" name="upload1" id="upload1">-->
+								<div id="picker">上传</div>
+                                <div class="po_ab" style="left:130px;top:5px;">
+                                    <span style="line-height:15px;" class="ws_prewrap mr_5"></span>
+                                </div>
+								<div id="list" class="affix-list upload-file-list-info" style="width:210px;"></div>
+								
+								{if !empty($mark_info['g_info'])}
+								 	{loop $mark_info['g_info'] $v}
+									<ul class="upload-file-list-info" id="editlist1">
+										<li id="edit-{$v['file_id']}" class="affix-list-item" style="border: none;float: left;">
+										  
+											<div class="upload-file-info">
+												
+													<span class="webuploader-pick-file-close" data-fileid="{$v['file_id']}" data-queued-id="edit-{$v['file_id']}" data-fileurl="<!--{eval echo imageClass::absUrl($v['save_name'])}-->">
+														<i class="close"></i>
+													</span>
+												
+													<span id="span_big_icon">
+														<img id="imgPreview1" src="<!--{eval echo imageClass::absUrl($v['save_name'])}-->" />
+													</span>
+											</div>
+											
+										</li>
+									</ul>
+									{/loop}
+									{/if}
+								
+                                <input type="hidden" name="hdn_g_ico" id="hdn_g_ico" value="{$mark_info['g_info'][0]['save_name']}">
+						</td>
+
+                      </tr>
+					  <tr>
+                        <th scope="row">{$_lang['witkey_icon']}{$_lang['zh_mh']}</th>
+                        <td>
+                        	  <!--<input type="file" class="file" name="upload2" id="upload2">-->
+							  <div id="picker1">上传</div>
+                                <div class="po_ab" style="left:130px;top:5px;">
+                                    <span style="line-height:15px;" class="ws_prewrap mr_5"></span>
+                                </div>
+								<div id="list1" class="affix-list upload-file-list-info" style="width:210px;"></div>
+								{if !empty($mark_info['m_info'])}
+								 	{loop $mark_info['m_info'] $v}
+									<ul class="upload-file-list-info" id="editlist2">
+										<li id="edit-{$v['file_id']}" class="affix-list-item" style="border: none;float: left;">
+										  
+											<div class="upload-file-info">
+												
+													<span class="webuploader-pick-file-close" data-fileid="{$v['file_id']}" data-queued-id="edit-{$v['file_id']}" data-fileurl="<!--{eval imageClass::absUrl($v['save_name'])}-->">
+														<i class="close"></i>
+													</span>
+												
+													<span id="span_big_icon">
+														<img id="imgPreview2" src="<!--{eval echo imageClass::absUrl($v['save_name'])}-->" />
+													</span>
+											</div>
+											
+										</li>
+									</ul>
+									{/loop}
+									{/if}
+								
+                                <input type="hidden" name="hdn_g_ico" id="hdn_g_ico" value="{$mark_info['m_info'][0]['save_name']}">
+
+						</td>
+                      </tr>
+
+                      <tr>
+                        <th scope="row">&nbsp;</th>
+                        <td>
+	                    	<div class="clearfix padt10">
+	                    	<input type="hidden" name="is_submit" value="1">
+	                        <button class="positive pill primary button" type="submit"
+							onclick="return checkForm(document.getElementById('frm1'),false);"
+							 value={$_lang['submit']}>
+	                        	<span class="check icon"></span>{$_lang['submit']}</button>
+
+	                    	</div>
+                        </td>
+                      </tr>
+                    </table>
+               </form>
+        	</div>
+   		</div>
+    </div>
+	
+
+
+
+<script type="text/javascript">
+	var baseurl = "{$basic_config['website_url']}";
+	var uploadsize = parseInt("{$basic_config['max_size']}");
+		uploadsize =  isNaN(uploadsize)? 1 : uploadsize;
+	$(function(){
+		$("#picker").KKUploader({
+				accept: {
+					extensions : 'jpg,jpeg,gif,png,bmp'
+				},
+				uploadEvents: {
+					uploadComplete:function(file){
+//						var url = $("#"+file.id).find('.webuploader-pick-file-close').attr('data-fileurl');
+//        				$('#imgPreview1').removeClass('hidden');
+//              			$('#imgPreview1').attr('src','{REVIEW_BACKEND_PATH}'+url);
+					}
+				},
+				fileNumLimit:1,
+				fileSingleSizeLimit:uploadsize*1024*1024,
+				listName:'list',
+				editListName:'editlist1',
+				hiddenName:'hdn_g_ico',
+				hiddenValType: 2
+			},
+			{
+				fileType:'sys',
+			  	objType:'mark',
+				filename : 'file',
+			});
+			
+		$("#picker1").KKUploader({
+				accept: {
+					extensions : 'jpg,jpeg,gif,png,bmp'
+				},
+				uploadEvents: {
+					uploadComplete:function(file){
+//						var url = $("#"+file.id).find('.webuploader-pick-file-close').attr('data-fileurl');
+//        				$('#imgPreview2').removeClass('hidden');
+//              			$('#imgPreview2').attr('src','{REVIEW_BACKEND_PATH}'+url);
+					}
+				},
+				fileNumLimit:1,
+				fileSingleSizeLimit:uploadsize*1024*1024,
+				listName:'list1',
+				editListName:'editlist2',
+				hiddenName:'hdn_m_ico',
+				hiddenValType: 2
+			},
+			{
+				fileType:'sys',
+			  	objType:'mark',
+				filename : 'file',
+			});
+	});
+
+</script>
+<link rel="stylesheet" type="text/css" href="tpl/js/webuploader/webuploader.css">
+<script type="text/javascript" src="../static/js/jquery.min.js?r={RANDOM_PARA}"></script>
+<script type="text/javascript" src="tpl/js/webuploader/webuploader.js?r={RANDOM_PARA}"></script>
+<script type="text/javascript" src="tpl/js/webuploader/kppw.webuploader.js"></script>
+<!--{template ADMIN_DIRECTORY/tpl/admin_footer}-->

@@ -1,0 +1,139 @@
+<!--{template header}-->
+<style>
+.title{
+	margin: 50px 0px 0px;
+	height: 40px;
+	background: #2f549f;
+	line-height: 40px; 
+	font-size: 14px;
+	font-weight: bold;
+	color:#ffffff;
+	text-indent: 10px;
+	
+	border-radius: 2px;
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+	-o-border-radius: 2px;
+	-ms-border-radius: 2px;
+	
+}
+
+.content{
+	margin-bottom: 50px;
+	padding-top: 30px;
+	border-left: 1px #e8e8e8 solid;
+	border-right: 1px #e8e8e8 solid;
+	border-bottom: 1px #e8e8e8 solid;
+	
+	border-bottom-left-radius: 3px;
+	-moz-border-bottom-left-radius: 3px;
+	-webkit-border-bottom-left-radius: 3px;
+	-ms-border-bottom-left-radius: 3px;
+	-o-border-bottom-left-radius: 3px;
+	
+	border-bottom-right-radius: 3px;
+	-moz-border-bottom-right-radius: 3px;
+	-webkit-border-bottom-right-radius: 3px;
+	-ms-border-bottom-right-radius: 3px;
+	-o-border-bottom-right-radius: 3px;
+}
+
+.form-group{
+	margin-bottom: 20px;
+}
+
+.form-control option{
+	display: block;
+	line-height: 40px;
+    font-size: 14px;
+}
+
+.content button{
+	margin: 0px;
+	padding: 0px;
+	border: 0px none;
+	width: 100px;
+	height: 40px;
+	background:#2f549f;
+	line-height: 40px;
+	color:#ffffff;
+	
+	border-radius: 3px;
+	-ms-border-radius: 3px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	-o-border-radius: 3px;
+}
+</style>
+<script>
+$(function(){
+	var windowHeight = $(window).height();
+	var containerHeight = $('#container').height();
+	if(containerHeight < windowHeight - 220){
+		$('#container').css('height', windowHeight - 220);
+	}
+});
+</script>
+<div id="container" class="container">
+	<div id="main">
+		<form class="form-horizontal" role="form" action="/index.php?do=bug" method="post" id="pubGoodsFormstep1" name="pubGoodsFormstep1" novalidate="novalidate">
+			<div class="title">提交问题</div>
+			<div class="content">
+				{if $complete}
+				<div style="height: 50px;"></div>
+				<div style="height: 120px; line-height: 120px;text-align: center;font-size: 30px;">
+					您的问题已提交，我们将会尽快处理！
+				</div>
+				<div style="height: 80px;"></div>
+				{else}
+				<div class="form-group">
+					<label for="txt_title" class="col-sm-2 control-label">问题名称：</label>
+					<div class="col-sm-9">
+						<input type="text" class="form-control placeholder" id="txt_title" name="title" placeholder="问题名称" value="" style="width: 200px;">
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="txt_title" class="col-sm-2 control-label">所属模块：</label>
+					<div class="col-sm-9">
+						<select name="model" class="form-control" style="width: 200px;">
+							<option>浏览模块</option>
+							<option>登录模块</option>
+							<option>上传模块</option>
+						</select>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="txt_title" class="col-sm-2 control-label">操作系统：</label>
+					<div class="col-sm-9">
+						<select name="environmental_science" class="form-control" style="width: 200px;">
+							<option>windows电脑</option>
+							<option>IOS电脑</option>
+							<option>IOS手机</option>
+							<option>安卓手机</option>
+						</select>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="txt_title" class="col-sm-2 control-label">浏览器：</label>
+					<div class="col-sm-9">
+						<input type="text" class="form-control placeholder" id="txt_title" name="browser" placeholder="问题名称" value="" style="width: 200px;">
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="txt_title" class="col-sm-2 control-label">内容补充：</label>
+					<div class="col-sm-9">
+						<textarea name="text" style="width: 360px;height: 100px;"></textarea>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="txt_title" class="col-sm-2 control-label"></label>
+					<div class="col-sm-9">
+						<button type="submit">提交</button>
+					</div>
+				</div>
+				{/if}
+			</div>
+		</form>
+	</div>
+</div>
+<!--{template footer}-->

@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>{$arrServiceInfo['title']}</title>
+    <meta name="keywords" content="{$strPageKeyword}">
+    <meta name="description" content="{$strPageDescription}">
+	<meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, minimal-ui" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<meta http-equiv="x-ua-compatible" content="IE=edge" />
+	<link href="/tpl/default/css/p.css" rel="stylesheet" type="text/css">
+	<script src="static/js/jquery.min.js"></script>
+	<style>
+		@-ms-viewport { width:device-width; }
+		@media only screen and (min-device-width:800px) { html { overflow:hidden; } }
+		
+		html { height:100%; }
+		body { height:100%; overflow:hidden; margin:0; padding:0; font-family:Arial, Helvetica, sans-serif; font-size:16px; color:#FFFFFF; background-color:#000000; }
+		.pano{
+			position:relative;
+			width:100%;
+			height:100%; 
+		}
+
+		.menu2{
+			position: absolute;
+			right: 5px;
+			top: 0px;
+			width: 105px;
+			z-index: 5;
+		}
+		
+		.menu2 a{
+			float: left;
+			margin-bottom: 10px;
+			margin-left: 6px;
+			display: block;
+			width: 28px;
+			height: 36px;
+		}
+		
+		.menu2 a .info{
+			display: block;
+			margin-left: 8px;
+			margin-top: 8px;
+			width: 42px;
+			height: 42px;
+			background: url(/static/img/ico/min_icons.png?v=2) -106px -42px;
+		}
+		
+		.menu2 a .music{
+			display: block;
+			margin-left: 4px;
+			margin-top: 8px;
+			width: 24px;
+			height: 28px;
+			background: url(/static/img/ico/min_icons.png?v=2) -1px -57px;
+		}
+		
+		.menu2 a .music.dis{
+			background: url(/static/img/ico/min_icons.png?v=2) -35px -117px;
+			
+		}
+		
+		.menu2 a .map{
+			display: block;
+			margin-left: 10px;
+			margin-top: 8px;
+			width: 39px;
+			height: 51px;
+			background: url(/static/img/ico/min_icons.png?v=2) -108px -128px;
+		}
+		
+		.menu2 a .gyroscope{
+			display: block;
+			margin-left: 8px;
+			margin-top: 8px;
+			width: 43px;
+			height: 46px;
+			background: url(/static/img/ico/min_icons.png?v=2) -1px -217px;
+		}
+		
+		.menu2 a .gyroscope.dis{
+			background: url(/static/img/ico/min_icons.png?v=2) -1px -172px;
+		}
+		
+		.menu2 a .telphone{
+			display: block;
+			margin-left: 8px;
+			margin-top: 8px;
+			width: 43px;
+			height: 46px;
+			background: url(/static/img/ico/min_icons.png?v=2) -45px -219px;
+		}
+		
+		.menu2 a .all_full{
+			display: block;
+			margin-left: 0px;
+			margin-top: 8px;
+			width: 28px;
+			height: 28px;
+			background: url(/static/img/ico/min_icons.png?v=2) -1px -86px;
+		}
+		
+		.menu2 a .look_list{
+			display: block;
+			margin-left: 0px;
+			margin-top: 8px;
+			width: 28px;
+			height: 28px;
+			background: url(/static/img/ico/min_icons.png?v=2) -69px -146px;
+		}
+	</style>
+	<script>
+	var isClick = false;
+	var panoTag = 0;
+	var mLeft = 0;
+	var mTop = 0;
+	var isCloseMusic = false;
+	function init(){
+		document.getElementById('pano').onmousedown = function(ev){
+			down_pano(ev);
+		}
+		
+		document.getElementById('pano').onmouseup = function(ev){
+			up_pano(ev);
+		}
+		
+		$('#aMusic').click(function(){
+			if(isCloseMusic){
+				isCloseMusic = false;
+				krpanoSWFObject.call("bgsnd_action();");
+				$(this).find('.music').removeClass('dis');
+				return;
+			}
+			$(this).find('.music').toggleClass('dis');
+			krpanoSWFObject.call("pausesoundtoggle(bgsnd);");
+		});
+
+		setTimeout(function(){
+			krpanoSWFObject.call('pausesound(bgsnd);');
+			$('#aMusic').find('.music').addClass('dis');
+			isCloseMusic = true;
+		}, 1000);
+	}
+
+	{if $music == 1}
+		$('#aMusic').hide();
+		setTimeout(function(){
+			krpanoSWFObject.call('pausesound(bgsnd);');
+			$('#aMusic').find('.music').addClass('dis');
+			isCloseMusic = true;
+		}, 1000);
+		setTimeout(function(){
+			krpanoSWFObject.call('pausesound(bgsnd);');
+			$('#aMusic').find('.music').addClass('dis');
+			isCloseMusic = true;
+		}, 2000);
+		setTimeout(function(){
+			krpanoSWFObject.call('pausesound(bgsnd);');
+			$('#aMusic').find('.music').addClass('dis');
+			isCloseMusic = true;
+		}, 3000);
+		setTimeout(function(){
+			krpanoSWFObject.call('pausesound(bgsnd);');
+			$('#aMusic').find('.music').addClass('dis');
+			isCloseMusic = true;
+		}, 4000);
+		setTimeout(function(){
+			krpanoSWFObject.call('pausesound(bgsnd);');
+			$('#aMusic').find('.music').addClass('dis');
+			$('#aMusic').show();
+			isCloseMusic = true;
+		}, 5000);
+	{/if}
+	
+	function down_pano(ev){
+		clearTimeout(panoTag);
+		isClick = true;
+		panoTag = setTimeout(function(){
+			isClick = false;
+		}, 1000);
+		
+		var oEvent=ev||event;
+		var oLeft = mLeft = oEvent.clientX;
+		var oTop = mTop = oEvent.clientY;
+	}
+	
+	function up_pano(ev){
+		clearTimeout(panoTag);
+		
+		var oEvent=ev||event;
+		var oLeft=oEvent.clientX;
+		var oTop=oEvent.clientY;
+		
+		if(isClick && oLeft == mLeft && oTop == mTop){
+			isClick = false;
+			pano_callback();
+		}
+	}
+	
+	// test
+	function pano_callback(){
+		var parent = window.parent;
+		console.log(typeof(parent.iframe_callback));
+		if(parent.iframe_callback){
+			parent.iframe_callback();
+		}
+	}
+	</script>
+</head>
+<body onload="init()">
+<script src="{$js}"></script>
+{if !$_GET['nouser']}
+<span id="iframeInfoPanel" class="iframe_info_panel">
+	<span>
+		<span class="iframe_info_user_data">
+			<a href="/index.php?do=seller&id=$arrSellerInfo['uid']" target="_top">
+				<!--{userpic($arrSellerInfo['uid'],'larger')}--><span>作者：{if $arrSellerInfo['shop_name']}{$arrSellerInfo['shop_name']}{else}{$arrSellerInfo['username']}{/if}</span>
+			</a>
+		</span>
+	</span>
+</span>
+{/if} 
+
+<div id="menu2" class="menu2">
+	<a id="aMusic" href="javascript:"><span class="music"></span></a>
+	{if $n=='f'}
+	<a id="aAllFull" href="javascript:" onclick="parent.location.href = '/index.php?do=view&sid={$sid}';" ><span class="all_full"></span></a>
+	{/if}
+	{if $no_menu}
+	<a id="aLookList" href="javascript:" onclick="switch_skin_layer();"><span class="look_list"></span></a>
+	{/if}
+</div>
+{if  $arrSellerInfo['uid'] == '60'}
+	{if $n!='f'}
+	<img src="/tpl/default/images/logo2.png" alt="云游VR | 全景VR，全景图片，VR视频，智慧旅游，360度全景看房，航拍，虚拟现实内容" style="position: absolute;left: 20px;bottom: 25px;width: 100px;z-index: 10;">
+	{/if}
+{/if}
+<div id="pano" class="pano">
+	
+	<noscript><table style="width:100%;height:100%;"><tr style="vertical-align:middle;"><td><div style="text-align:center;">ERROR:<br/><br/>Javascript not activated<br/><br/></div></td></tr></table></noscript>
+	<script>
+	function selecthtml5usage()
+	{
+	// check for Android MQQBrowser:
+	//if( navigator.userAgent.indexOf("Android") >= 0 && navigator.userAgent.indexOf("QQ") >= 0 )
+	//return "auto+css3d";
+	// for all other cases use html5=auto:
+	return "prefer";
+	}
+	embedpano({swf:"{$swf}", xml:"{$xml}", target:"pano", html5:selecthtml5usage(), initvars:{design:"flat"}, passQueryParameters:true});
+	var krpanoSWFObject = document.getElementById("krpanoSWFObject");
+	{if $n == 'f'}
+	krpanoSWFObject.call("set(layer[skin_control_bar].visible, false);");
+	krpanoSWFObject.call("set(layer[skin_splitter_bottom].visible, false);");
+	krpanoSWFObject.call("set(layer[skin_map_container].visible, false);");
+	krpanoSWFObject.call("set(layer[get(skin_layer)].visible, false);");
+	//krpanoSWFObject.call("set(layer[get(skin_thumbborder)].visible, false);");
+	krpanoSWFObject.call("set(layer[skin_buttonglow].visible, false);");
+	krpanoSWFObject.call("set(layer[skin_scroll_window].y, -5);");
+	{/if}
+	krpanoSWFObject.call("set(plugin[snd].visible, false);");
+	</script>
+</div>
+<script>
+function switch_skin_layer(){
+	if(switch_skin_layer.b != 'true'){
+		switch_skin_layer.b = 'true';
+	}else{
+		switch_skin_layer.b = 'false';
+	}
+	krpanoSWFObject.call("set(layer[get(skin_layer)].visible, " + switch_skin_layer.b + ");");
+}
+</script>
+</body>
+</html>

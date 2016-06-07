@@ -1,0 +1,202 @@
+<!--{template header}-->
+<!--{template breadcrumb}-->
+<div  class="container">
+  <div class="map-box">
+  	<div class="row">
+  		<div class="map_left">
+  			<p class="left-body-i"><i class="fa fa-lightbulb-o"></i></p>
+	  		<p class="left-body-tilte">分类</p>
+	  	</div>
+  		<div class="map_right">
+  			<ul>
+  				{loop $arrIndusP $k $v}
+					<li>
+						<b>{$v['indus_name']}</b>
+						<span>
+							{loop $arrIndusC[$k] $k1 $v1}
+								<a href="index.php?do=tasklist&i={$v1['indus_id']}">{$v1['indus_name']}</a>
+							{/loop}
+						</span>
+					</li>
+				{/loop}
+  			</ul>
+  		</div>
+  	</div>
+  </div>
+ <!--  map-box end -->
+
+ <div class="map-box">
+  	<div class="row">
+  		<div class="map_left">
+  			<p class="left-body-i"><i class="fa fa-tasks"></i></p>
+	  		<p class="left-body-tilte">任务大厅</p>
+	  	</div>
+  		<div class="map_right">
+  			<ul>
+  				<li>
+  					<b>任务模式</b>
+  					<span>
+  						{loop $arrTaskNavs $k $v}
+  							<a href="{$strUrlTask}&m={$v['model_id']}">{$v['model_name']}</a>
+						{/loop}
+  					</span>
+  				</li>
+				<li>
+  					<b>赏金状态</b>
+  					<span>
+  						{loop $arrCashStatus $k $v}
+  							<a href="{$strUrlTask}&r=$k">$v</a>
+						{/loop}
+  					</span>
+  				</li>
+				<li>
+  					<b>任务状态</b>
+  					<span>
+  						{loop $arrTaskStatus $k $v}
+  							<a href="{$strUrlTask}&s=$k">$v</a>
+						{/loop}
+  					</span>
+  				</li>
+  			</ul>
+  		</div>
+  	</div>
+  </div>
+ <!--  map-box end -->
+
+ <div class="map-box">
+  	<div class="row">
+  		<div class="map_left">
+  			<p class="left-body-i"><i class="fa fa-users"></i></p>
+	  		<p class="left-body-tilte">作品</p>
+	  	</div>
+  		<div class="map_right">
+  			<ul>
+  				<li>
+  					<b>作品种类</b>
+  					<span>
+  						{loop $arrWeike $k $v}
+  							<a href="{$strUrlWeike}&m=$k">$v</a>
+						{/loop}
+  					</span>
+  				</li>
+  			</ul>
+  		</div>
+  	</div>
+  </div>
+ <!--  map-box end -->
+
+ <div class="map-box">
+  	<div class="row">
+  		<div class="map_left">
+  			<p class="left-body-i"><i class="fa fa-users"></i></p>
+	  		<p class="left-body-tilte">服务商</p>
+	  	</div>
+  		<div class="map_right">
+  			<ul>
+  				<li>
+  					<b>店铺类型</b>
+  					<span>
+  						{loop $arrSell $k $v}
+  							<a href="{$strUrlSeller}&t=$k">$v</a>
+						{/loop}
+  					</span>
+  				</li>
+  			</ul>
+  		</div>
+  	</div>
+  </div>
+ <!--  map-box end -->
+
+ <div class="map-box">
+  	<div class="row">
+  		<div class="map_left">
+  			<p class="left-body-i"><i class="fa fa-thumbs-up"></i></p>
+	  		<p class="left-body-tilte">成功案例</p>
+	  	</div>
+  		<div class="map_right">
+  			<ul>
+  				<li>
+  					<b>案例种类</b>
+  					<span>
+  						{loop $arrCase $k $v}
+  							<a href="{$strUrlCase}&t=$k">$v</a>
+						{/loop}
+  					</span>
+  				</li>
+  			</ul>
+  		</div>
+  	</div>
+  </div>
+ <!--  map-box end -->
+
+ <div class="map-box">
+  	<div class="row">
+  		<div class="map_left">
+  			<p class="left-body-i"><i class="fa fa-comments"></i></p>
+	  		<p class="left-body-tilte">资讯中心</p>
+	  	</div>
+  		<div class="map_right">
+  			<ul>
+  				<li>
+  					<span>
+  						{loop $arrArticle $k $v}
+  							<a href="{$strUrlArticle}&catid=$k">$v</a>
+						{/loop}
+  					</span>
+  				</li>
+  			</ul>
+  		</div>
+  	</div>
+  </div>
+ <!--  map-box end -->
+
+ <div class="map-box">
+  	<div class="row">
+  		<div class="map_left">
+  			<p class="left-body-i"><i class="fa fa-user"></i></p>
+	  		<p class="left-body-tilte">用户中心</p>
+	  	</div>
+  		<div class="map_right">
+  			<ul>
+  				<li>
+  					<b>首页</b>
+  					<span>
+  						{loop $arrIndex $k1 $v1}
+							<span>{$arrTitle[$k1]}</span>
+							{loop $v1 $k2 $v2}
+								<a href="{$strUrlUser}&view=$k1&op=$k2">$v2</a>
+							{/loop}
+						{/loop}
+  					</span>
+  				</li>
+  				<li>
+  					<b>账号设置</b>
+  					<span>
+  						{loop $arrAccount $k $v}
+  							<a href="{$strUrlUser}&view=account&op=$k">$v</a>
+						{/loop}
+  					</span>
+  				</li>
+				<li>
+  					<b>我的消息</b>
+  					<span>
+  						{loop $arrMessage $k $v}
+  							<a href="{$strUrlUser}&view=message&op=$k">$v</a>
+						{/loop}
+  					</span>
+  				</li>
+				<li>
+  					<b>我的主页</b>
+  					<span>
+  						{loop $arrSeller $k $v}
+  							<a href="index.php?do=seller&view=$k&id=1">$v</a>
+						{/loop}
+  					</span>
+  				</li>
+  			</ul>
+  		</div>
+  	</div>
+  </div>
+ <!--  map-box end -->
+</div>
+<!--{template footer}-->

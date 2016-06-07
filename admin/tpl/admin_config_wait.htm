@@ -1,0 +1,26 @@
+<!--{template ADMIN_DIRECTORY/tpl/admin_header}-->
+<div class="box list">
+  	<div class="title"><h2>任务模型管理</h2></div>
+        <div class="detail">
+        	<table cellpadding="0" cellspacing="0">
+            	<tr>
+					<th scope="row">名称</th>
+					<th scope="row">操作</th>
+				</tr>
+				{loop $configDatas $k $v}
+                <tr>
+					<td>{$v['text']}</td>
+					<td>
+						{if $v['cvalue']==1}
+							<a href="/admin/index.php?do=config&view=wait&id={$v['id']}&cvalue=0">取消</a>
+						{else}
+							<a href="/admin/index.php?do=config&view=wait&id={$v['id']}&cvalue=1">开始</a>
+						{/if}
+					</td>
+				</tr>
+				{/loop}
+			</table>
+		<div>
+   </div>
+</div>
+<!--{template ADMIN_DIRECTORY/tpl/admin_footer}-->

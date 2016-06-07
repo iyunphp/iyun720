@@ -1,0 +1,88 @@
+<!--{template user/header}-->
+<div class="container">
+	<div class="nav-action">
+		<!--{template user/left_side}-->
+	</div>
+	<!-- nav-action end -->
+	<div class="content-panel">
+		<div class="tab">
+			<a {if $op=== 'rechargeonline'}class="selected" {/if} href="index.php?do=user&view=finance&op=rechargeonline">在线充值</a>
+			<a {if $op=== 'rechargeoffline'}class="selected" {/if} href="index.php?do=user&view=finance&op=rechargeoffline">线下充值</a>
+		</div>
+		<div class="tab_detail">
+			<p class="text-info">
+				<i class="fa fa-info-circle"></i>
+				<strong>提醒您</strong>
+				{if !$pay_open_status} 线下充值暂未开放，请联系管理员 {else} 为识别汇款人，汇款时请多汇或者少汇几分钱， 比如发布500元任务，可以汇500.01、500.02 。 汇款后请在第一时间内联系我们。 {/if}
+			</p>
+			<form action="{$strUrl}" name="editOffpayForm" class="form-horizontal {if !$pay_open_status} hidden{/if}" id="editOffpayForm" method="post">
+				<input type="hidden" name="formhash" id="formhash" value="{FORMHASH}">
+				<div class="form-group mt_20">
+					<label class="col-sm-2 control-label" for="pay_money">填写充值金额：</label>
+					<div class="col-sm-4">
+						<div class="input-group">
+							<span class="input-group-addon">￥</span>
+							<input type="text" name="pay_money" id="pay_money" class="form-control">
+						</div>
+					</div>
+				</div>
+				<!--start 线下支付方式-->
+				<div class=" offline " id="div_cont_2">
+					
+					<div class="form-group ">
+						<label class="col-sm-2 control-label">选择银行：</label>
+						<div class="col-sm-8">
+							<table class="table">
+								<tr>
+									<!--{eval $i=0;}-->
+									{loop $arrOfflinePayList $k $v} {if $v['pay_status']}
+									<!--{eval $i++;}-->
+									<td>
+										<input type="radio" name="offline" id="{$v['payment']}" value="{$v['payment']}" checked />
+										<label for="{$v['payment']}">
+											<img src="static/img/system/kppw_2.0_{$v['payment']}.png">
+										</label>
+									</td>
+									<td>
+										<ul class="prefix_1">
+											<li>开户行{$_lang['zh_mh']}{$v['pay_name']}</li>
+											<li>选择支付账户{$_lang['zh_mh']}{$v['pay_account']}</li>
+											<li>用户名{$_lang['zh_mh']}{$v['pay_user']}</li>
+										</ul>
+									</td>
+									{if $i%3==0}
+								</tr>
+								<tr>
+									<!--{eval continue;}-->
+									{/if}
+								</tr>
+								{/if} {/loop}
+							</table>
+						</div>
+					</div>
+					{if $pay_open_status}
+						<div class="form-group">
+							<label class="col-sm-2 control-label" for="pay_info">充值信息：</label>
+							<div class="col-sm-8">
+								<textarea name="pay_info" id="pay_info" style="width: 400px; height: 80px" class="form-control"></textarea>
+								<div class="help-block">提醒您，为了提高审核通过率。请输入打款金额，时间，银行，人，地点。</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-sm-8 col-sm-offset-2">
+								<button class="btn btn-default" type="submit" value="1">立即充值</button>
+								<span class="text-success" id="tipsUser"></span>
+							</div>
+						</div>
+					{else}
+						<div>提醒您，为了提高审核通过率。请输入打款金额，时间，银行，人，地点。</div>
+					{/if} 
+				</div>
+				<!--end 线下支付方式-->
+			</form>
+			<!-- 充值 end -->
+		</div>
+	</div>
+</div>
+<script src="static/js/model/user/finance.js"></script>
+<!--{template user/footer}-->

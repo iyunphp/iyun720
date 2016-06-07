@@ -1,0 +1,61 @@
+<krpano version="1.18" bgcolor="0x000000">
+			<cross-domain-policy>   <allow-access-from domain="*" /></cross-domain-policy>
+			<!-- the videoplayer interface skin -->
+			<include url="http://view.iyun720.com/public/skin/videointerface.xml?date=1450424213" />
+		
+			<!-- include the videoplayer plugin and load the video (use a low res video for iOS) -->
+			<plugin name="video"
+					url.flash="%SWFPATH%/plugins/videoplayer.swf"
+					url.html5="%SWFPATH%/plugins/videoplayer.js"
+		
+					posterurl.ios="http://view.iyun720.com/public/video-1920x960-poster.jpg"
+					videourl.ios="http://view.iyun720.com/iyun720_1450329054000_57760020.mp4|http://view.iyun720.com/iyun720_1450329054000_57760020.mp4"
+		
+					posterurl.no-ios="http://view.iyun720.com/public/video-1920x960-poster.jpg"
+					videourl.no-ios="http://view.iyun720.com/iyun720_1450329054000_57760020.mp4|http://view.iyun720.com/iyun720_1450329054000_57760020.mp4"
+		
+					pausedonstart="true"
+					loop="true"
+					enabled="ture"
+					zorder="0"
+					align="center" ox="0" oy="0"
+		
+					width.no-panovideosupport="100%"
+					height.no-panovideosupport="prop"
+		
+					onloaded="videointerface_setup_interface(get(name)); setup_video_controls();"
+					onvideoready="videointerface_videoready();"
+					/>
+		
+		
+			<action name="setup_video_controls">
+				<!-- add  items to the control menu of the videointerface skin -->
+				videointerface_addmenuitem(configmenu, vqtitle, "Select Video Quality", true, videointerface_toggle_configmenu() );
+				videointerface_addmenuitem(configmenu, q1, "1024x512",  false, change_video_file(q1, "http://view.iyun720.com/iyun720_1450329054000_57760020.mp4|http://view.iyun720.com/iyun720_1450329054000_57760020.mp4"); );
+				videointerface_addmenuitem(configmenu, q2, "1920x960",  false, change_video_file(q2, "http://view.iyun720.com/iyun720_1450329054000_57760020.mp4|http://view.iyun720.com/iyun720_1450329054000_57760020.mp4"); );
+		
+				if(device.ios,
+					videointerface_selectmenuitem(configmenu, q1);
+				  ,
+					videointerface_selectmenuitem(configmenu, q2);
+				  );
+			</action>
+		
+		
+			<action name="change_video_file">
+				plugin[video].playvideo("%CURRENTXML%/%2", null, get(plugin[video].ispaused), get(plugin[video].time));
+				videointerface_deselectmenuitem(configmenu, q1);
+				videointerface_deselectmenuitem(configmenu, q2);
+				videointerface_selectmenuitem(configmenu, %1);
+			</action>
+		
+		
+			<image devices="panovideosupport">
+				<sphere url="plugin:video" />
+			</image>
+		
+		
+			<view hlookat="0" vlookat="0" fovtype="DFOV" fov="130" fovmin="75" fovmax="150" fisheye="0.35" />
+		
+		</krpano>
+		

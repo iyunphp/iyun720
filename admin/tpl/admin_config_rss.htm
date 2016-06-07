@@ -1,0 +1,59 @@
+<!--{template ADMIN_DIRECTORY/tpl/admin_header}-->
+<div class="page_title">
+	<h1>RSS订阅</h1>
+</div>
+<div class="box post">
+	<div class="tabcon">
+		<div class="title">
+			<h2>
+				<span>
+					站长通过RSS订阅设置，对选择的RSS订阅内容进行每{$config_arr['rss_day']}天向用户推送&nbsp&nbsp
+					<a href="http://bbs.kppw.cn/bbs_redirect.php?c=1" target="_blank" style="color:red;font-size:small;">什么是RSS</a>
+				</span>
+			</h2>
+		</div>
+		<div class="detail">
+			<form name="frm_config_rss" id="frm_config_rss" action="#" method="post">
+				<table width="100%" border="0" cellspacing="0" cellpadding="0" class="tab_m t_l">
+					<tr>
+						<th scope="row" width="160">内容选择</th>
+						    <td>
+						        <label for="rdo_mail_server_cat_mail"> 
+						           <input type="checkbox" id="rss_choice_task" name="rss_choice_task" {if $config_arr['rss_choice_task'] == "1"}checked="checked" {/if} value="1" />任务
+						        </label> 
+						        <label for="rdo_mail_server_cat_smtp"> 
+						          <input type="checkbox" id="rss_choice_news" name="rss_choice_news" {if $config_arr['rss_choice_news'] == "1"}checked="checked" {/if} value="1" />资讯
+						        </label>
+						</td>
+					</tr>
+					<tr>
+						<th scope="row">RSS标题</th>
+						<td><input class="txt" type="text" name="rss_title" id="rss_title" value="{$config_arr['rss_title']}"></td>
+					</tr>
+					<tr>
+						<th scope="row">RSS描述</th>
+						<td><textarea cols="70" rows="2"  name="rss_content" id="rss_content">{$config_arr['rss_content']}</textarea></td>
+					</tr>					
+					<tr>
+						<th scope="row">&nbsp;</th>
+						<td>
+							<button type="submit" name="submit" class="positive pill primary button">
+								<span class="check icon"></span>取消
+							</button>
+							<a href="index.php?do=config&view=rss&vi=1" class="positive pill primary button">
+								<span class="check icon"></span>效果预览
+							</a>
+							<button type="submit" name="submit" class="positive pill primary button">
+								<span class="check icon"></span>保存
+							</button>
+						</td>
+					</tr>
+				</table>
+			</form>
+		</div>
+	</div>
+</div>
+<!--{template ADMIN_DIRECTORY/tpl/admin_footer}-->
+<script type="text/javascript">
+ 
+</script>

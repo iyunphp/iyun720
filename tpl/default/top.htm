@@ -1,0 +1,470 @@
+<!DOCTYPE HTML>
+<!--[if lt IE 7]> <html dir="ltr" lang="zh-cn" id="ie6"> <![endif]--><!--[if IE 7]>    <html dir="ltr" lang="zh-cn" id="ie7"> <![endif]--><!--[if IE 8]>    <html dir="ltr" lang="zh-cn" id="ie8"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html dir="ltr" lang="zh-cn">
+<!--<![endif]-->
+<head>
+    <title>{$strPageTitle}</title>
+    <meta charset="{CHARSET}">
+    <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE" />        
+    <meta name="keywords" content="{$strPageKeyword}">
+    <meta name="description" content="{$strPageDescription}">       
+    <meta name="viewport" content="width=device-width,initial-scale=1 ,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style” content=black" />
+    <meta name="author" content="iyun720" />
+    <meta name="copyright" content="{$basic_config['copyright']}" />	
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="/favicon.ico" type="image/x-icon"/>
+	<!--{template include}-->
+	<link href="tpl/default/css/bootstrap.min.css" rel="stylesheet">
+	<link href="tpl/default/css/iyun720.css" rel="stylesheet" type="text/css">
+	<style>
+	a:hover{
+		text-decoration: underline;
+	}
+
+	.header{
+		height: 60px;
+		background: #333333;
+	}
+
+	.header .logo{
+		float: left;
+	    margin-top: 5px;
+	    height: 46px;
+	}
+
+	.header .search{
+		float: left;
+		margin-top: 12px;
+		margin-left: 50px;
+		width: 235px;
+		height: 30px;
+		background: #ffffff;
+
+		border-radius: 15px;
+		-ms-border-radius: 15px;
+		-webkit-border-radius: 15px;
+		-o-border-radius: 15px;
+		-moz-border-radius: 15px;
+	}
+
+	.header .search input{
+		float: left;
+	    margin: 1px 0px 0px 10px;
+	    padding: 0px;
+	    border: 0px none;
+	    width:190px;
+	    line-height: 26px;
+	    outline: none;
+	}
+
+	.header .search button{
+		margin-top: 5px;
+    	margin-left: 5px;
+	    padding: 0px;
+	    border: 0px none;
+	    width: 22px;
+	    height: 22px;
+	    background: url(/static/img/search_icon.png) center;
+	    outline: none;
+
+
+		border-radius: 0px;
+		-ms-border-radius: 0px;
+		-o-border-radius: 0px;
+		-moz-border-radius: 0px;
+		-webkit-border-radius: 0px;
+	}
+
+	.header .nav{
+		float: right;
+	}
+
+	.header .nav li{
+		float: left;
+		position: relative;
+		width: 160px;
+		height: 60px;
+		line-height:  60px;
+		text-align: center;
+		font-size: 20px;
+    	font-weight: bold;
+		color: #ffffff;
+	}
+
+	.header .nav ul{
+		margin-bottom: 0px; 
+		padding-left: 0px;
+		height: 60px; 
+	}
+
+	.header .nav li.login{
+		width: 260px;
+	}
+
+	.header .nav li:hover{
+		background: #1b1b1b;
+	}
+
+	.header .nav li a{ 
+		display: block;
+		color: #cccccc;
+	}
+	
+	.header .nav li a:hover{
+		text-decoration: none;
+	}
+
+	.header .nav li:hover a{
+		color: #ffffff;
+	}
+
+	.header .nav li .options{
+		display: none;
+		border-top: 4px #45c6ff solid;
+		position: absolute;
+		top: 58px;
+		left: -1px;
+		border-left: 0px none;
+		height: auto;
+		z-index: 10;
+	}
+
+	.header .nav li:hover .options{
+		display: block;
+	}
+
+	.header .nav li .options li{
+		border-right: 0px none;
+		border-bottom: 1px #333333 solid;
+		height: 40px;
+		line-height:  40px;
+		font-size: 14px;
+		text-align: left;
+		
+		background: #1b1b1b;
+	}
+
+	.header .nav li .options li a{
+		text-align: left;
+		text-indent: 20px;
+	}
+	
+	.header .nav li .options li a:hover{
+		color: #45c6ff;
+	}
+
+	.header .nav li.selected {
+		background: #1b1b1b;
+	}
+
+	.header .nav li.selected a{
+		color: #ffffff;
+	}
+
+	.header .nav li.selected .options{
+		display: block;
+	}
+
+	.header .nav li.login .options{
+		padding-bottom: 20px;
+		width: 100%;
+		line-height: 50px;
+		background: #1b1b1b;
+	}
+
+	.header .nav li.login .options h5{
+		margin-bottom: 0px;
+		text-align: left;
+		text-indent: 20px;
+		font-weight: bolder;
+	}
+
+	.header .nav li.login .options input{
+		width: 220px;
+		height: 32px;
+		color: #000000;
+		line-height: 32px;
+		font-size: 12px;
+		font-weight: normal;
+	}
+
+	.header .nav li.login .options button{
+		border: 0px none;
+		width: 100px;
+		height: 30px;
+		background: #45c6ff;
+		color:#ffffff;
+		line-height: 30px;
+		font-size: 16px;
+	}
+
+	.header .nav li.login .options .forget_password{
+		text-align: left;
+		height: 20px;
+		line-height: 20px;
+		text-align: left;
+		text-indent: 20px;
+		font-size: 12px;
+	}
+
+	.header .nav li.login .options .forget_password a{
+		text-align: left;
+		text-indent: 20px;
+	}
+
+	.header .nav li.login .options .register{
+		font-size: 12px;
+		color: #45c6ff;
+		line-height: 30px;
+	}
+
+	.header .nav li.login .options .register a{
+		color: #45c6ff;	
+	}
+
+	.header .nav li.login.logined a{
+		display: inline;
+		color: #ffffff;
+	}
+
+	.login .tip{
+		float: right;
+		margin-right: 10px;
+		color: #ff0000;
+	}
+
+	.tel_login{
+		display: none;
+		float: right;
+		margin-top: 15px;
+    	margin-right: 10px;
+    	font-size: 20px;
+    	color: #ffffff;
+	}
+
+	.tel_login a{
+		color:#ffffff;
+		
+	}
+	
+	a:hover img{
+		opacity: 1;
+	}
+
+	@media (max-width: 1200px) {
+		.header .search
+		{
+			margin-left: 10px;
+			width: 185px;
+		}
+
+		.header .search input{
+			width:140px;
+		}
+
+		.header .nav li{
+			width: 120px;
+			font-size: 14px;
+		}
+	}
+
+	@media (max-width: 1000px) {
+		.header .nav li{
+			width: 90px;
+			font-size: 14px;
+		}
+	}
+
+	@media (max-width: 880px) {
+		.header .nav li.login{
+			width: 90px;
+		}
+
+		.header .nav li.login .options{
+			position: absolute;
+			left: -170px;
+			width: 260px;
+		}
+	}
+
+	@media (max-width: 700px) {
+
+		.header .nav ul{
+			border-left: 0px none;
+		}
+
+		.header .nav li{
+			border-right:  0px none;
+			width: 70px;
+		}
+	}
+
+	@media (max-width: 660px) {
+		.header .nav{
+			display: none;
+		}
+
+		.tel_login{
+			display: block;
+		}
+	}
+	
+	#fix-box{
+		left: auto;
+		right: 50px;
+		
+		opacity: 0.5;
+		-ms-opacity: 0.5;
+		-webkit-opacity: 0.5;
+		-o-opacity: 0.5;
+		-moz-opacity: 0.5;
+	}
+	
+	#fix-box:hover{
+		opacity: 1;
+		-ms-opacity: 1;
+		-webkit-opacity: 1;
+		-o-opacity: 1;
+		-moz-opacity: 1;
+	}
+	
+	</style>
+    <script type="text/javascript">
+        var SITEURL = '{$_K[siteurl]}', SKIN_PATH = '{SKIN_PATH}', LANG = '{$language}', INDEX = '{$do}', CHARSET = '{CHARSET}';
+        function   closeErrors()   {
+          return   true;
+        }
+        window.onerror=closeErrors;
+		
+		$(function(){
+			init_footer();
+			$(window).resize(function(){
+				init_footer();
+			});
+		});
+		
+		function init_footer(){
+			/*if($(window).height() > $('body').height()){
+				$('.footer').addClass('fixed');
+			} else {
+				$('.footer').removeClass('fixed');
+			}*/
+		}
+    </script>
+</head>
+<body id="{$do}">
+<script>
+function ajax_login(){
+	var account = $('#txtAjaxLoginAccount').val();
+	var password = $('#txtAjaxLoginPassword').val();
+	$('#txtAjaxLoginAccount').removeClass('error');
+	$('#txtAjaxLoginPassword').removeClass('error');
+	$.ajax({
+		url: '/index.php?do=login&account=' + account + '&password=' + password + '&json=json',
+		dataType: 'json',
+		success: function(data){
+			console.log(data);
+		},
+		error: function(){
+
+		}
+	});
+}
+</script>
+<div style="height: 60px;"></div>
+<div class="header" style="position: fixed; top: 0px; width: 100%; z-index: 10;">
+	<div class="layout_center">
+		<a href="/"><img class="logo" src="\static\img\logo.png" /></a>
+		<form class="search" action="">
+			<input type="hidden" name="do" value="goodslist" />
+			<input name="ky" type="text" value="{$ky}" />
+			<button class="search_button"></button>
+		</form>
+		<div class="nav">
+			<ul>
+				<li>
+					<a href="javascript:" onclick="$(this).parent().toggleClass('selected')">VR内容</a>
+					<ul class="options">
+						<li><a href="/index.php?do=goodslist">图片</a></li>
+						<li><a href="/index.php?do=goodslist3">视频</a></li>
+						<li><a href="/index.php?do=goodslist4">游戏</a></li>
+					</ul>
+				</li>
+				<li>
+					<a href="/index.php?do=goodslist2">专辑</a>
+				</li>
+				<li>
+					<a href="javascript:alert('敬请期待！')">VR头条</a>
+				</li>
+				<li id="loginLi" class="login" {if $uid}style="display: none;"{/if}>
+					<a href="javascript:">注册/登录</a>
+					<div class="options">
+						<div id="loginForm">
+							<h5>登录<span id="loginTip" class="tip"></span></h5>
+							<div><input id="txtAjaxLoginAccount" type="text" value="" /></div>
+							<div><input id="txtAjaxLoginPassword" type="password" value="" /></div>
+							<div class="forget_password"><a href="/index.php?do=retrieve">忘记密码</a></div>
+							<div><button onclick="ajax_login()">登录</button></div>
+							<div class="register"><a href="/index.php?do=register">注册一个新用户</a></div>
+						</div>
+						<div id="loginLoad" class="login_load" style="display:none; padding: 30px 0px;">
+							<img src="\static\img\load.gif" />
+						</div>
+					</div>
+				</li>
+				<li id="loginedLi" class="login logined" {if !$uid}style="display: none;"{/if}><a href="/index.php?do=user&view=wk">{$username}</a>[<a href="/index.php?do=logout">退出</a>]</li>
+			</ul>
+		</div>
+		<div class="tel_login">
+			<a href="/index.php?do=login">登录</a>
+			/
+			<a href="/index.php?do=register">注册</a>
+		</div>
+	</div>
+</div>
+<script>
+function ajax_login(){
+	var account = $('#txtAjaxLoginAccount').val();
+	var password = $('#txtAjaxLoginPassword').val();
+	$('#loginForm').parent().parent().addClass('selected');
+	$('#loginForm').hide(); 
+	$('#loginLoad').show();  
+	$.ajax({
+		url: '/index.php',
+		data:{
+			do: 'login',
+			json: 'json',
+			account: account,
+			password: password
+		},
+		dataType: 'json',
+		success: function(data){
+			if(data.type == 'error'){
+				$('#loginForm').show(); 
+				$('#loginLoad').hide();
+				if(data.errors.account){
+					$('#txtAjaxLoginAccount').addClass('error');
+					$('#loginTip').html( data.errors.account );
+				} else if(data.errors.password){
+					$('#txtAjaxLoginPassword').addClass('error');
+					$('#loginTip').html( data.errors.password );
+				}
+				
+			}
+			else
+			{
+
+				$('#loginLi').hide();
+				$('#loginedLi').html('<a href="/index.php?do=user&view=wk">' + data.datas.username + '</a>[<a href="/index.php?do=logout">退出</a>]');
+				
+				$('#loginedLi').show();			
+			}
+		}
+	})
+}
+</script>
+    
+

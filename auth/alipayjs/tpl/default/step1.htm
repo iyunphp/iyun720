@@ -1,0 +1,99 @@
+<!--{template user/header}-->
+<div class="container">
+  <div class="nav-action">
+		<!--{template user/left_side}-->
+  </div>
+  <!-- nav-action end -->
+  <div class="content-panel">
+     <div class="tab">
+      <!--{template user/account_auth_nav}-->
+      </div>
+      <div class="tab_detail">
+	      	{if !$intAuthStatus}
+		      	<ul class="nav nav-pills second-nav">
+		          <li {if $code === 'realname'} class="active" {/if}><a href="index.php?do=user&view={$view}&op={$op}&code=realname">实名认证</a></li>
+		          <li {if $code === 'enterprise'} class="active" {/if}><a href="index.php?do=user&view={$view}&op={$op}&code=enterprise">企业认证</a></li>
+		        </ul>
+		      {/if}
+      		<!--  start -->
+          <form role="form" action="{$strUrl}&step={$step}" method="post" name="editAlipayjsForm" id="editAlipayjsForm">
+          	<input type="hidden" name="formhash" id="formhash" value="{FORMHASH}">
+
+            <div class="media">
+              <div class="pull-left">
+                  <img class="media-object" src="{$auth_item['auth_big_ico']}" alt="{$auth_item['auth_title']}">
+              </div>
+              <div class="media-body">
+                  <div class="form-group">
+                    <label class="control-label">用户名：</label>
+                    {if $arrAuthInfo['username']}{$arrAuthInfo['username']}{else}{$gUserInfo['username']}{/if}
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label" for="account">支付宝账号:</label>
+                    <input type="text"  name="account" id="account"  class="form-control" value="{$arrAuthRecord[0]['alipayjs_account']}">
+					<span id="accountError"></span>
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label" for="reAccount">确认支付宝账号:</label>
+                    <input type="text"  name="reAccount" id="reAccount"  class="form-control" value="{$arrAuthInfo['account']}">
+					<span id="reAccountError"></span>
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label" for="real_name">支付宝姓名:</label>
+                    <input type="text"  name="real_name" id="real_name"  class="form-control" value="{$arrAuthInfo['real_name']}">
+					<span id="reAccountError"></span>
+                  </div>
+                  <div class="form-group">
+                      <button class="btn btn-default" type="submit" value="1" >{if $arrAuthRecord}重新认证{else}提交{/if}</button>
+                      <span class="text-success" id="tipsUser"></span>
+                  </div>
+              </div>
+            </div>
+          </form>
+      		<!-- end -->
+      </div>
+  </div>
+  </div>
+<script src="static/js/model/user/auth.js"></script>
+<!--<script type="text/javascript">
+	function saveAlipay(){
+		if(checkAccount() && checkReAccount()){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	//验证支付宝
+	$(function(){
+		$('#account').blur(checkAccount);
+		
+		$('#reAccount').blur(checkReAccount);
+		});
+	function checkAccount(){
+		if(!isAlipay($("#account").val())){
+			$('#accountError').html("请输入正确的支付宝账号");
+			return false;
+		}else{
+			$('#accountError').html("");
+			return true;
+		}
+	}
+	function checkReAccount(){
+		if(!isAlipay($("#reAccount").val())){
+			$('#reAccountError').html("请输入正确的支付宝账号");
+			return false;
+		}else if(!($("#account").val() == $("#reAccount").val())){
+			$('#reAccountError').html("请两次输入支付宝账号不一致");
+			return false;
+		}else{
+			$('#reAccountError').html("");
+			return true;
+		}
+	}
+	function isAlipay(s){
+		var mobile=/^1[3|5|8]{1}[0-9]{1}[-| ]?\d{8}$/;
+		var email = /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/;
+		return mobile.test(s)||email.test(s);
+	}
+</script>-->
+<!--{template user/footer}-->

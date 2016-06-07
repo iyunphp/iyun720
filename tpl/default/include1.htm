@@ -1,0 +1,19 @@
+{if $do==user}
+<link href="min/?f=tpl/default/{$_K['sitecss']}/user.css" rel="stylesheet" type="text/css">
+{elseif $do==seller}
+<link href="min/?f=tpl/default/{$_K['sitecss']}/store.css" rel="stylesheet" type="text/css">
+{elseif $do==index}
+<link href="min/?f=static/js/jqplugins/fotorama/fotorama.css,tpl/default/theme/{$_K['theme']}/home.css" rel="stylesheet" type="text/css">
+{else}
+<link href="min/?f=tpl/default/{$_K['sitecss']}/style.css" rel="stylesheet" type="text/css">
+{/if}
+<!--[if lt IE 9]>
+    <script src="min/?f=static/js/html5.js,respond.min.js" type="text/javascript" charset="{CHARSET}"></script>
+<![endif]-->
+{if $do=='index'}
+<script src="min/?f=static/js/jquery.min.1.8.3.js" type="text/javascript" charset="{CHARSET}"></script>
+<script src="min/?f=static/js/jqplugins/fotorama/fotorama.js,static/js/jqplugins/jcarousel/jquery.jcarousel.js,static/js/jqplugins/jcarousel/jquery.jcarousel.control.js,static/js/jqplugins/jcarousel/jquery.jcarousel.autoscroll.js" type="text/javascript" charset="{CHARSET}"></script>
+{else}
+<script src="min/?f=static/js/jquery.min.js" type="text/javascript" charset="{CHARSET}"></script>
+{/if}
+<script src="min/?f=static/js/jquery.form.js,static/js/jquery.lazyload.js,static/js/bootstrap.min.js,static/js/bootstrap-datetimepicker.js,static/js/bootstrap-datetimepicker.zh-CN.js,static/js/sco.confirm.js,static/js/sco.modal.js,static/js/sco.valid.js,static/js/holder.min.js,static/js/model/common/base.js" charset="{CHARSET}"></script>
